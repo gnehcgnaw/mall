@@ -1,8 +1,11 @@
 package com.beatshadow.mall.product;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+
+@MapperScan("com.beatshadow.mall.product.dao")
 @SpringBootApplication
 public class MallProductApplication {
 
