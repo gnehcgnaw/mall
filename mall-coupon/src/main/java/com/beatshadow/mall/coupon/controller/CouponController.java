@@ -36,15 +36,6 @@ public class CouponController {
         this.couponService = couponService;
     }
 
-    @Value("${coupon.user.name}")
-    private String name ;
-    @Value("${coupon.user.age}")
-    private Integer age ;
-    @RequestMapping("test-config")
-    public R testConfig(){
-        return R.ok().put("test-config",name+"..."+age);
-    }
-
     @RequestMapping("/member-coupons")
     public R memberCoupons(){
         CouponEntity couponEntity = new CouponEntity();
