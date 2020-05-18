@@ -82,6 +82,12 @@
 			<!--<artifactId>spring-boot-devtools</artifactId>-->
 			<!--<optional>true</optional>-->
 		<!--</dependency>-->
+
+		<dependency>
+			<groupId>com.beatshadow.mall</groupId>
+			<artifactId>mall-common</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 		<dependency>
 			<groupId>com.baomidou</groupId>
 			<artifactId>mybatis-plus-boot-starter</artifactId>

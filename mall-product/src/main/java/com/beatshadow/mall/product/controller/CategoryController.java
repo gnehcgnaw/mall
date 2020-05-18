@@ -1,6 +1,7 @@
 package com.beatshadow.mall.product.controller;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,12 +34,11 @@ public class CategoryController {
     /**
      * 列表
      */
-    @RequestMapping("/list")
+    @RequestMapping("/list/tree")
     //@RequiresPermissions("product:category:list")
-    public R list(@RequestParam Map<String, Object> params){
-        PageUtils page = categoryService.queryPage(params);
-
-        return R.ok().put("page", page);
+    public R listTree(@RequestParam Map<String, Object> params){
+        List<CategoryEntity> categoryEntityList =  categoryService.queryTree();
+        return R.ok().put("data", categoryEntityList);
     }
 
 
@@ -50,7 +50,7 @@ public class CategoryController {
     public R info(@PathVariable("catId") Long catId){
 		CategoryEntity category = categoryService.getById(catId);
 
-        return R.ok().put("category", category);
+        return R.ok().put("data", category);
     }
 
     /**
@@ -61,6 +61,16 @@ public class CategoryController {
     public R save(@RequestBody CategoryEntity category){
 		categoryService.save(category);
 
+        return R.ok();
+    }
+
+    /**
+     * 修改
+     */
+    @RequestMapping("/update/sort")
+    // @RequiresPermissions("product:category:update")
+    public R updateSort(@RequestBody CategoryEntity[] categories){
+        categoryService.updateBatchById(Arrays.asList(categories));
         return R.ok();
     }
 
@@ -81,8 +91,11 @@ public class CategoryController {
     @RequestMapping("/delete")
     //@RequiresPermissions("product:category:delete")
     public R delete(@RequestBody Long[] catIds){
-		categoryService.removeByIds(Arrays.asList(catIds));
 
+        //检查当前要删除的菜单，是否被别的地方应用，
+		//categoryService.removeByIds(Arrays.asList(catIds));
+        //故而不要自定义删除方法
+        categoryService.removeMenuByIds(Arrays.asList(catIds));
         return R.ok();
     }
 
