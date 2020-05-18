@@ -3,6 +3,7 @@ package com.beatshadow.mall.member.controller;
 import java.util.Arrays;
 import java.util.Map;
 
+import com.beatshadow.mall.member.feign.CouponFeignService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,8 +28,22 @@ import com.beatshadow.common.utils.R;
 @RestController
 @RequestMapping("member/member")
 public class MemberController {
-    @Autowired
-    private MemberService memberService;
+    private final MemberService memberService;
+
+    private final CouponFeignService couponFeignService ;
+
+    public MemberController(MemberService memberService, CouponFeignService couponFeignService) {
+        this.memberService = memberService;
+        this.couponFeignService = couponFeignService;
+    }
+
+    /**
+     * 测试从 coupon 插叙优惠卷
+     */
+    @RequestMapping("/list-coupon")
+    public R listCoupon(){
+        return couponFeignService.memberCoupons();
+    }
 
     /**
      * 列表
