@@ -4,7 +4,9 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.beatshadow.common.utils.PageUtils;
 import com.beatshadow.mall.product.entity.AttrAttrgroupRelationEntity;
+import com.beatshadow.mall.product.vo.AttrGroupRelationVo;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -23,5 +25,13 @@ public interface AttrAttrgroupRelationService extends IService<AttrAttrgroupRela
     Integer selectCount(Long attr_id);
 
     void insert(AttrAttrgroupRelationEntity relationEntity);
+
+    List<AttrAttrgroupRelationEntity> selectList(Long attr_group_id);
+
+    void deleteBatchRelation(List<AttrAttrgroupRelationEntity> entities);
+
+    List<AttrAttrgroupRelationEntity> selectList(List<Long> collect);
+
+    void saveBatch(List<AttrGroupRelationVo> vos);
 }
 

@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.beatshadow.common.utils.PageUtils;
 import com.beatshadow.mall.product.entity.AttrGroupEntity;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -19,5 +20,7 @@ public interface AttrGroupService extends IService<AttrGroupEntity> {
     PageUtils queryPage(Map<String, Object> params, Long catelogId);
 
     AttrGroupEntity selectById(Long attrGroupId);
+
+    List<AttrGroupEntity> selectList(Long catelogId);
 }
 

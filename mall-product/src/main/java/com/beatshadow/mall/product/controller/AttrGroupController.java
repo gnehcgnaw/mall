@@ -1,14 +1,15 @@
 package com.beatshadow.mall.product.controller;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
+import com.beatshadow.mall.product.entity.AttrEntity;
+import com.beatshadow.mall.product.service.AttrAttrgroupRelationService;
+import com.beatshadow.mall.product.service.AttrService;
 import com.beatshadow.mall.product.service.CategoryService;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import com.beatshadow.mall.product.vo.AttrGroupRelationVo;
+import org.springframework.web.bind.annotation.*;
 
 import com.beatshadow.mall.product.entity.AttrGroupEntity;
 import com.beatshadow.mall.product.service.AttrGroupService;
@@ -28,12 +29,53 @@ import com.beatshadow.common.utils.R;
 @RequestMapping("product/attrgroup")
 public class AttrGroupController {
     private final AttrGroupService attrGroupService;
+    private final AttrService attrService ;
     private final CategoryService categoryService ;
+    private final AttrAttrgroupRelationService attrAttrgroupRelationService ;
 
-    public AttrGroupController(AttrGroupService attrGroupService, CategoryService categoryService) {
+    public AttrGroupController(AttrGroupService attrGroupService, AttrService attrService, CategoryService categoryService, AttrAttrgroupRelationService attrAttrgroupRelationService) {
         this.attrGroupService = attrGroupService;
+        this.attrService = attrService;
         this.categoryService = categoryService;
+        this.attrAttrgroupRelationService = attrAttrgroupRelationService;
     }
+
+    ///product/attrgroup/attr/relation
+    @PostMapping("/attr/relation")
+    public R addRelation(@RequestBody List<AttrGroupRelationVo> vos){
+        attrAttrgroupRelationService.saveBatch(vos);
+        return R.ok();
+    }
+
+
+    ///product/attrgroup/{attrgroupId}/attr/relation
+    @GetMapping("/{attrgroupId}/attr/relation")
+    public R attrRelation(@PathVariable("attrgroupId") Long attrgroupId){
+        List<AttrEntity> entities =  attrService.getRelationAttr(attrgroupId);
+        return R.ok().put("data",entities);
+    }
+
+    @PostMapping("/attr/relation/delete")
+    public R deleteRelation(@RequestBody  AttrGroupRelationVo[] vos){
+        attrService.deleteRelation(vos);
+        return R.ok();
+    }
+
+    /**
+     * 获取没有关联的属性
+     * @param attrgroupId
+     * @param params
+     * @return
+     */
+    ///product/attrgroup/{attrgroupId}/noattr/relation
+    @GetMapping("/{attrgroupId}/noattr/relation")
+    public R attrNoRelation(@PathVariable("attrgroupId") Long attrgroupId,
+                            @RequestParam Map<String, Object> params){
+        PageUtils page = attrService.getNoRelationAttr(params,attrgroupId);
+        return R.ok().put("page",page);
+    }
+
+
 
     /**
      * 列表

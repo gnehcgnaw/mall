@@ -1,6 +1,8 @@
 package com.beatshadow.mall.product.service.impl;
 
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 import java.util.Map;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -56,6 +58,11 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
     @Override
     public AttrGroupEntity selectById(Long attrGroupId) {
         return baseMapper.selectById(attrGroupId);
+    }
+
+    @Override
+    public List<AttrGroupEntity> selectList(Long catelogId) {
+        return baseMapper.selectList(new QueryWrapper<AttrGroupEntity>().eq("catelog_id", catelogId));
     }
 
 }
