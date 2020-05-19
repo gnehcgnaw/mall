@@ -92,11 +92,6 @@ public class AttrGroupController {
         return R.ok().put("page", page);
     }
 
-    /**
-     * 根据分类ID，获取相关属性
-     * @param catelogId
-     * @return
-     */
     ///product/attrgroup/{catelogId}/withattr
     @GetMapping("/{catelogId}/withattr")
     public R getAttrGroupWithAttrs(@PathVariable("catelogId")Long catelogId){

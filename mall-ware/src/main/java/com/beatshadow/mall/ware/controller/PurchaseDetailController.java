@@ -18,7 +18,7 @@ import com.beatshadow.common.utils.R;
 
 
 /**
- * 
+ * 采购需求
  *
  * @author gnehcgnaw
  * @email gnehcgnaw@gmail.com

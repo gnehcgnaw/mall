@@ -2,16 +2,17 @@ package com.beatshadow.mall.product.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.beatshadow.common.constant.ProductConstant;
+import com.beatshadow.mall.product.dao.AttrAttrgroupRelationDao;
 import com.beatshadow.mall.product.dao.AttrGroupDao;
 import com.beatshadow.mall.product.entity.AttrAttrgroupRelationEntity;
 import com.beatshadow.mall.product.entity.AttrGroupEntity;
 import com.beatshadow.mall.product.entity.CategoryEntity;
 import com.beatshadow.mall.product.service.AttrAttrgroupRelationService;
-import com.beatshadow.mall.product.service.AttrGroupService;
 import com.beatshadow.mall.product.service.CategoryService;
 import com.beatshadow.mall.product.vo.AttrGroupRelationVo;
 import com.beatshadow.mall.product.vo.AttrRespVo;
 import com.beatshadow.mall.product.vo.AttrVo;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
@@ -34,6 +35,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 
+@Slf4j
 @Service("attrService")
 public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements AttrService {
     final
@@ -43,10 +45,13 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
 
     private AttrGroupDao attrGroupDao ;
 
-    public AttrServiceImpl(AttrAttrgroupRelationService attrAttrgroupRelationService,  CategoryService categoryService, AttrGroupDao attrGroupDao) {
+    private AttrAttrgroupRelationDao attrAttrgroupRelationDao ;
+
+    public AttrServiceImpl(AttrAttrgroupRelationService attrAttrgroupRelationService, CategoryService categoryService, AttrGroupDao attrGroupDao, AttrAttrgroupRelationDao attrAttrgroupRelationDao) {
         this.attrAttrgroupRelationService = attrAttrgroupRelationService;
         this.categoryService = categoryService;
         this.attrGroupDao = attrGroupDao;
+        this.attrAttrgroupRelationDao = attrAttrgroupRelationDao;
     }
 
     @Override
@@ -198,8 +203,7 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
      */
     @Override
     public List<AttrEntity> getRelationAttr(Long attrgroupId) {
-        List<AttrAttrgroupRelationEntity> entities = attrAttrgroupRelationService.selectList(attrgroupId);
-
+        List<AttrAttrgroupRelationEntity> entities = attrAttrgroupRelationDao.selectList(new QueryWrapper<AttrAttrgroupRelationEntity>().eq("attr_group_id", attrgroupId));
         List<Long> attrIds = entities.stream().map((attr) -> {
             return attr.getAttrId();
         }).collect(Collectors.toList());
