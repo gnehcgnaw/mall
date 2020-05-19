@@ -3,6 +3,7 @@ package com.beatshadow.mall.product.controller;
 import java.util.Arrays;
 import java.util.Map;
 
+import com.beatshadow.mall.product.vo.SpuSaveVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,8 +28,11 @@ import com.beatshadow.common.utils.R;
 @RestController
 @RequestMapping("product/spuinfo")
 public class SpuInfoController {
-    @Autowired
-    private SpuInfoService spuInfoService;
+    private final SpuInfoService spuInfoService;
+
+    public SpuInfoController(SpuInfoService spuInfoService) {
+        this.spuInfoService = spuInfoService;
+    }
 
     /**
      * 列表
@@ -36,7 +40,7 @@ public class SpuInfoController {
     @RequestMapping("/list")
     //@RequiresPermissions("product:spuinfo:list")
     public R list(@RequestParam Map<String, Object> params){
-        PageUtils page = spuInfoService.queryPage(params);
+        PageUtils page = spuInfoService.queryPageByCondition(params);
 
         return R.ok().put("page", page);
     }
@@ -58,8 +62,10 @@ public class SpuInfoController {
      */
     @RequestMapping("/save")
     //@RequiresPermissions("product:spuinfo:save")
-    public R save(@RequestBody SpuInfoEntity spuInfo){
-		spuInfoService.save(spuInfo);
+    public R save(@RequestBody SpuSaveVo vo){
+        //spuInfoService.save(spuInfo);
+
+        spuInfoService.saveSpuInfo(vo);
 
         return R.ok();
     }

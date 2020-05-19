@@ -2,6 +2,7 @@ package com.beatshadow.mall.product.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.beatshadow.common.constant.ProductConstant;
+import com.beatshadow.mall.product.dao.AttrGroupDao;
 import com.beatshadow.mall.product.entity.AttrAttrgroupRelationEntity;
 import com.beatshadow.mall.product.entity.AttrGroupEntity;
 import com.beatshadow.mall.product.entity.CategoryEntity;
@@ -40,12 +41,12 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
 
     private CategoryService categoryService ;
 
-    private AttrGroupService attrGroupService ;
+    private AttrGroupDao attrGroupDao ;
 
-    public AttrServiceImpl(AttrAttrgroupRelationService attrAttrgroupRelationService,  CategoryService categoryService, AttrGroupService attrGroupService) {
+    public AttrServiceImpl(AttrAttrgroupRelationService attrAttrgroupRelationService,  CategoryService categoryService, AttrGroupDao attrGroupDao) {
         this.attrAttrgroupRelationService = attrAttrgroupRelationService;
         this.categoryService = categoryService;
-        this.attrGroupService = attrGroupService;
+        this.attrGroupDao = attrGroupDao;
     }
 
     @Override
@@ -110,7 +111,7 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
             if("base".equalsIgnoreCase(type)){
                 AttrAttrgroupRelationEntity attrId = attrAttrgroupRelationService.queryByAttrId(attrEntity.getAttrId());
                 if (attrId != null && attrId.getAttrGroupId()!=null) {
-                    AttrGroupEntity attrGroupEntity = attrGroupService.selectById(attrId.getAttrGroupId());
+                    AttrGroupEntity attrGroupEntity = attrGroupDao.selectById(attrId.getAttrGroupId());
                     attrRespVo.setGroupName(attrGroupEntity.getAttrGroupName());
                 }
 
@@ -138,7 +139,7 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
             AttrAttrgroupRelationEntity attrgroupRelation = attrAttrgroupRelationService.queryByAttrId(attrId);
             if(attrgroupRelation!=null){
                 respVo.setAttrGroupId(attrgroupRelation.getAttrGroupId());
-                AttrGroupEntity attrGroupEntity = attrGroupService.selectById(attrgroupRelation.getAttrGroupId());
+                AttrGroupEntity attrGroupEntity = attrGroupDao.selectById(attrgroupRelation.getAttrGroupId());
                 if(attrGroupEntity!=null){
                     respVo.setGroupName(attrGroupEntity.getAttrGroupName());
                 }
@@ -231,11 +232,11 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
     @Override
     public PageUtils getNoRelationAttr(Map<String, Object> params, Long attrgroupId) {
         //1、当前分组只能关联自己所属的分类里面的所有属性
-        AttrGroupEntity attrGroupEntity = attrGroupService.selectById(attrgroupId);
+        AttrGroupEntity attrGroupEntity = attrGroupDao.selectById(attrgroupId);
         Long catelogId = attrGroupEntity.getCatelogId();
         //2、当前分组只能关联别的分组没有引用的属性
         //2.1)、当前分类下的其他分组
-        List<AttrGroupEntity> group = attrGroupService.selectList(catelogId);
+        List<AttrGroupEntity> group = attrGroupDao.selectList(new QueryWrapper<AttrGroupEntity>().eq("catelog_id", catelogId));
         List<Long> collect = group.stream().map(item -> {
             return item.getAttrGroupId();
         }).collect(Collectors.toList());

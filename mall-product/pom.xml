@@ -46,6 +46,12 @@
             <artifactId>mall-common</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>com.beatshadow.mall</groupId>
+            <artifactId>mall-member</artifactId>
+            <version>3.0.0</version>
+            <scope>compile</scope>
+        </dependency>
 
 
     </dependencies>

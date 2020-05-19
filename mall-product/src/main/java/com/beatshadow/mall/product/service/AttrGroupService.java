@@ -3,6 +3,7 @@ package com.beatshadow.mall.product.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.beatshadow.common.utils.PageUtils;
 import com.beatshadow.mall.product.entity.AttrGroupEntity;
+import com.beatshadow.mall.product.vo.AttrGroupWithAttrsVo;
 
 import java.util.List;
 import java.util.Map;
@@ -22,5 +23,7 @@ public interface AttrGroupService extends IService<AttrGroupEntity> {
     AttrGroupEntity selectById(Long attrGroupId);
 
     List<AttrGroupEntity> selectList(Long catelogId);
+
+    List<AttrGroupWithAttrsVo> getAttrGroupWithAttrsByCatelogId(Long catelogId);
 }
 
