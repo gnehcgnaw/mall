@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Map;
 
 import com.beatshadow.common.valid.AddGroup;
+import com.beatshadow.common.valid.UpdateGroup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,8 +30,11 @@ import com.beatshadow.common.utils.R;
 @RestController
 @RequestMapping("product/brand")
 public class BrandController {
-    @Autowired
-    private BrandService brandService;
+    private final BrandService brandService;
+
+    public BrandController(BrandService brandService) {
+        this.brandService = brandService;
+    }
 
     /**
      * 列表
@@ -82,13 +86,14 @@ public class BrandController {
 
         return R.ok();
     }
+
     /**
-     * 修改
+     * 修改     【更新冗余数据】
      */
     @RequestMapping("/update")
-   // @RequiresPermissions("product:brand:update")
-    public R update(@RequestBody BrandEntity brand){
-		brandService.updateById(brand);
+    //@RequiresPermissions("product:brand:update")
+    public R update(@Validated(UpdateGroup.class) @RequestBody BrandEntity brand){
+        brandService.updateDetail(brand);
 
         return R.ok();
     }

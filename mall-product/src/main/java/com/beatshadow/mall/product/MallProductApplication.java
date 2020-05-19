@@ -6,7 +6,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 @EnableDiscoveryClient
-@MapperScan("com.beatshadow.mall.product.dao")
 @SpringBootApplication
 public class MallProductApplication {
 

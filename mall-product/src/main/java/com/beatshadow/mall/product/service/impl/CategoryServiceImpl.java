@@ -1,6 +1,8 @@
 package com.beatshadow.mall.product.service.impl;
 
 import com.beatshadow.common.valid.ListValue;
+import com.beatshadow.mall.product.service.CategoryBrandRelationService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -18,10 +20,17 @@ import com.beatshadow.common.utils.Query;
 import com.beatshadow.mall.product.dao.CategoryDao;
 import com.beatshadow.mall.product.entity.CategoryEntity;
 import com.beatshadow.mall.product.service.CategoryService;
+import org.springframework.transaction.annotation.Transactional;
 
 
 @Service("categoryService")
 public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity> implements CategoryService {
+    final
+    CategoryBrandRelationService categoryBrandRelationService;
+
+    public CategoryServiceImpl(CategoryBrandRelationService categoryBrandRelationService) {
+        this.categoryBrandRelationService = categoryBrandRelationService;
+    }
 
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
@@ -72,6 +81,18 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
         Collections.reverse(parentPath);
         return parentPath.toArray(new Long[parentPath.size()]);
     }
+
+    /**
+     * 级联更新所有关联的数据
+     * @param category
+     */
+    @Transactional
+    @Override
+    public void updateCascade(CategoryEntity category) {
+        this.updateById(category);
+        categoryBrandRelationService.updateCategory(category.getCatId(),category.getName());
+    }
+
 
     //225,25,2
     private List<Long> findParentPath(Long catelogId, List<Long> paths) {

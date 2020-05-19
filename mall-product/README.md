@@ -13,4 +13,7 @@ pms_sku_sale_attr_value 【销售属性】对应JD的可选项      pms_product_
 【笛卡尔积】
 
 
+pms_category_brand_relation 【品牌分类关联表】
+
+
 
