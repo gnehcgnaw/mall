@@ -21,5 +21,7 @@ public interface CategoryService extends IService<CategoryEntity> {
     List<CategoryEntity> queryTree();
 
     void removeMenuByIds(List<Long> catIds);
+
+    Long[] findCatelogPath(Long catelogId);
 }
 

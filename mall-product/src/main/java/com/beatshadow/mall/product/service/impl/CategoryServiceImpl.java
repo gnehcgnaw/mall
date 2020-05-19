@@ -1,7 +1,10 @@
 package com.beatshadow.mall.product.service.impl;
 
+import com.beatshadow.common.valid.ListValue;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -58,6 +61,28 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
 
         //批量删除[这个是物理删除]，而开发中应该采用的是逻辑删除，show_status
         baseMapper.deleteBatchIds(catIds);
+    }
+
+    //[2,25,225]
+    @Override
+    public Long[] findCatelogPath(Long catelogId) {
+        List<Long> paths = new ArrayList<>();
+        List<Long> parentPath = findParentPath(catelogId, paths);
+        //逆转
+        Collections.reverse(parentPath);
+        return parentPath.toArray(new Long[parentPath.size()]);
+    }
+
+    //225,25,2
+    private List<Long> findParentPath(Long catelogId, List<Long> paths) {
+        //1、收集当前节点id
+        paths.add(catelogId);
+        CategoryEntity byId = this.getById(catelogId);
+        //递归收集
+        if(byId.getParentCid()!=0){
+            findParentPath(byId.getParentCid(),paths);
+        }
+        return paths;
     }
 
     /**
