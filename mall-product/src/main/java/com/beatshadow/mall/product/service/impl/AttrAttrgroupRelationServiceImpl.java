@@ -22,8 +22,21 @@ public class AttrAttrgroupRelationServiceImpl extends ServiceImpl<AttrAttrgroupR
                 new Query<AttrAttrgroupRelationEntity>().getPage(params),
                 new QueryWrapper<AttrAttrgroupRelationEntity>()
         );
-
         return new PageUtils(page);
     }
 
+    @Override
+    public AttrAttrgroupRelationEntity queryByAttrId(Long attrId){
+        return baseMapper.selectOne(new QueryWrapper<AttrAttrgroupRelationEntity>().eq("attr_id", attrId));
+    }
+
+    @Override
+    public Integer selectCount(Long attr_id) {
+        return  baseMapper.selectCount(new QueryWrapper<AttrAttrgroupRelationEntity>().eq("attr_id", attr_id));
+    }
+
+    @Override
+    public void insert(AttrAttrgroupRelationEntity relationEntity) {
+        baseMapper.insert(relationEntity);
+    }
 }

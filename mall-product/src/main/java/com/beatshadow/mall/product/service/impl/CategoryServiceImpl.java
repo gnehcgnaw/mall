@@ -93,6 +93,11 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
         categoryBrandRelationService.updateCategory(category.getCatId(),category.getName());
     }
 
+    @Override
+    public CategoryEntity selectById(Long catelogId) {
+        return baseMapper.selectById(catelogId);
+    }
+
 
     //225,25,2
     private List<Long> findParentPath(Long catelogId, List<Long> paths) {

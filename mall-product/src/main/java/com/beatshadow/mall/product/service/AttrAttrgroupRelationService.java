@@ -1,5 +1,6 @@
 package com.beatshadow.mall.product.service;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.beatshadow.common.utils.PageUtils;
 import com.beatshadow.mall.product.entity.AttrAttrgroupRelationEntity;
@@ -16,5 +17,11 @@ import java.util.Map;
 public interface AttrAttrgroupRelationService extends IService<AttrAttrgroupRelationEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
+
+    AttrAttrgroupRelationEntity queryByAttrId(Long attrId);
+
+    Integer selectCount(Long attr_id);
+
+    void insert(AttrAttrgroupRelationEntity relationEntity);
 }
 

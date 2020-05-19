@@ -53,4 +53,9 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
         }
     }
 
+    @Override
+    public AttrGroupEntity selectById(Long attrGroupId) {
+        return baseMapper.selectById(attrGroupId);
+    }
+
 }
