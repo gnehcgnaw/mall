@@ -2,6 +2,7 @@ package com.beatshadow.mall.product.service.impl;
 
 import com.beatshadow.common.valid.ListValue;
 import com.beatshadow.mall.product.service.CategoryBrandRelationService;
+import com.beatshadow.mall.product.vo.Catalog2Vo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -96,6 +97,53 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
     @Override
     public CategoryEntity selectById(Long catelogId) {
         return baseMapper.selectById(catelogId);
+    }
+
+    @Override
+    public List<CategoryEntity> getLevel1Categorys() {
+        return baseMapper.selectList(new QueryWrapper<CategoryEntity>().eq("parent_cid",0));
+    }
+
+    @Override
+    public Map<String, List<Catalog2Vo>> getCatalogJson() {
+       /* getLevel1Categorys().stream().map((item)->{
+            item.get
+        })*/
+
+        List<CategoryEntity> level1Categorys = getLevel1Categorys();
+
+        Map<String, List<Catalog2Vo>> collect = level1Categorys.stream().collect(Collectors.toMap((k) -> { return k.getCatId().toString(); }, (v) -> {
+            //
+            List<CategoryEntity> categoryEntityList = baseMapper.selectList(new QueryWrapper<CategoryEntity>().eq("parent_cid", v.getCatId()));
+            //做非空判断
+            List<Catalog2Vo> catalog2Vos = null;
+            if (categoryEntityList != null) {
+                catalog2Vos = categoryEntityList.stream().map((l2) -> {
+                    //
+                    List<CategoryEntity> categoryLevel3 = baseMapper.selectList(new QueryWrapper<CategoryEntity>().eq("parent_cid", l2.getCatId()));
+
+                    List<Catalog2Vo.Catalog3Vo> catalog3Vos = null;
+                    if (categoryLevel3 != null) {
+                        catalog3Vos = categoryLevel3.stream().map((l3) -> {
+                            Catalog2Vo.Catalog3Vo catalog3Vo = Catalog2Vo.Catalog3Vo.builder()
+                                    .catalog2Id(l2.getCatId().toString())
+                                    .id(l3.getCatId().toString())
+                                    .name(l3.getName()).build();
+                            return catalog3Vo ;
+                        }).collect(Collectors.toList());
+
+                    }
+                    Catalog2Vo catalog2Vo = Catalog2Vo.builder().catalog1Id(v.getCatId().toString())
+                            .catalog3List(catalog3Vos)
+                            .id(l2.getCatId().toString())
+                            .name(l2.getName()).build();
+
+                    return catalog2Vo;
+                }).collect(Collectors.toList());
+            }
+            return catalog2Vos ;
+        }));
+        return collect;
     }
 
 
