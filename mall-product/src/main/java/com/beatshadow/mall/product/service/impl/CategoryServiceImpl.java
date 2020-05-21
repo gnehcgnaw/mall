@@ -104,12 +104,22 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
         return baseMapper.selectList(new QueryWrapper<CategoryEntity>().eq("parent_cid",0));
     }
 
+    /**
+     * 这部分数据不经常变，所以可以引入缓存
+     *      使用缓存的场景：
+     *          1、及时性、数据一致性要求不高 【物流信息、商品分类】
+     *          2、访问量大且更新频率不高的数据（读多，写少）【商品数据】
+     *
+     *          分布式情况使用分布式中间件，而不是把缓存放在自己的进程内。
+     * @return
+     */
     @Override
     public Map<String, List<Catalog2Vo>> getCatalogJson() {
+
        /* getLevel1Categorys().stream().map((item)->{
             item.get
         })*/
-
+/*
         List<CategoryEntity> level1Categorys = getLevel1Categorys();
 
         Map<String, List<Catalog2Vo>> collect = level1Categorys.stream().collect(Collectors.toMap((k) -> { return k.getCatId().toString(); }, (v) -> {
@@ -143,7 +153,60 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
             }
             return catalog2Vos ;
         }));
-        return collect;
+        return collect;*/
+
+        //「以上代码是嵌套查询」优化操作 一次查出来，然后在查出来的结果上筛选
+        //1. 查出所有，在这个基础上再次查询
+        List<CategoryEntity> categoryEntityList = baseMapper.selectList(null);
+
+        List<CategoryEntity> level1Categorys = getLevel1Categorys();
+
+        Map<String, List<Catalog2Vo>> collect = level1Categorys.stream().collect(Collectors.toMap((k) -> { return k.getCatId().toString(); }, (v) -> {
+            //
+           // List<CategoryEntity> categoryEntityList = baseMapper.selectList(new QueryWrapper<CategoryEntity>().eq("parent_cid", v.getCatId()));
+            //做非空判断
+            List<Catalog2Vo> catalog2Vos = null;
+            if (categoryEntityList != null) {
+                catalog2Vos = categoryEntityList.stream().map((l2) -> {
+                    //
+                    List<CategoryEntity> categoryLevel3 = getParent_cid(categoryEntityList,l2.getCatId());
+
+                    List<Catalog2Vo.Catalog3Vo> catalog3Vos = null;
+                    if (categoryLevel3 != null) {
+                        catalog3Vos = categoryLevel3.stream().map((l3) -> {
+                            Catalog2Vo.Catalog3Vo catalog3Vo = Catalog2Vo.Catalog3Vo.builder()
+                                    .catalog2Id(l2.getCatId().toString())
+                                    .id(l3.getCatId().toString())
+                                    .name(l3.getName()).build();
+                            return catalog3Vo ;
+                        }).collect(Collectors.toList());
+
+                    }
+                    Catalog2Vo catalog2Vo = Catalog2Vo.builder().catalog1Id(v.getCatId().toString())
+                            .catalog3List(catalog3Vos)
+                            .id(l2.getCatId().toString())
+                            .name(l2.getName()).build();
+
+                    return catalog2Vo;
+                }).collect(Collectors.toList());
+            }
+            return catalog2Vos ;
+        }));
+        return collect ;
+    }
+
+    /**
+     * 然后在结果上筛选
+     * @param categoryEntityList
+     * @param cid
+     * @return
+     */
+    private List<CategoryEntity> getParent_cid(List<CategoryEntity> categoryEntityList  ,Long cid) {
+        List<CategoryEntity> collect = categoryEntityList.stream().filter((item) -> {
+            return item.getParentCid() == cid;
+        }).collect(Collectors.toList());
+        return collect ;
+        //return baseMapper.selectList(new QueryWrapper<CategoryEntity>().eq("parent_cid", l2.getCatId()));
     }
 
 
