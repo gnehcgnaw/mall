@@ -1,15 +1,16 @@
 package com.beatshadow.mall.product.service.impl;
 
-import com.beatshadow.common.valid.ListValue;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.TypeReference;
 import com.beatshadow.mall.product.service.CategoryBrandRelationService;
 import com.beatshadow.mall.product.vo.Catalog2Vo;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.core.script.DefaultRedisScript;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -22,15 +23,21 @@ import com.beatshadow.mall.product.dao.CategoryDao;
 import com.beatshadow.mall.product.entity.CategoryEntity;
 import com.beatshadow.mall.product.service.CategoryService;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
-
+@Slf4j
 @Service("categoryService")
 public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity> implements CategoryService {
     final
     CategoryBrandRelationService categoryBrandRelationService;
 
-    public CategoryServiceImpl(CategoryBrandRelationService categoryBrandRelationService) {
+    final
+    StringRedisTemplate stringRedisTemplate ;
+
+
+    public CategoryServiceImpl(CategoryBrandRelationService categoryBrandRelationService, StringRedisTemplate stringRedisTemplate) {
         this.categoryBrandRelationService = categoryBrandRelationService;
+        this.stringRedisTemplate = stringRedisTemplate;
     }
 
     @Override
@@ -111,6 +118,15 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
      *          2、访问量大且更新频率不高的数据（读多，写少）【商品数据】
      *
      *          分布式情况使用分布式中间件，而不是把缓存放在自己的进程内。
+     *
+     * 高并发下缓存失效问题：
+     *  1、缓存穿透 【查询一个一定不存在的数据，就会产生缓存穿透】
+     *       举例：  100万并发 ---》查询数据没有的商品， 就都查询数据库，这时候数据库承受不了，
+     *           【解决方案：null结果缓存，并加入短时过期时间（包装新数据可以查到）】
+     *  2、缓存血崩 【存储的数据，设置了相同的失效时间，在一时间key大面积同时失效】
+     *      【解决方案：设置不同的失效时间】
+     *  3、缓存击穿【高并发，失效的一刻热点数据刚好失效】
+     *      【解决方案：加锁】保证只有一个先查询，后续查询缓存
      * @return
      */
     @Override
@@ -156,6 +172,91 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
         return collect;*/
 
         //「以上代码是嵌套查询」优化操作 一次查出来，然后在查出来的结果上筛选
+
+        /**
+         * 1、空结果缓存，解决缓存穿透问题
+         * 2、设置过期时间（加随机值），解决缓存雪崩
+         *          前两个好解决
+         *
+         * 3、加锁，解决缓存击穿 [都尝试去一个地方站坑位 ，]
+         *      http://www.redis.cn/commands/setnx.html
+         *      http://www.redis.cn/commands/set.html
+         */
+        //2、查询缓存
+        String catalogJSON = stringRedisTemplate.opsForValue().get("catalogJSON");
+        if (StringUtils.isEmpty(catalogJSON)){
+            //都存储json，比如Java，PHP序列化数据不同，【为了跨语言，跨平台，使用json】
+            //Map<String, List<Catalog2Vo>> catalogJsonFromDb = getCatalogJsonFromDb();
+            Map<String, List<Catalog2Vo>> catalogJsonFromDb = getCatalogJsonFromDbWithRedisLock();
+            String s = JSON.toJSONString(catalogJsonFromDb);
+            stringRedisTemplate.opsForValue().set("catalogJSON",s);
+            return catalogJsonFromDb ;
+        }else {
+            Map<String, List<Catalog2Vo>> map = JSON.parseObject(catalogJSON, new TypeReference<Map<String, List<Catalog2Vo>>>() {
+            });
+            return map ;
+        }
+
+    }
+    //分布式锁
+    private Map<String, List<Catalog2Vo>> getCatalogJsonFromDbWithRedisLock(){
+        //抢占分布式锁，站坑
+        // [nx] 对应 setIfAbsent
+
+        //  Boolean lock = stringRedisTemplate.opsForValue().setIfAbsent("lock", "catalogJsonLock");
+        String uuid = UUID.randomUUID().toString();
+        Boolean lock = stringRedisTemplate.opsForValue().setIfAbsent("lock", uuid, 300, TimeUnit.SECONDS);
+
+        if (lock){
+            log.debug("获取到锁");
+            Map<String, List<Catalog2Vo>> catalogJsonFromDb =null ;
+            //在不想做自动续锁的情况下，将失效时间设置长一点，然后finally统一解锁
+
+            try{
+                catalogJsonFromDb  = getCatalogJsonFromDb();
+            }finally {
+                //加锁成功
+                //如果以下代码出现异常，锁没被删除【即：如果解锁失败，会造成死锁】：优化：获取到锁之后设置过期时间，
+                // stringRedisTemplate.expire("lock",30,TimeUnit.SECONDS);  //过期时间没设置成功出现断情况，锁还是没有被解锁
+
+                //出现上述问题，其实就是获取锁和设置过期时间不在同一个原子操作:set lock catalogJsonLock EX 300 NX
+
+                //执行完业务之后，要删除锁
+                //stringRedisTemplate.delete("lock"); //业务执行时间过长，自己的锁早过期了，把别人的锁删除了，【解决方案这是value =uuid】
+          /*  String lockValue = stringRedisTemplate.opsForValue().get("lock");
+            if (uuid.equals(lockValue)){
+                stringRedisTemplate.delete("lock");
+            }*/
+
+                //以下解决方案又是非原子性质的操作【官方说明了问题的存在，给出了解决方案 ，需要执行一段Lua的脚本】
+                String script = "if redis.call(\"get\",KEYS[1]) == ARGV[1]\n" +
+                        "then\n" +
+                        "    return redis.call(\"del\",KEYS[1])\n" +
+                        "else\n" +
+                        "    return 0\n" +
+                        "end" ;
+                // 1, 删除成功，2， 删除失败 【但是值就没必要接收了】(脚本返回的是null)
+                Long execute = stringRedisTemplate.execute(new DefaultRedisScript<Long>(script, Long.class), Arrays.asList("lock"), uuid);
+
+            }
+            return catalogJsonFromDb ;
+        } else {
+            //加锁失败，也要返回数据，等待100毫秒，要重试
+            //休眠
+            try {
+                //防止内存溢出
+                TimeUnit.SECONDS.sleep(4);
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            Map<String, List<Catalog2Vo>> catalogJsonFromDbWithRedisLock = getCatalogJsonFromDbWithRedisLock();
+            return catalogJsonFromDbWithRedisLock ;
+        }
+
+    }
+
+    private Map<String, List<Catalog2Vo>> getCatalogJsonFromDb() {
         //1. 查出所有，在这个基础上再次查询
         List<CategoryEntity> categoryEntityList = baseMapper.selectList(null);
 
