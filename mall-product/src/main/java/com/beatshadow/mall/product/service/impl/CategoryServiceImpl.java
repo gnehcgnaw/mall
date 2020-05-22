@@ -7,6 +7,10 @@ import com.beatshadow.mall.product.vo.Catalog2Vo;
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.script.DefaultRedisScript;
 import org.springframework.stereotype.Service;
@@ -99,6 +103,13 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
      * 级联更新所有关联的数据
      * @param category
      */
+
+     // @Caching 组合模式
+/*    @Caching(evict = {
+            @CacheEvict(cacheNames = {"category"},key = "'level1Categorys'") // 失效模式
+            })*/
+    @CacheEvict(value ={"category"} ,allEntries = true ) //  删除某个分区中的所有数据
+        // @CachePut 双写模式
     @Transactional
     @Override
     public void updateCascade(CategoryEntity category) {
@@ -111,6 +122,11 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
         return baseMapper.selectById(catelogId);
     }
 
+    //缓存分区【跟业务有关系】
+    //表示当前方法的结果进行缓存，如果缓存中有，方法调用就不执行，如果缓存没有，就执行方法，然后缓存
+    @Cacheable(cacheNames = {"category"},key = "'level1Categorys'"
+           // ,sync = true 默认无锁状态， 可以将这个值设置为true， 防止缓存击穿，放过一部分去差数据库是没有问题的，
+    ) //指定过期时间在配置文件中指定
     @Override
     public List<CategoryEntity> getLevel1Categorys() {
         return baseMapper.selectList(new QueryWrapper<CategoryEntity>().eq("parent_cid",0));
@@ -132,6 +148,13 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
      *      【解决方案：设置不同的失效时间】
      *  3、缓存击穿【高并发，失效的一刻热点数据刚好失效】
      *      【解决方案：加锁】保证只有一个先查询，后续查询缓存
+     *
+     *
+     *      缓存分为：
+     *              1、双写模式
+     *              2、失效模式
+     *              缓存一致性问题，只能保证最终一致性
+     *            Canal 中间件，   把自己伪装成从服务器，  异构问题，推荐，实时订阅访问记录计算出感兴趣的表，生产推荐信息表，数据异构问题
      * @return
      */
     @Override
@@ -214,12 +237,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
         lock.lock();
         try{
             log.debug("获取锁");
-            if (catalogJsonFromDb==null){
-                return getCatalogJsonFromDb();
-            }else{
-                log.debug("已存在");
-                return catalogJsonFromDb ;
-            }
+            return getCatalogJsonFromDb();
         }finally {
             log.debug("释放锁");
             lock.unlock();
