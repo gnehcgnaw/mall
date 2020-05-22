@@ -45,6 +45,16 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.redisson/redisson-spring-boot-starter -->
+        <!--这个其实就是操作redis的客户端-->
+        <!--使用文档：https://github.com/redisson/redisson/wiki/%E7%9B%AE%E5%BD%95-->
+        <dependency>
+            <groupId>org.redisson</groupId>
+            <artifactId>redisson-spring-boot-starter</artifactId>
+            <version>3.12.5</version>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
