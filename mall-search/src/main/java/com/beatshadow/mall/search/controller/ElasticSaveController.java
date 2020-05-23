@@ -30,7 +30,6 @@ public class ElasticSaveController {
     /**
      * 上架商品
      */
-
     @PostMapping("/product")
     public R productStatusUp(@RequestBody  List<SkuEsModel> skuEsModels)  {
         boolean b = false;

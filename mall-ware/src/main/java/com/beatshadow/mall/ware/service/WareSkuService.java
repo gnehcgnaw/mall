@@ -1,9 +1,9 @@
 package com.beatshadow.mall.ware.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.beatshadow.common.to.SkuHasStockVo;
 import com.beatshadow.common.utils.PageUtils;
 import com.beatshadow.mall.ware.entity.WareSkuEntity;
-import com.beatshadow.mall.ware.vo.SkuHasStockVo;
 
 import java.util.List;
 import java.util.Map;

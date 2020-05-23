@@ -1,7 +1,7 @@
 package com.beatshadow.mall.product.feign;
 
+import com.beatshadow.common.to.SkuHasStockVo;
 import com.beatshadow.common.utils.R;
-import com.beatshadow.mall.product.vo.SkuHasStockVo;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,6 +14,7 @@ import java.util.List;
  */
 @FeignClient(value = "mall-ware")
 public interface WareFeignService {
-    @PostMapping("ware/waresku/hasstock")
-    public  R<List<SkuHasStockVo>> getSkuHasStock (@RequestBody List<Long> skuIds);
+    @PostMapping("/ware/waresku/hasstock")
+    public  R getSkuHasStock (@RequestBody List<Long> skuIds);
+
 }

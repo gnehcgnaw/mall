@@ -16,7 +16,6 @@ import javax.jws.WebParam;
 @Controller
 public class SearchController {
 
-
     private MallSearchService mallSearchService ;
 
     public SearchController(MallSearchService mallSearchService) {

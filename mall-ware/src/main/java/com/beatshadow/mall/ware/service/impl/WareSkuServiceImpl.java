@@ -1,8 +1,8 @@
 package com.beatshadow.mall.ware.service.impl;
 
+import com.beatshadow.common.to.SkuHasStockVo;
 import com.beatshadow.common.utils.R;
 import com.beatshadow.mall.ware.feign.ProductFeignService;
-import com.beatshadow.mall.ware.vo.SkuHasStockVo;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -93,8 +93,7 @@ public class WareSkuServiceImpl extends ServiceImpl<WareSkuDao, WareSkuEntity> i
     @Override
     public List<SkuHasStockVo> getSkuHasStock(List<Long> skuIds) {
         List<SkuHasStockVo> collect = skuIds.stream().map((skuId) -> {
-            SkuHasStockVo skuHasStockVo = new SkuHasStockVo();
-            skuHasStockVo.setSkuId(skuId);
+            SkuHasStockVo skuHasStockVo = SkuHasStockVo.builder().skuId(skuId).build();
             //查询SKU的总库存量 [多个仓库的总和  ]
             //库存的数量-锁定的库存 =真实库存量
             Long count =  baseMapper.getSkuStock(skuId) ;

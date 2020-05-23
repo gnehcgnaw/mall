@@ -1,6 +1,7 @@
 package com.beatshadow.mall.product.service.impl;
 
 import com.beatshadow.common.constant.ProductConstant;
+import com.beatshadow.common.to.SkuHasStockVo;
 import com.beatshadow.common.to.SkuReductionTo;
 import com.beatshadow.common.to.SpuBoundTo;
 import com.beatshadow.common.to.es.SkuEsModel;
@@ -273,6 +274,7 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
         //5、查询当前sku的所有可以被用来检索的规格属性 【pms_attr的search_type = 1】
         //spu 的 attr
         List<ProductAttrValueEntity> productAttrValueEntities = attrValueService.baseAttrlistforspu(spuId);
+        // attrIds
         List<Long> attrIds = productAttrValueEntities.stream().map((attr) -> {
             Long attrId = attr.getAttrId();
             return attrId;
@@ -289,17 +291,22 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
             return attrs;
         }).collect(Collectors.toList());
 
-        // 6、 发送远程调用、库存系统查询是否有库存
-        R<List<SkuHasStockVo>> serviceSkuHasStockR = wareFeignService.getSkuHasStock(skuInfoEntityList.stream().map((sku) -> {
-            return sku.getSkuId();
-        }).collect(Collectors.toList()));
-
-
         Map<Long, Boolean> stockMap = null ;
         try {
-            List<SkuHasStockVo> skuHasStockRData = serviceSkuHasStockR.getData();
+            List<Long> skuIdList = skuInfoEntityList.stream().map(SkuInfoEntity::getSkuId).collect(Collectors.toList());
+            // 6、 发送远程调用、库存系统查询是否有库存
+            R wareFeignServiceSkuHasStock = wareFeignService.getSkuHasStock(skuIdList);
+            List<Map> skuHasStockVoList = ( List<Map>)wareFeignServiceSkuHasStock.get("skuHasStockVoList");
+            List<SkuHasStockVo> hasStockVoList = skuHasStockVoList.stream().map((map) -> {
+                Integer skuId =  (Integer) map.get("skuId");
+                Boolean hasStock = (Boolean) map.get("hasStock");
+                SkuHasStockVo skuHasStockVo = SkuHasStockVo.builder().hasStock(hasStock).skuId( Long.parseLong(String.valueOf(skuId))).build();
+                return skuHasStockVo;
+            }).collect(Collectors.toList());
+
+            //List<SkuHasStockVo> skuHasStockRData = wareFeignServiceSkuHasStock.getData();
             //将skuid做为key ,stock 作为 value  【技巧操作】
-            stockMap = skuHasStockRData.stream().collect(Collectors.toMap(SkuHasStockVo::getSkuId, (item) -> {
+            stockMap = hasStockVoList.stream().collect(Collectors.toMap(SkuHasStockVo::getSkuId, (item) -> {
                 return item.getHasStock();
             }));
         } catch (Exception e) {
