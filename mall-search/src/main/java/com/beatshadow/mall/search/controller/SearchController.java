@@ -1,7 +1,13 @@
 package com.beatshadow.mall.search.controller;
 
+import com.beatshadow.mall.search.service.MallSearchService;
+import com.beatshadow.mall.search.vo.SearchParam;
+import com.beatshadow.mall.search.vo.SearchResult;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import javax.jws.WebParam;
 
 /**
  * @author : <a href="mailto:gnehcgnaw@gmail.com">gnehcgnaw</a>
@@ -10,8 +16,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class SearchController {
 
+
+    private MallSearchService mallSearchService ;
+
+    public SearchController(MallSearchService mallSearchService) {
+        this.mallSearchService = mallSearchService;
+    }
+
     @GetMapping("/list.html")
-    public String listPage(){
+    public String listPage(SearchParam searchParam, Model model){
+        SearchResult searchResult = mallSearchService.search(searchParam);
+        model.addAttribute("result",searchResult);
         return "list" ;
     }
 
