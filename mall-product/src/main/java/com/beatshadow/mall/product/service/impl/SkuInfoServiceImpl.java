@@ -1,8 +1,15 @@
 package com.beatshadow.mall.product.service.impl;
 
+import com.beatshadow.mall.product.entity.SkuImagesEntity;
+import com.beatshadow.mall.product.entity.SpuInfoDescEntity;
+import com.beatshadow.mall.product.service.*;
+import com.beatshadow.mall.product.vo.SkuItemSaleAttrVo;
+import com.beatshadow.mall.product.vo.SkuItemVo;
+import com.beatshadow.mall.product.vo.SpuItemAttrGroupVo;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Map;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -12,12 +19,26 @@ import com.beatshadow.common.utils.Query;
 
 import com.beatshadow.mall.product.dao.SkuInfoDao;
 import com.beatshadow.mall.product.entity.SkuInfoEntity;
-import com.beatshadow.mall.product.service.SkuInfoService;
 import org.springframework.util.StringUtils;
 
 
 @Service("skuInfoService")
 public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoDao, SkuInfoEntity> implements SkuInfoService {
+
+    private SkuImagesService skuImagesService ;
+
+    private SpuInfoDescService spuInfoDescService ;
+
+    private AttrGroupService attrGroupService ;
+
+    private SkuSaleAttrValueService skuSaleAttrValueService ;
+
+    public SkuInfoServiceImpl(SkuImagesService skuImagesService, SpuInfoDescService spuInfoDescService, AttrGroupService attrGroupService, SkuSaleAttrValueService skuSaleAttrValueService) {
+        this.skuImagesService = skuImagesService;
+        this.spuInfoDescService = spuInfoDescService;
+        this.attrGroupService = attrGroupService;
+        this.skuSaleAttrValueService = skuSaleAttrValueService;
+    }
 
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
@@ -89,6 +110,34 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoDao, SkuInfoEntity> i
         );
 
         return new PageUtils(page);
+    }
+
+    @Override
+    public SkuItemVo item(Long skuId) {
+        //sku基本信息获取 sku_info表 //标题、副标题、价格
+        SkuInfoEntity skuInfoEntity = getById(skuId);
+        Long catalogId = skuInfoEntity.getCatalogId();
+        //sku图片信息， sku_imgs表
+        List<SkuImagesEntity> skuImagesEntityList = skuImagesService.getImagesBySkuId(skuId);
+
+
+        //商品介绍【共享spu的属性】
+        Long spuId = skuInfoEntity.getSpuId();
+        SpuInfoDescEntity spuInfoDescEntity = spuInfoDescService.getById(skuId);
+
+        //当前sku对应的sku的组合信息
+        List<SpuItemAttrGroupVo> spuItemAttrGroupVoList = attrGroupService.getAttrGroupWithAttrsBySpuId(spuId,catalogId);
+        //规格属性与包装——规格参数信息[销售属性]
+        List<SkuItemSaleAttrVo> skuItemSaleAttrVos = skuSaleAttrValueService.getSaleAttrBySpuId(spuId);
+
+        SkuItemVo skuItemVo = SkuItemVo.builder()
+                .info(skuInfoEntity)
+                .desp(spuInfoDescEntity)
+                .groupAttrs(spuItemAttrGroupVoList)
+                .saleAttr(skuItemSaleAttrVos)
+                .images(skuImagesEntityList)
+                .build();
+        return skuItemVo;
     }
 
 

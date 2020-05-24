@@ -90,5 +90,5 @@ GET product/_search
 ```
 URL测试：
 ```
-http://localhost:12000/list.html?skuPrice=6000_&keyword=苹果&hasStock=0
+http://localhost:12000/list.html?skuPrice=6000_&keyword=苹果&hasStock=1&attrs=15_高通(Qualcomm)&catalog3Id=225
 ```

@@ -33,32 +33,32 @@ public class AttrAttrgroupRelationServiceImpl extends ServiceImpl<AttrAttrgroupR
 
     @Override
     public AttrAttrgroupRelationEntity queryByAttrId(Long attrId){
-        return baseMapper.selectOne(new QueryWrapper<AttrAttrgroupRelationEntity>().eq("attr_id", attrId));
+        return this.baseMapper.selectOne(new QueryWrapper<AttrAttrgroupRelationEntity>().eq("attr_id", attrId));
     }
 
     @Override
     public Integer selectCount(Long attr_id) {
-        return  baseMapper.selectCount(new QueryWrapper<AttrAttrgroupRelationEntity>().eq("attr_id", attr_id));
+        return  this.baseMapper.selectCount(new QueryWrapper<AttrAttrgroupRelationEntity>().eq("attr_id", attr_id));
     }
 
     @Override
     public void insert(AttrAttrgroupRelationEntity relationEntity) {
-        baseMapper.insert(relationEntity);
+        this.baseMapper.insert(relationEntity);
     }
 
     @Override
     public List<AttrAttrgroupRelationEntity> selectList(Long attr_group_id) {
-        return baseMapper.selectList(new QueryWrapper<AttrAttrgroupRelationEntity>().eq("attr_group_id", attr_group_id));
+        return this.baseMapper.selectList(new QueryWrapper<AttrAttrgroupRelationEntity>().eq("attr_group_id", attr_group_id));
     }
 
     @Override
     public void deleteBatchRelation(List<AttrAttrgroupRelationEntity> entities) {
-        baseMapper.deleteBatchRelation(entities);
+        this.baseMapper.deleteBatchRelation(entities);
     }
 
     @Override
     public List<AttrAttrgroupRelationEntity> selectList(List<Long> collect) {
-        return baseMapper.selectList(new QueryWrapper<AttrAttrgroupRelationEntity>().in("attr_group_id", collect));
+        return this.baseMapper.selectList(new QueryWrapper<AttrAttrgroupRelationEntity>().in("attr_group_id", collect));
     }
 
     @Override

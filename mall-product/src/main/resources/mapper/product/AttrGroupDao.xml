@@ -12,6 +12,31 @@
         <result property="icon" column="icon"/>
         <result property="catelogId" column="catelog_id"/>
     </resultMap>
+    
+
+    <resultMap id="spuItemAttrGroupVo" type="com.beatshadow.mall.product.vo.SpuItemAttrGroupVo">
+        <result property="groupName" column="attr_group_name"/>
+        <!--需要constructor -->
+        <collection property="attrs" ofType="com.beatshadow.mall.product.vo.Attr">
+            <result column="attr_name" property="attrName"/>
+            <result column="attr_value" property="attrValue"/>
+        </collection>
+    </resultMap>
+    <select id="getAttrGroupWithAttrsBySpuId" resultMap="spuItemAttrGroupVo">
+       select
+           ppav.spu_id,
+           pag.attr_group_id,
+           pag.attr_group_name,
+           pa.attr_name as attr_name,
+           pa.attr_id,
+           ppav.attr_value as attr_value
+        from pms_attr_group pag
+        left join pms_attr_attrgroup_relation paar on pag.attr_group_id = paar.attr_group_id
+        left join pms_attr pa on paar.attr_id = pa.attr_id
+        left join pms_product_attr_value ppav on pa.attr_id = ppav.attr_id
+        where pag.catelog_id = #{catalogId} and ppav.spu_id = #{spuId}
+
+    </select>
 
 
 </mapper>

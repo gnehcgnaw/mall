@@ -12,6 +12,17 @@
         <result property="attrValue" column="attr_value"/>
         <result property="attrSort" column="attr_sort"/>
     </resultMap>
+    <select id="getSaleAttrBySpuId" resultType="com.beatshadow.mall.product.vo.SkuItemSaleAttrVo">
+        select
+               pssav.attr_id ,
+               pssav.attr_name,
+
+               group_concat( distinct pssav.attr_value) as attr_value
+        from pms_sku_info psi
+        left join pms_sku_sale_attr_value pssav on psi.sku_id = pssav.sku_id
+        where psi.spu_id = #{spuId}
+        group by pssav.attr_id ,attr_name
+    </select>
 
 
 </mapper>

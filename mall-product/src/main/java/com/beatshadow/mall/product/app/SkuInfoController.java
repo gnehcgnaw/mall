@@ -27,8 +27,11 @@ import com.beatshadow.common.utils.R;
 @RestController
 @RequestMapping("product/skuinfo")
 public class SkuInfoController {
-    @Autowired
-    private SkuInfoService skuInfoService;
+    private final SkuInfoService skuInfoService;
+
+    public SkuInfoController(SkuInfoService skuInfoService) {
+        this.skuInfoService = skuInfoService;
+    }
 
     /**
      * 列表

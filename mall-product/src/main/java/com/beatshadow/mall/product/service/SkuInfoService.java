@@ -3,6 +3,7 @@ package com.beatshadow.mall.product.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.beatshadow.common.utils.PageUtils;
 import com.beatshadow.mall.product.entity.SkuInfoEntity;
+import com.beatshadow.mall.product.vo.SkuItemVo;
 
 import java.util.Map;
 
@@ -20,5 +21,7 @@ public interface SkuInfoService extends IService<SkuInfoEntity> {
     void saveSkuInfo(SkuInfoEntity skuInfoEntity);
 
     PageUtils queryPageByCondition(Map<String, Object> params);
+
+    SkuItemVo item(Long skuId);
 }
 

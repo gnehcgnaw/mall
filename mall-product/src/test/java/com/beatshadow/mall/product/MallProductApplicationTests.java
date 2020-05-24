@@ -1,9 +1,16 @@
 package com.beatshadow.mall.product;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.beatshadow.mall.product.dao.AttrGroupDao;
+import com.beatshadow.mall.product.dao.SkuSaleAttrValueDao;
 import com.beatshadow.mall.product.entity.BrandEntity;
 import com.beatshadow.mall.product.service.BrandService;
 import com.beatshadow.mall.product.service.CategoryService;
+import com.beatshadow.mall.product.vo.SkuItemSaleAttrVo;
+import com.beatshadow.mall.product.vo.SkuItemVo;
+import com.beatshadow.mall.product.vo.SpuItemAttrGroupVo;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +29,23 @@ class MallProductApplicationTests {
 
     @Autowired
     CategoryService categoryService;
+
+    @Autowired
+    AttrGroupDao attrGroupDao ;
+
+    @Autowired
+    SkuSaleAttrValueDao skuSaleAttrValueDao ;
+    @Test
+    public void testGetAttrGroupWithAttrsBySpuId(){
+        List<SpuItemAttrGroupVo> attrGroupWithAttrsBySpuId = attrGroupDao.getAttrGroupWithAttrsBySpuId(13L,225L);
+        log.info("attrGroupWithAttrsBySpuId：{}",attrGroupWithAttrsBySpuId);
+    }
+
+    @Test
+    public void testGetSaleAttrBySpuId(){
+        List<SkuItemSaleAttrVo> saleAttrBySpuId = skuSaleAttrValueDao.getSaleAttrBySpuId(13L);
+        log.info("saleAttrBySpuId：{}",saleAttrBySpuId);
+    }
 
     @Test
     public void testFindPath(){
