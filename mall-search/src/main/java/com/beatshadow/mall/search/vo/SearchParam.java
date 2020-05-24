@@ -31,7 +31,7 @@ public class SearchParam {
     //sukPrice=1_500[价格区间] _500[五百以下] 500_[500以上]
     //brandId [品牌ID]
     //
-    private Integer hasStock ;
+    private Integer hasStock =1;
     private String skuPrice ;
     //brandId=1&brandId=2
     private List<Long> brandId ;  //多选
@@ -41,7 +41,10 @@ public class SearchParam {
     // attrs=1_其他:安卓&attr=2_5寸:6寸
     private List<String> attrs ;
 
-    //页码
-    private Integer pageNum ;
+    //页码 [默认第一页]
+    private Integer pageNum = 1 ;
+
+    //原生查询条件
+    private String queryString ;
 
 }

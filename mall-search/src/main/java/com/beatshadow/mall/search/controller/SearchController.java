@@ -7,7 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import javax.jws.WebParam;
+import javax.servlet.http.HttpServletRequest;
+
 
 /**
  * @author : <a href="mailto:gnehcgnaw@gmail.com">gnehcgnaw</a>
@@ -23,7 +24,9 @@ public class SearchController {
     }
 
     @GetMapping("/list.html")
-    public String listPage(SearchParam searchParam, Model model){
+    public String listPage(SearchParam searchParam , Model model , HttpServletRequest httpServletRequest){
+        String queryString = httpServletRequest.getQueryString();
+        searchParam.setQueryString(queryString);
         SearchResult searchResult = mallSearchService.search(searchParam);
         model.addAttribute("result",searchResult);
         return "list" ;

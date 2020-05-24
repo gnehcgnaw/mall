@@ -8,8 +8,11 @@
 
 package com.beatshadow.common.utils;
 
+import com.alibaba.fastjson.JSON;
+import jdk.internal.org.objectweb.asm.TypeReference;
 import org.apache.http.HttpStatus;
 
+import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,6 +32,17 @@ public class R extends HashMap<String, Object> {
 
 	public void setData(T data) {
 		this.data = data;
+	}*/
+
+	/*public <T> T getData(TypeReference typeReference){
+		Object data = get("data");
+		String s = JSON.toJSONString(data);
+		T t = JSON.parseObject(s, (Type) typeReference);
+		return t ;
+	}
+	public R setData(Object data){
+		put("data",data);
+		return this ;
 	}*/
 
 	public R() {

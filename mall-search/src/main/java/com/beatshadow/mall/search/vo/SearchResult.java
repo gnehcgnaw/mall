@@ -1,6 +1,7 @@
 package com.beatshadow.mall.search.vo;
 
 import com.beatshadow.common.to.es.SkuEsModel;
+import lombok.Builder;
 import lombok.Data;
 
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.List;
  * @author : <a href="mailto:gnehcgnaw@gmail.com">gnehcgnaw</a>
  * @since : 2020/5/23 15:10
  */
+@Builder
 @Data
 public class SearchResult {
     //查询到的商品信息
@@ -23,11 +25,24 @@ public class SearchResult {
     private Long total ;
     //总页码
     private Integer totalPages ;
+    //所有的导航页
+    private List<Integer> pageNavs ;
 
+    //面包屑导航数据
+    private List<NavVo> navs ;
+
+    @Builder
+    @Data
+    public static  class NavVo{
+        private String navName ;
+        private String navValue ;
+        private String link ;
+    }
     //<---------品牌-------
     private List<BrandVo> brands ;
 
     //品牌信息
+    @Builder
     @Data
     public static class BrandVo{
         private Long brandId;
@@ -40,6 +55,7 @@ public class SearchResult {
     //<---------属性--------
     private List<AttrVo> attrs ;
 
+    @Builder
     @Data
     public static class AttrVo{
         private Long attrId;
@@ -51,6 +67,7 @@ public class SearchResult {
     //<-------分类---------
     private List<CatalogVo> catalogs;
 
+    @Builder
     @Data
     public static class CatalogVo{
         private Long catalogId ;
