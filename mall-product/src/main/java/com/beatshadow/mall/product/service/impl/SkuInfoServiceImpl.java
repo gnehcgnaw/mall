@@ -13,6 +13,9 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.*;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ThreadPoolExecutor;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -25,6 +28,9 @@ import com.beatshadow.mall.product.entity.SkuInfoEntity;
 import org.springframework.util.StringUtils;
 
 
+/**
+ * @author gnehcgnaw
+ */
 @Service("skuInfoService")
 public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoDao, SkuInfoEntity> implements SkuInfoService {
 
@@ -38,12 +44,15 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoDao, SkuInfoEntity> i
 
     private WareFeignService wareFeignService ;
 
-    public SkuInfoServiceImpl(SkuImagesService skuImagesService, SpuInfoDescService spuInfoDescService, AttrGroupService attrGroupService, SkuSaleAttrValueService skuSaleAttrValueService, WareFeignService wareFeignService) {
+    private ThreadPoolExecutor threadPoolExecutor ;
+
+    public SkuInfoServiceImpl(SkuImagesService skuImagesService, SpuInfoDescService spuInfoDescService, AttrGroupService attrGroupService, SkuSaleAttrValueService skuSaleAttrValueService, WareFeignService wareFeignService, ThreadPoolExecutor threadPoolExecutor) {
         this.skuImagesService = skuImagesService;
         this.spuInfoDescService = spuInfoDescService;
         this.attrGroupService = attrGroupService;
         this.skuSaleAttrValueService = skuSaleAttrValueService;
         this.wareFeignService = wareFeignService;
+        this.threadPoolExecutor = threadPoolExecutor;
     }
 
     @Override
@@ -119,41 +128,63 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoDao, SkuInfoEntity> i
     }
 
     @Override
-    public SkuItemVo item(Long skuId) {
-        //sku基本信息获取 sku_info表 //标题、副标题、价格
-        SkuInfoEntity skuInfoEntity = getById(skuId);
-        Long catalogId = skuInfoEntity.getCatalogId();
-        //sku图片信息， sku_imgs表
-        List<SkuImagesEntity> skuImagesEntityList = skuImagesService.getImagesBySkuId(skuId);
+    public SkuItemVo item(Long skuId) throws ExecutionException, InterruptedException {
+        SkuItemVo skuItemVo = new SkuItemVo();
+
+        CompletableFuture<SkuInfoEntity> skuInfoEntityCompletableFuture = CompletableFuture.supplyAsync(() -> {
+            //sku基本信息获取 sku_info表 //标题、副标题、价格
+            SkuInfoEntity skuInfoEntity = getById(skuId);
+            skuItemVo.setInfo(skuInfoEntity);
+            return skuInfoEntity;
+        }, threadPoolExecutor);
+
+        CompletableFuture<Void> attrGroupCompletableFuture = skuInfoEntityCompletableFuture.thenAcceptAsync((res) -> {
+            //商品介绍【共享spu的属性】
+            Long spuId = res.getSpuId();
+            Long catalogId = res.getCatalogId();
+            //当前sku对应的sku的组合信息
+            List<SpuItemAttrGroupVo> spuItemAttrGroupVoList = attrGroupService.getAttrGroupWithAttrsBySpuId(spuId, catalogId);
+            skuItemVo.setGroupAttrs(spuItemAttrGroupVoList);
+        }, threadPoolExecutor);
+
+        CompletableFuture<Void>  skuSaleAttrValueCompletableFuture = skuInfoEntityCompletableFuture.thenAcceptAsync((res) -> {
+            //商品介绍【共享spu的属性】
+            Long spuId = res.getSpuId();
+            //规格属性与包装——规格参数信息[销售属性]
+            List<SkuItemSaleAttrVo> skuItemSaleAttrVos = skuSaleAttrValueService.getSaleAttrBySpuId(spuId);
+            skuItemVo.setSaleAttr(skuItemSaleAttrVos);
+        }, threadPoolExecutor);
+
+        CompletableFuture<Void> spuInfoDescEntityCompletableFuture = CompletableFuture.runAsync(()->{
+            SpuInfoDescEntity spuInfoDescEntity = spuInfoDescService.getById(skuId);
+            skuItemVo.setDesp(spuInfoDescEntity);
+        },threadPoolExecutor);
 
 
-        //商品介绍【共享spu的属性】
-        Long spuId = skuInfoEntity.getSpuId();
-        SpuInfoDescEntity spuInfoDescEntity = spuInfoDescService.getById(skuId);
+        CompletableFuture<Void> hasStockCompletableFuture = CompletableFuture.runAsync(() -> {
+            //库存
+            Boolean hasStock = false;
+            //远程调用获取库存
+            R skuHasStock = wareFeignService.getSkuHasStock(Arrays.asList(skuId));
+            if (skuHasStock.getCode() == 0) {
+                ArrayList skuHasStockVoList = (ArrayList<SkuHasStockVo>) skuHasStock.get("skuHasStockVoList");
+                Map<Integer, Boolean> hasStockMap = (LinkedHashMap) skuHasStockVoList.get(0);
+                hasStock = hasStockMap.get("hasStock");
+            }
+            skuItemVo.setHasStock(hasStock);
+        }, threadPoolExecutor);
 
-        //当前sku对应的sku的组合信息
-        List<SpuItemAttrGroupVo> spuItemAttrGroupVoList = attrGroupService.getAttrGroupWithAttrsBySpuId(spuId,catalogId);
-        //规格属性与包装——规格参数信息[销售属性]
-        List<SkuItemSaleAttrVo> skuItemSaleAttrVos = skuSaleAttrValueService.getSaleAttrBySpuId(spuId);
-        //库存
-        Boolean hasStock = false ;
+        CompletableFuture<Void> getImagesCompletableFuture = CompletableFuture.runAsync(() -> {
+            List<SkuImagesEntity> skuImagesEntityList = skuImagesService.getImagesBySkuId(skuId);
+            skuItemVo.setImages(skuImagesEntityList);
+        }, threadPoolExecutor);
 
-        //远程调用获取库存
-        R skuHasStock = wareFeignService.getSkuHasStock(Arrays.asList(skuId));
-
-        if (skuHasStock.getCode()==0){
-            ArrayList skuHasStockVoList = (ArrayList<SkuHasStockVo> )skuHasStock.get("skuHasStockVoList");
-            Map<Integer,Boolean> hasStockMap = (LinkedHashMap)skuHasStockVoList.get(0);
-            hasStock = hasStockMap.get("hasStock");
-        }
-        SkuItemVo skuItemVo = SkuItemVo.builder()
-                .info(skuInfoEntity)
-                .desp(spuInfoDescEntity)
-                .groupAttrs(spuItemAttrGroupVoList)
-                .saleAttr(skuItemSaleAttrVos)
-                .images(skuImagesEntityList)
-                .hasStock(hasStock)
-                .build();
+        CompletableFuture.allOf(
+                attrGroupCompletableFuture,
+                skuSaleAttrValueCompletableFuture,
+                spuInfoDescEntityCompletableFuture,
+                hasStockCompletableFuture,
+                getImagesCompletableFuture).get();
         return skuItemVo;
     }
 
