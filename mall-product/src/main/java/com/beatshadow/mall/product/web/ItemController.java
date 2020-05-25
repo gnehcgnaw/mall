@@ -1,6 +1,5 @@
 package com.beatshadow.mall.product.web;
 
-import com.beatshadow.common.utils.R;
 import com.beatshadow.mall.product.service.SkuInfoService;
 import com.beatshadow.mall.product.vo.SkuItemVo;
 import org.springframework.stereotype.Controller;

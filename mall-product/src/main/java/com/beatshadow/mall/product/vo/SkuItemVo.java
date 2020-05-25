@@ -29,6 +29,12 @@ public class SkuItemVo {
      */
     private SkuInfoEntity info ;
 
+    /**
+     * 展示不查询数据库
+     * //todo
+     */
+    private boolean hasStock ;
+
     private List<SkuImagesEntity> images ;
 
     private SpuInfoDescEntity desp ;

@@ -1,7 +1,10 @@
 package com.beatshadow.mall.product.service.impl;
 
+import com.beatshadow.common.to.SkuHasStockVo;
+import com.beatshadow.common.utils.R;
 import com.beatshadow.mall.product.entity.SkuImagesEntity;
 import com.beatshadow.mall.product.entity.SpuInfoDescEntity;
+import com.beatshadow.mall.product.feign.WareFeignService;
 import com.beatshadow.mall.product.service.*;
 import com.beatshadow.mall.product.vo.SkuItemSaleAttrVo;
 import com.beatshadow.mall.product.vo.SkuItemVo;
@@ -9,8 +12,8 @@ import com.beatshadow.mall.product.vo.SpuItemAttrGroupVo;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -33,11 +36,14 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoDao, SkuInfoEntity> i
 
     private SkuSaleAttrValueService skuSaleAttrValueService ;
 
-    public SkuInfoServiceImpl(SkuImagesService skuImagesService, SpuInfoDescService spuInfoDescService, AttrGroupService attrGroupService, SkuSaleAttrValueService skuSaleAttrValueService) {
+    private WareFeignService wareFeignService ;
+
+    public SkuInfoServiceImpl(SkuImagesService skuImagesService, SpuInfoDescService spuInfoDescService, AttrGroupService attrGroupService, SkuSaleAttrValueService skuSaleAttrValueService, WareFeignService wareFeignService) {
         this.skuImagesService = skuImagesService;
         this.spuInfoDescService = spuInfoDescService;
         this.attrGroupService = attrGroupService;
         this.skuSaleAttrValueService = skuSaleAttrValueService;
+        this.wareFeignService = wareFeignService;
     }
 
     @Override
@@ -129,13 +135,24 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoDao, SkuInfoEntity> i
         List<SpuItemAttrGroupVo> spuItemAttrGroupVoList = attrGroupService.getAttrGroupWithAttrsBySpuId(spuId,catalogId);
         //规格属性与包装——规格参数信息[销售属性]
         List<SkuItemSaleAttrVo> skuItemSaleAttrVos = skuSaleAttrValueService.getSaleAttrBySpuId(spuId);
+        //库存
+        Boolean hasStock = false ;
 
+        //远程调用获取库存
+        R skuHasStock = wareFeignService.getSkuHasStock(Arrays.asList(skuId));
+
+        if (skuHasStock.getCode()==0){
+            ArrayList skuHasStockVoList = (ArrayList<SkuHasStockVo> )skuHasStock.get("skuHasStockVoList");
+            Map<Integer,Boolean> hasStockMap = (LinkedHashMap)skuHasStockVoList.get(0);
+            hasStock = hasStockMap.get("hasStock");
+        }
         SkuItemVo skuItemVo = SkuItemVo.builder()
                 .info(skuInfoEntity)
                 .desp(spuInfoDescEntity)
                 .groupAttrs(spuItemAttrGroupVoList)
                 .saleAttr(skuItemSaleAttrVos)
                 .images(skuImagesEntityList)
+                .hasStock(hasStock)
                 .build();
         return skuItemVo;
     }
