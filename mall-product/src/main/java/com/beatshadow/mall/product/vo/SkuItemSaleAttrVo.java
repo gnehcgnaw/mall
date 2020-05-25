@@ -7,6 +7,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 
 /**
  * SKu的销售属性vo
@@ -20,5 +22,5 @@ import lombok.NoArgsConstructor;
 public class SkuItemSaleAttrVo{
     private Long attrId ;
     private String attrName ;
-    private String attrValue ;
+    private List<AttrValueWithSkuIdVo> attrValues ;
 }

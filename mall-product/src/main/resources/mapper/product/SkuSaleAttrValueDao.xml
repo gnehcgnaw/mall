@@ -12,16 +12,25 @@
         <result property="attrValue" column="attr_value"/>
         <result property="attrSort" column="attr_sort"/>
     </resultMap>
-    <select id="getSaleAttrBySpuId" resultType="com.beatshadow.mall.product.vo.SkuItemSaleAttrVo">
-        select
+
+    <resultMap id="skuItemSaleAttrVo" type="com.beatshadow.mall.product.vo.SkuItemSaleAttrVo">
+        <result column="attr_id" property="attrId"/>
+        <result column="attr_name" property="attrName"></result>
+        <collection property="attrValues" ofType="com.beatshadow.mall.product.vo.AttrValueWithSkuIdVo">
+            <result property="attrValue" column="attr_value"/>
+            <result column="sku_ids" property="skuIds"/>
+        </collection>
+    </resultMap>
+    <select id="getSaleAttrBySpuId" resultMap="skuItemSaleAttrVo">
+       select
                pssav.attr_id ,
                pssav.attr_name,
-
-               group_concat( distinct pssav.attr_value) as attr_value
+               pssav.attr_value,
+               group_concat( distinct psi.sku_id) as sku_ids
         from pms_sku_info psi
-        left join pms_sku_sale_attr_value pssav on psi.sku_id = pssav.sku_id
-        where psi.spu_id = #{spuId}
-        group by pssav.attr_id ,attr_name
+             left join pms_sku_sale_attr_value pssav on psi.sku_id = pssav.sku_id
+             where psi.spu_id = #{spuId}
+             group by pssav.attr_id ,attr_name ,pssav.attr_name ,pssav.attr_value
     </select>
 
 
