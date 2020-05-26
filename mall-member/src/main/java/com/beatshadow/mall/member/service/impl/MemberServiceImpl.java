@@ -6,6 +6,7 @@ import com.beatshadow.mall.member.exception.PhoneExistException;
 import com.beatshadow.mall.member.exception.UsernameExistException;
 import com.beatshadow.mall.member.vo.MemberLoginVo;
 import com.beatshadow.mall.member.vo.MemberRegisterVo;
+import me.zhyd.oauth.model.AuthUser;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.util.Map;
@@ -93,6 +94,42 @@ public class MemberServiceImpl extends ServiceImpl<MemberDao, MemberEntity> impl
             boolean matches = new BCryptPasswordEncoder().matches(memberLoginVo.getPassword(), sqlPassword);
             if (matches){
                 return memberEntity ;
+            }else {
+                return null ;
+            }
+
+        }
+    }
+
+    @Override
+    public MemberEntity login(AuthUser authUser) {
+        //社交账户ID
+        String uuid = authUser.getUuid();
+        //判断是否注册过
+        MemberEntity memberEntity = this.baseMapper.selectOne(new QueryWrapper<MemberEntity>().eq("social_uid", uuid));
+        //1、注册过，更新令牌和过期时间
+        MemberEntity currentMemberEntity = new MemberEntity();
+
+        if (memberEntity!=null){
+            currentMemberEntity = memberEntity ;
+            currentMemberEntity.setAccessToken(authUser.getToken().getAccessToken());
+            currentMemberEntity.setExpireIn(authUser.getToken().getExpireIn());
+            int update = this.baseMapper.updateById(currentMemberEntity);
+            if (update>0){
+                return currentMemberEntity ;
+            }else {
+                return memberEntity ;
+            }
+        }else {
+            //2、没注册，注册
+            currentMemberEntity.setLevelId(memberLevelDao.getDefaultLevel().getId());
+            currentMemberEntity.setNickname(authUser.getNickname());
+            currentMemberEntity.setSocialUid(authUser.getUuid());
+            currentMemberEntity.setAccessToken(authUser.getToken().getAccessToken());
+            currentMemberEntity.setExpireIn(authUser.getToken().getExpireIn());
+            int insert = this.baseMapper.insert(currentMemberEntity);
+            if (insert>0){
+                return currentMemberEntity ;
             }else {
                 return null ;
             }

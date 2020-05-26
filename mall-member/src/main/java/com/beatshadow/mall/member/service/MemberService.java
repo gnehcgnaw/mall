@@ -7,6 +7,7 @@ import com.beatshadow.mall.member.exception.PhoneExistException;
 import com.beatshadow.mall.member.exception.UsernameExistException;
 import com.beatshadow.mall.member.vo.MemberLoginVo;
 import com.beatshadow.mall.member.vo.MemberRegisterVo;
+import me.zhyd.oauth.model.AuthUser;
 
 import java.util.Map;
 
@@ -29,5 +30,7 @@ public interface MemberService extends IService<MemberEntity> {
 
 
     MemberEntity login(MemberLoginVo memberLoginVo);
+
+    MemberEntity login(AuthUser authUser);
 }
 

@@ -3,13 +3,14 @@ package com.beatshadow.mall.member.controller;
 import java.util.Arrays;
 import java.util.Map;
 
+import com.alibaba.fastjson.JSON;
 import com.beatshadow.common.exception.BizCodeEnume;
 import com.beatshadow.mall.member.exception.PhoneExistException;
 import com.beatshadow.mall.member.exception.UsernameExistException;
 import com.beatshadow.mall.member.feign.CouponFeignService;
 import com.beatshadow.mall.member.vo.MemberLoginVo;
 import com.beatshadow.mall.member.vo.MemberRegisterVo;
-import org.springframework.beans.factory.annotation.Autowired;
+import me.zhyd.oauth.model.AuthUser;
 import org.springframework.web.bind.annotation.*;
 
 import com.beatshadow.mall.member.entity.MemberEntity;
@@ -38,11 +39,24 @@ public class MemberController {
         this.couponFeignService = couponFeignService;
     }
 
+
+    @PostMapping("/oauth/login/gitee")
+    public R oauthLoginByGitee (@RequestBody AuthUser authUser) throws Exception{
+        MemberEntity memberEntity = memberService.login(authUser);
+        if (memberEntity!=null){
+
+            return  R.ok().put("data", JSON.toJSONString(memberEntity)) ;
+        }else {
+            return R.error(BizCodeEnume.LOGINACCT_PASSWORD_INVAILD__EXCEPTION.getCode(),BizCodeEnume.LOGINACCT_PASSWORD_INVAILD__EXCEPTION.getMsg());
+        }
+
+    }
+
     @PostMapping("/login")
     public R login (@RequestBody MemberLoginVo memberLoginVo){
         MemberEntity memberEntity = memberService.login(memberLoginVo);
         if (memberEntity!=null){
-            return  R.ok() ;
+            return  R.ok().put("data", JSON.toJSONString(memberEntity)) ;
         }else {
             return R.error(BizCodeEnume.LOGINACCT_PASSWORD_INVAILD__EXCEPTION.getCode(),BizCodeEnume.LOGINACCT_PASSWORD_INVAILD__EXCEPTION.getMsg());
         }

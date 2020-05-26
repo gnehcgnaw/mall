@@ -46,7 +46,15 @@
                 </exclusion>
             </exclusions>
         </dependency>
+
+        <!--https://github.com/justauth/JustAuth-->
+        <dependency>
+            <groupId>me.zhyd.oauth</groupId>
+            <artifactId>JustAuth</artifactId>
+            <version>1.15.4-alpha</version>
+        </dependency>
     </dependencies>
+
 
     <dependencyManagement>
         <dependencies>

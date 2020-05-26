@@ -25,6 +25,8 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
+import static com.beatshadow.mall.auth.controller.RestAuthController.getString;
+
 /**
  * @author : <a href="mailto:gnehcgnaw@gmail.com">gnehcgnaw</a>
  * @since : 2020/5/25 18:17
@@ -152,19 +154,17 @@ public class LoginController {
 
     }
 
-
+    /**
+     * 普通登录
+     * @param userLoginVo
+     * @param redirectAttributes
+     * @return
+     */
     @PostMapping("/login")
     public String login(UserLoginVo userLoginVo,RedirectAttributes redirectAttributes){
         //远程登录
         R login = memberFeignService.login(userLoginVo);
-        if (login.getCode()==0){
-            return "redirect:http://mall.com" ;
-        }else {
-            HashMap<String, String> errors = new HashMap<>();
-            errors.put("msg",login.get("msg").toString());
-            redirectAttributes.addFlashAttribute("errors",errors);
-            return "redirect:http://auth.mall.com/login.html" ;
-        }
+        return getString(redirectAttributes, login);
 
     }
 }
