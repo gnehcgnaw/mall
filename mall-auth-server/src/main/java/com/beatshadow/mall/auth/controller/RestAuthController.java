@@ -3,6 +3,7 @@ package com.beatshadow.mall.auth.controller;
 import com.alibaba.fastjson.JSON;
 import com.beatshadow.common.utils.R;
 import com.beatshadow.mall.auth.feign.MemberFeignService;
+import com.beatshadow.mall.auth.vo.MemberRespondVo;
 import lombok.extern.slf4j.Slf4j;
 import me.zhyd.oauth.model.AuthCallback;
 import me.zhyd.oauth.model.AuthResponse;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.HashMap;
 
@@ -54,7 +56,7 @@ public class RestAuthController {
      * @return
      */
     @GetMapping("/callback")
-    public String login(AuthCallback callback , RedirectAttributes redirectAttributes)  {
+    public String login(AuthCallback callback , RedirectAttributes redirectAttributes , HttpSession httpSession)  {
         AuthResponse authResponse = authRequest.login(callback);
         log.debug("authResponse is {}", JSON.toJSONString(authResponse));
 
@@ -63,6 +65,9 @@ public class RestAuthController {
             //所以有两种情况：注册，或 登录
             AuthUser authUser = (AuthUser) authResponse.getData();
             R login = memberFeignService.oauthLoginByGitee(authUser);
+            MemberRespondVo memberRespondVo = JSON.parseObject((String) login.get("data"), MemberRespondVo.class);
+            httpSession.setAttribute("loginUser",memberRespondVo);
+
             return getString(redirectAttributes, login);
         }else {
             return "redirect:http://auth.mall.com/login.html";

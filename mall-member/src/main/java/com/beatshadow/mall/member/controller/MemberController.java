@@ -45,7 +45,7 @@ public class MemberController {
         MemberEntity memberEntity = memberService.login(authUser);
         if (memberEntity!=null){
 
-            return  R.ok().put("data", JSON.toJSONString(memberEntity)) ;
+            return  R.ok().put("data", memberEntity) ;
         }else {
             return R.error(BizCodeEnume.LOGINACCT_PASSWORD_INVAILD__EXCEPTION.getCode(),BizCodeEnume.LOGINACCT_PASSWORD_INVAILD__EXCEPTION.getMsg());
         }
@@ -56,7 +56,7 @@ public class MemberController {
     public R login (@RequestBody MemberLoginVo memberLoginVo){
         MemberEntity memberEntity = memberService.login(memberLoginVo);
         if (memberEntity!=null){
-            return  R.ok().put("data", JSON.toJSONString(memberEntity)) ;
+            return  R.ok().put("data", memberEntity) ;
         }else {
             return R.error(BizCodeEnume.LOGINACCT_PASSWORD_INVAILD__EXCEPTION.getCode(),BizCodeEnume.LOGINACCT_PASSWORD_INVAILD__EXCEPTION.getMsg());
         }
