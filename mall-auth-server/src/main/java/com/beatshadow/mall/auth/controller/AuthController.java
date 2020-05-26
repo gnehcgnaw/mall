@@ -1,9 +1,10 @@
 package com.beatshadow.mall.auth.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.beatshadow.common.constant.AuthServerConstant;
+import com.beatshadow.common.to.MemberRespondVo;
 import com.beatshadow.common.utils.R;
 import com.beatshadow.mall.auth.feign.MemberFeignService;
-import com.beatshadow.mall.auth.vo.MemberRespondVo;
 import lombok.extern.slf4j.Slf4j;
 import me.zhyd.oauth.model.AuthCallback;
 import me.zhyd.oauth.model.AuthResponse;
@@ -19,22 +20,25 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 
 /**
+ * 社交账号登录
+ * @see LoginController
  * @author : <a href="mailto:gnehcgnaw@gmail.com">gnehcgnaw</a>
  * @since : 2020/5/26 13:47
  */
 @Slf4j
 @Controller
 @RequestMapping("/oauth")
-public class RestAuthController {
+public class AuthController {
 
     private AuthRequest authRequest ;
 
     private MemberFeignService memberFeignService ;
 
-    public RestAuthController(AuthRequest authRequest, MemberFeignService memberFeignService) {
+    public AuthController(AuthRequest authRequest, MemberFeignService memberFeignService) {
         this.authRequest = authRequest;
         this.memberFeignService = memberFeignService;
     }
@@ -65,24 +69,23 @@ public class RestAuthController {
             //所以有两种情况：注册，或 登录
             AuthUser authUser = (AuthUser) authResponse.getData();
             R login = memberFeignService.oauthLoginByGitee(authUser);
-            MemberRespondVo memberRespondVo = JSON.parseObject((String) login.get("data"), MemberRespondVo.class);
-            httpSession.setAttribute("loginUser",memberRespondVo);
-
-            return getString(redirectAttributes, login);
+            if (login.getCode()==0){
+                LinkedHashMap<String ,Object> map  =(LinkedHashMap) login.get("data");
+                String s = JSON.toJSONString(map);
+                MemberRespondVo memberRespondVo = JSON.parseObject(s, MemberRespondVo.class);
+                httpSession.setAttribute(AuthServerConstant.LOGIN_USER,memberRespondVo);
+                return "redirect:http://mall.com" ;
+            }else {
+                HashMap<String, String> errors = new HashMap<>();
+                errors.put("msg",login.get("msg").toString());
+                redirectAttributes.addFlashAttribute("errors",errors);
+                return "redirect:http://auth.mall.com/login.html" ;
+            }
         }else {
             return "redirect:http://auth.mall.com/login.html";
         }
 
     }
 
-    static String getString(RedirectAttributes redirectAttributes, R login) {
-        if (login.getCode()==0){
-            return "redirect:http://mall.com" ;
-        }else {
-            HashMap<String, String> errors = new HashMap<>();
-            errors.put("msg",login.get("msg").toString());
-            redirectAttributes.addFlashAttribute("errors",errors);
-            return "redirect:http://auth.mall.com/login.html" ;
-        }
-    }
+
 }

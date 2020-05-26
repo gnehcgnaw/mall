@@ -1,15 +1,17 @@
-package com.beatshadow.mall.auth.vo;
+package com.beatshadow.common.to;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
+ *  Serializable payload but received an object of type [com.beatshadow.mall.auth.vo.MemberRespondVo]
  * @author : <a href="mailto:gnehcgnaw@gmail.com">gnehcgnaw</a>
  * @since : 2020/5/26 16:51
  */
 @Data
-public class MemberRespondVo {
+public class MemberRespondVo implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**

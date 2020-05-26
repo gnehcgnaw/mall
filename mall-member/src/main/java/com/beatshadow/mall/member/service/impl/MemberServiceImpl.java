@@ -55,6 +55,7 @@ public class MemberServiceImpl extends ServiceImpl<MemberDao, MemberEntity> impl
         checkUsernameUnique(memberRegisterVo.getUserName());
         memberEntity.setMobile(memberRegisterVo.getPhone());
         memberEntity.setUsername(memberRegisterVo.getUserName());
+        memberEntity.setNickname(memberRegisterVo.getUserName());
 
         //password 加密不可逆 ，MD5【信息摘要算法】 & MD5 盐值加密
         //MD5 盐值加密 ： 通过生成随机数与MD5生成字符串进行组合 ，数据库同时存储MD5值与salt值，验证正确性时使用salt进行MD5即可。

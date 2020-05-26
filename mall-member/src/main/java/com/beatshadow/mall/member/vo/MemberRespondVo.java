@@ -2,6 +2,7 @@ package com.beatshadow.mall.member.vo;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -9,7 +10,7 @@ import java.util.Date;
  * @since : 2020/5/26 16:51
  */
 @Data
-public class MemberRespondVo {
+public class MemberRespondVo implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**

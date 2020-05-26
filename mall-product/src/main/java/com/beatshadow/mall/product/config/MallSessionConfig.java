@@ -32,10 +32,10 @@ public class MallSessionConfig {
      * https://docs.spring.io/spring-session/docs/2.3.0.RELEASE/reference/html5/#api-redisindexedsessionrepository-config
      * @return
      */
-    @Bean
+/*    @Bean
     public RedisSerializer<Object> springSessionDefaultRedisSerializer(){
        //使用GenericJackson2JsonRedisSerializer序列化失败【要求VO必须在同一个路径】
         return new GenericFastJsonRedisSerializer();
-    }
+    }*/
 
 }

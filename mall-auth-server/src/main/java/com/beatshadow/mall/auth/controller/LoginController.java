@@ -1,7 +1,10 @@
 package com.beatshadow.mall.auth.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.parser.ParserConfig;
 import com.beatshadow.common.constant.AuthServerConstant;
 import com.beatshadow.common.exception.BizCodeEnume;
+import com.beatshadow.common.to.MemberRespondVo;
 import com.beatshadow.common.utils.R;
 import com.beatshadow.mall.auth.feign.MemberFeignService;
 import com.beatshadow.mall.auth.feign.SmsFeignService;
@@ -19,13 +22,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
-import static com.beatshadow.mall.auth.controller.RestAuthController.getString;
 
 /**
  * @author : <a href="mailto:gnehcgnaw@gmail.com">gnehcgnaw</a>
@@ -86,6 +90,17 @@ public class LoginController {
         return R.ok() ;
     }
 
+    @GetMapping("/login.html")
+    public String loginPage(HttpSession httpSession){
+        Object attribute = httpSession.getAttribute(AuthServerConstant.LOGIN_USER);
+        if (attribute==null) {
+            return "login" ;
+        }else {
+            return "redirect:http://mall.com" ;
+        }
+    }
+
+
     /**
      *
      *
@@ -103,20 +118,20 @@ public class LoginController {
     @PostMapping("/register")
     public String register(@Valid UserRegisterVo userRegisterVo , BindingResult bindingResult ,
                            //Model model ,
-                           RedirectAttributes redirectAttributes){
+                           RedirectAttributes redirectAttributes ){
         if (bindingResult.hasErrors()){
             Map<String, String> errors = bindingResult.getFieldErrors().stream().collect(Collectors.toMap((fieldError -> {
                 return fieldError.getField();
             }), (fieldError) -> {
                 return fieldError.getDefaultMessage();
             }));
-            //model.addAttribute("errors",errors);
             redirectAttributes.addFlashAttribute("errors",errors);
             //检验出错转发
             //return "forward:/reg.html" ;
             //http://192.168.1.7:20000/reg.html;jsessionid=C64C0A1AD3D14D669C076D3AC0FD0726
             //return "redirect:/reg.html" ;
             //必须使用域名全写
+
             return "redirect:http://auth.mall.com/reg.html" ;
         }
 
@@ -161,10 +176,36 @@ public class LoginController {
      * @return
      */
     @PostMapping("/login")
-    public String login(UserLoginVo userLoginVo,RedirectAttributes redirectAttributes){
+    public String login(UserLoginVo userLoginVo,RedirectAttributes redirectAttributes,HttpSession httpSession){
         //远程登录
         R login = memberFeignService.login(userLoginVo);
-        return getString(redirectAttributes, login);
+        if (login.getCode()==0){
+            LinkedHashMap<String ,Object> map  =(LinkedHashMap<String ,Object>) login.get("data");
+            ParserConfig.getGlobalInstance().setAutoTypeSupport(true);
+            String s = JSON.toJSONString(map);
+            MemberRespondVo memberRespondVo = JSON.parseObject(s, MemberRespondVo.class);
+            httpSession.setAttribute(AuthServerConstant.LOGIN_USER,memberRespondVo);
+            return "redirect:http://mall.com" ;
+        }else {
+            //使用jackson出现：
+            //Caused by: com.fasterxml.jackson.databind.exc.MismatchedInputException: Unexpected token (START_OBJECT), expected VALUE_STRING: need JSON String that contains type id (for subtype of java.lang.Object)
+            // at [Source: (byte[])"[{"@type":"org.springframework.web.servlet.FlashMap","errors":{"@type":"java.util.HashMap","msg":"账号密码错误"}}]"; line: 1, column: 2]
+
+            //使用fastjson出现：
+            //Caused by: com.alibaba.fastjson.JSONException: autoType is not support. org.springframework.web.servlet.FlashMap
+
+            HashMap<String, String> errors = new HashMap<>();
+            errors.put("msg",login.get("msg").toString());
+            //addFlashAttribute ,会将数据存储到httpSession
+
+            //尝试使用addAttribute还是不行出现一下错误
+            // Failed to convert value of type 'java.util.HashMap' to required type 'java.lang.String'; nested exception is java.lang.IllegalStateException: Cannot convert value of type 'java.util.HashMap' to required type 'java.lang.String': no matching editors or conversion strategy found
+            // redirectAttributes.addAttribute("errors",errors);
+            redirectAttributes.addFlashAttribute("errors",errors);
+            //最后尝试取消spring session 的json序列化
+
+            return "redirect:http://auth.mall.com/login.html" ;
+        }
 
     }
 }

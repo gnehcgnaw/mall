@@ -32,10 +32,14 @@ public class MallSessionConfig {
      * https://docs.spring.io/spring-session/docs/2.3.0.RELEASE/reference/html5/#api-redisindexedsessionrepository-config
      * @return
      */
+
+    //取消如下代码，就代表只能把公用的VO放在一起，要不然放进去，取出来不是同一个序列化的VO，【因为报名不同】
+/*
     @Bean
     public RedisSerializer<Object> springSessionDefaultRedisSerializer(){
         //使用GenericJackson2JsonRedisSerializer序列化失败【要求VO必须在同一个路径】，使用GenericFastJsonRedisSerializer可以
         return new GenericFastJsonRedisSerializer();
     }
+*/
 
 }
