@@ -1,15 +1,17 @@
-package com.beatshadow.mall.product.config;
+package com.beatshadow.mall.cart.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.util.concurrent.*;
+import java.util.concurrent.Executors;
+import java.util.concurrent.LinkedBlockingDeque;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author : <a href="mailto:gnehcgnaw@gmail.com">gnehcgnaw</a>
  * @since : 2020/5/25 16:08
  */
-//@EnableConfigurationProperties(ThreadPoolExecutor.class)
 @Configuration
 public class MyThreadConfig {
     @Bean
