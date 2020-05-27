@@ -25,6 +25,36 @@ public class CartController {
         this.cartService = cartService;
     }
 
+
+    /**
+     * 勾选购物项目
+     * @param skuId
+     * @param check  1xuanzhong 0未选中
+     * @return
+     */
+    @GetMapping("/checkItem")
+    public String checkItem(@RequestParam("skuId")Long skuId ,@RequestParam("check")Integer check){
+        cartService.checkItem(skuId, check);
+        return "redirect:http://cart.mall.com/cart.html" ;
+    }
+
+
+    @GetMapping("/countItem")
+    public String countItem(@RequestParam("skuId")Long skuId ,@RequestParam("num")Integer num){
+        cartService.countItem(skuId, num);
+        return "redirect:http://cart.mall.com/cart.html" ;
+    }
+
+    //deleteItem
+    @GetMapping("/deleteItem")
+    public String deleteItem(@RequestParam("skuId")Long skuId ){
+        cartService.deleteItem(skuId);
+        return "redirect:http://cart.mall.com/cart.html" ;
+    }
+
+
+
+
     /**
      * 首页购物车
      * 登录：session 有
@@ -51,6 +81,7 @@ public class CartController {
 
         //使用ThreadLocal 来共享数据
         Cart cart = cartService.getCart();
+        model.addAttribute("cartList",cart);
         return "cartList";
     }
 

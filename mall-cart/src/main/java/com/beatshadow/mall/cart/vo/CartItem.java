@@ -1,7 +1,6 @@
 package com.beatshadow.mall.cart.vo;
 
 
-import lombok.Builder;
 
 import java.math.BigDecimal;
 import java.util.List;
