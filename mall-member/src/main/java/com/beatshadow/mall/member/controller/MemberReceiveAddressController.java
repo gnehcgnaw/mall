@@ -1,8 +1,10 @@
 package com.beatshadow.mall.member.controller;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -84,6 +86,12 @@ public class MemberReceiveAddressController {
 		memberReceiveAddressService.removeByIds(Arrays.asList(ids));
 
         return R.ok();
+    }
+
+    @RequestMapping("/get-by-member-id/{id}")
+    public R getMemberReceiveAddressListByMemberId(@PathVariable("id") Long id){
+        List<MemberReceiveAddressEntity> memberReceiveAddressEntityList = memberReceiveAddressService.list(new QueryWrapper<MemberReceiveAddressEntity>().eq("member_id", id));
+        return R.ok().put("memberReceiveAddressEntityList",memberReceiveAddressEntityList);
     }
 
 }

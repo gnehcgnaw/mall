@@ -1,14 +1,11 @@
 package com.beatshadow.mall.product.app;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.beatshadow.mall.product.entity.SkuInfoEntity;
 import com.beatshadow.mall.product.service.SkuInfoService;
@@ -33,6 +30,12 @@ public class SkuInfoController {
         this.skuInfoService = skuInfoService;
     }
 
+    @GetMapping("/{skuId}/getPrice")
+    public R getPrice(@PathVariable("skuId") Long skuId){
+        SkuInfoEntity skuInfoEntity = skuInfoService.getById(skuId);
+        BigDecimal price = skuInfoEntity.getPrice();
+        return R.ok().put("price",price) ;
+    }
     /**
      * 列表
      */

@@ -1,5 +1,6 @@
 package com.beatshadow.mall.product.app;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Map;
 
@@ -28,6 +29,7 @@ public class SpuInfoController {
     public SpuInfoController(SpuInfoService spuInfoService) {
         this.spuInfoService = spuInfoService;
     }
+
 
     /**
      * 商品上架

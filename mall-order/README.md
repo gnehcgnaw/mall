@@ -1,17 +1,22 @@
-# Getting Started
-
-### Reference Documentation
-For further reference, please consider the following sections:
-
-* [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)
-* [Spring Boot Maven Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/2.2.6.RELEASE/maven-plugin/reference/html/)
-* [Create an OCI image](https://docs.spring.io/spring-boot/docs/2.2.6.RELEASE/maven-plugin/reference/html/#build-image)
-* [Spring Web](https://docs.spring.io/spring-boot/docs/2.2.6.RELEASE/reference/htmlsingle/#boot-features-developing-web-applications)
-
-### Guides
-The following guides illustrate how to use some features concretely:
-
-* [Building a RESTful Web Service](https://spring.io/guides/gs/rest-service/)
-* [Serving Web Content with Spring MVC](https://spring.io/guides/gs/serving-web-content/)
-* [Building REST services with Spring](https://spring.io/guides/tutorials/bookmarks/)
-
+电商系统的三流：
+1、信息流
+2、资金流
+3、物流
+而订单系统作为中枢将三者有机结合在一起，这个环节需要多个模块的数据和信息，同时对这些信息进行加工处理后流向下一个环节。
+订单中心：
+1、用户信息
+2、订单信息
+3、商品信息
+4、物流信息
+5、支付信息
+6、促销信息
+订单的状态：
+1、代付款【长时间未支付要重置库存锁定】
+2、已发货、待发货 【仓库系统】
+3、待收货、已发货【订单系统同步物流信息】
+4、已完成
+5、已取消
+6、售后中
+订单的流程
+1、虚拟订单
+2、实物订单

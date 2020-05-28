@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.math.BigDecimal;
+
 /**
  * @author : <a href="mailto:gnehcgnaw@gmail.com">gnehcgnaw</a>
  * @since : 2020/5/27 17:58
@@ -18,4 +20,7 @@ public interface ProductFeignService {
 
     @GetMapping("/product/skusaleattrvalue/saleattrs/{skuId}")
     public R getSkuSaleAttrValues(@PathVariable("skuId")Long skuId);
+
+    @GetMapping("product/skuinfo/{skuId}/getPrice")
+    public R getPrice(@PathVariable("skuId") Long skuId);
 }

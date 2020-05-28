@@ -1,7 +1,9 @@
 package com.beatshadow.mall.cart.controller;
 
+import com.beatshadow.common.utils.R;
 import com.beatshadow.mall.cart.interceptor.CartInterceptor;
 import com.beatshadow.mall.cart.services.CartService;
+import com.beatshadow.mall.cart.services.impl.CartServiceImpl;
 import com.beatshadow.mall.cart.vo.Cart;
 import com.beatshadow.mall.cart.vo.CartItem;
 import com.beatshadow.mall.cart.vo.UserInfoTo;
@@ -9,7 +11,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.List;
 
 
 /**
@@ -23,6 +28,14 @@ public class CartController {
 
     public CartController(CartService cartService) {
         this.cartService = cartService;
+    }
+
+
+    @GetMapping("/getCurrentUserCartItems")
+    @ResponseBody
+    public  R  getCurrentUserCartItems(){
+        List<CartItem> cartItemList = cartService.getCurrentUserCartItems();
+        return R.ok().put("cartItemList",cartItemList) ;
     }
 
 
