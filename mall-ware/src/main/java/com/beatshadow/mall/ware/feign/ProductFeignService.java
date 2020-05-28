@@ -5,6 +5,9 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+/**
+ * @author gnehcgnaw
+ */
 @FeignClient(value = "mall-product")
 public interface ProductFeignService {
 
