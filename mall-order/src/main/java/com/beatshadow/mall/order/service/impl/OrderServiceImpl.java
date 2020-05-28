@@ -5,13 +5,16 @@ import com.beatshadow.common.to.MemberRespondVo;
 import com.beatshadow.common.utils.R;
 import com.beatshadow.mall.order.feign.CartFeignService;
 import com.beatshadow.mall.order.feign.MemberFeignService;
+import com.beatshadow.mall.order.feign.WareFeignService;
 import com.beatshadow.mall.order.interceptor.LoginUserInterceptor;
 import com.beatshadow.mall.order.vo.MemberAddressVo;
 import com.beatshadow.mall.order.vo.OrderConfirmVo;
 import com.beatshadow.mall.order.vo.OrderItemVo;
+import com.beatshadow.mall.order.vo.SkuStockVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -45,10 +48,13 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
     private ThreadPoolExecutor threadPoolExecutor ;
 
     private CartFeignService cartFeignService ;
-    public OrderServiceImpl(MemberFeignService memberFeignService, ThreadPoolExecutor threadPoolExecutor, CartFeignService cartFeignService) {
+
+    private WareFeignService wareFeignService ;
+    public OrderServiceImpl(MemberFeignService memberFeignService, ThreadPoolExecutor threadPoolExecutor, CartFeignService cartFeignService, WareFeignService wareFeignService) {
         this.memberFeignService = memberFeignService;
         this.threadPoolExecutor = threadPoolExecutor;
         this.cartFeignService = cartFeignService;
+        this.wareFeignService = wareFeignService;
     }
 
 
@@ -68,7 +74,8 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
         MemberRespondVo memberRespondVo = LoginUserInterceptor.userInfoToThreadLocal.get();
         log.debug("当前线程：{}" ,Thread.currentThread().getName());
         RequestAttributes mainRequestAttributes = RequestContextHolder.getRequestAttributes();
-      /*  log.debug("当前线程：{}" ,Thread.currentThread().getName());
+        //逻辑测试使用一下代码，后续需要使用异步编排进行改造
+      /**  log.debug("当前线程：{}" ,Thread.currentThread().getName());
         //同步主线程的请求信息
         RequestContextHolder.setRequestAttributes(mainRequestAttributes);
         //获取收货地址列表
@@ -114,7 +121,6 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
         return orderConfirmVo ;
         */
 
-
         CompletableFuture<Void> memberAddressListCompletableFuture = CompletableFuture.runAsync(() -> {
             log.debug("当前线程：{}" ,Thread.currentThread().getName());
             //同步主线程的请求信息
@@ -158,13 +164,40 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
                 orderConfirmVo.setItems(null);
             }
 
-        }, threadPoolExecutor);
+        }, threadPoolExecutor).thenRunAsync(()->{
+            //org.springframework.web.util.NestedServletException: Request processing failed; nested exception is java.lang.IllegalStateException: Cannot create a session after the response has been committed
+            //	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014) ~[spring-webmvc-5.2.5.RELEASE.jar:5.2.5.RELEASE]
+            //	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:898) ~[spring-webmvc-5.2.5.RELEASE.jar:5.2.5.RELEASE]
+            List<OrderItemVo> items = orderConfirmVo.getItems();
+            List<Long> skuList = items.stream().map((item) -> {
+                Long skuId = item.getSkuId();
+                return skuId;
+            }).collect(Collectors.toList());
+
+            R skuHasStock = wareFeignService.getSkuHasStock(skuList);
+            //库存
+            if (skuHasStock.getCode() == 0) {
+
+                ArrayList skuHasStockVoList = (ArrayList<Object>) skuHasStock.get("skuHasStockVoList");
+                Map<Long, Boolean> stocksMap = (Map<Long, Boolean>) (skuHasStockVoList.stream().map((stock) -> {
+                    String string = JSON.toJSONString(stock);
+                    SkuStockVo skuStockVo = JSON.parseObject(string, SkuStockVo.class);
+                    return skuStockVo;
+                }).collect(Collectors.toMap(SkuStockVo::getSkuId, SkuStockVo::getHasStock)));
+                orderConfirmVo.setStocks(stocksMap);
+                log.debug("stocksMap is {}",JSON.toJSONString(stocksMap));
+            }
+
+        },threadPoolExecutor);
 
         CompletableFuture.allOf(orderItemVoListCompletableFuture,memberAddressListCompletableFuture).get();
         //查询用户积分
         Integer integration = LoginUserInterceptor.userInfoToThreadLocal.get().getIntegration();
         //获取总价
         orderConfirmVo.setIntegration(integration);
+
+
+        log.debug(JSON.toJSONString(orderConfirmVo));
         return orderConfirmVo ;
     }
 

@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author : <a href="mailto:gnehcgnaw@gmail.com">gnehcgnaw</a>
@@ -63,6 +64,24 @@ public class OrderConfirmVo {
     @Getter
     @Setter
     private String orderToken ;
+
+    /**
+     * 库存信息
+     */
+    @Getter
+    @Setter
+    private Map<Long,Boolean> stocks ;
+
+    public Integer getCount(){
+        Integer i = 0;
+        if (items!=null){
+            for (OrderItemVo item : items) {
+                //为什么使用item的price吗，因为此时price是最新值
+                i += item.getCount();
+            }
+        }
+        return  i ;
+    }
 
     public BigDecimal getTotal() {
         BigDecimal total = new BigDecimal("0");

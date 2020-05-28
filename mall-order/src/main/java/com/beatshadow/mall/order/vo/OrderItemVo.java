@@ -1,6 +1,8 @@
 package com.beatshadow.mall.order.vo;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -46,5 +48,6 @@ public class OrderItemVo {
      * 小计
      */
     private BigDecimal totalPrice ;
+
 
 }
