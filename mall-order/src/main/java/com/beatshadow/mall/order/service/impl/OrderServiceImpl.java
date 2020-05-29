@@ -275,6 +275,10 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
             if (Math.abs(payAmount.subtract(payPrice).doubleValue())<0.01) {
                 //金额对比成功
                 //保存订单【即生成订单】
+
+                /**
+                 * 保存订单
+                 */
                 saveOrder(orderCreateTo);
                 //锁定库存 ---》只要有异常回滚数据
                 //wms_ware_sku
@@ -291,10 +295,17 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
                 }).collect(Collectors.toList());
                 wareSkuLockVo.setLocks(orderItemVos);
                 //远程采用的是异常回滚——————假失败，库存扣件了，但是read time，订单都会回滚，但是库存没有回滚
+                /**
+                 * 调用远程库存服务，进行远程锁定库存
+                 */
                 R r = wareFeignService.orderLockStock(wareSkuLockVo);
                 if (r.getCode()==0){
                     //锁定成功
                     submitOrderResponseVo.setOrder(orderCreateTo.getOrder());
+                    /**
+                     * 有可能还有远程扣减积分的服务，使用 int i = 10/0 ; 进行模拟，不易入分布式事务的时候，订单回滚，库存不回滚
+                     */
+                    int i = 10/0 ;
                 }else{
                     //锁定失败
                     submitOrderResponseVo.setCode(3);
