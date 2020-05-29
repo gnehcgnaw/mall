@@ -4,9 +4,11 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import com.beatshadow.common.exception.BizCodeEnume;
+import com.beatshadow.common.exception.NoStockException;
 import com.beatshadow.common.to.SkuHasStockVo;
+import com.beatshadow.mall.ware.vo.WareSkuLockVo;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import com.beatshadow.mall.ware.entity.WareSkuEntity;
@@ -31,6 +33,20 @@ public class WareSkuController {
 
     public WareSkuController(WareSkuService wareSkuService) {
         this.wareSkuService = wareSkuService;
+    }
+
+    /**
+     * 锁定库存
+     */
+    @PostMapping("/lock/order")
+    public R orderLockStock(@RequestBody WareSkuLockVo wareSkuLockVo){
+        try{
+            Boolean stock = wareSkuService.orderLockStock(wareSkuLockVo);
+            return R.ok();
+        }catch (NoStockException noStockException){
+            return R.error(BizCodeEnume.NO_STACK_EXCEPTION.getCode(),BizCodeEnume.NO_STACK_EXCEPTION.getMsg());
+        }
+
     }
 
     /**

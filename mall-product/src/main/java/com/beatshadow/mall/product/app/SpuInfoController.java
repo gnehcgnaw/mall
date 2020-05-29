@@ -30,7 +30,11 @@ public class SpuInfoController {
         this.spuInfoService = spuInfoService;
     }
 
-
+    @GetMapping("/skuId/{id}")
+    public R getSpuInfoBySkuId(@PathVariable("id")Long skuId){
+        SpuInfoEntity spuInfoEntity = spuInfoService.getSpuInfoBySkuId(skuId);
+        return R.ok().put("spuInfoEntity",spuInfoEntity) ;
+    }
     /**
      * 商品上架
      * @param spuId

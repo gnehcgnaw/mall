@@ -18,6 +18,8 @@ package com.beatshadow.common.exception;
  *  14: 物流
  *  15: 用户
  *
+ *  21 库存
+ *
  *
  */
 public enum BizCodeEnume {
@@ -27,7 +29,8 @@ public enum BizCodeEnume {
     VAILD_SMS_EXCEPTION(002,"短信验证码获取频率太高"),
     USER_EXIST_EXCEPTION(15001,"用户存在异常"),
     PHONE_EXIST_EXCEPTION(15002,"用户存在异常"),
-    LOGINACCT_PASSWORD_INVAILD__EXCEPTION(15003,"账号密码错误");
+    LOGINACCT_PASSWORD_INVAILD__EXCEPTION(15003,"账号密码错误"),
+    NO_STACK_EXCEPTION(21000,"商品库存不足");
     private int code;
     private String msg;
     BizCodeEnume(int code,String msg){

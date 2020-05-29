@@ -1,4 +1,4 @@
-package com.beatshadow.mall.order.vo;
+package com.beatshadow.mall.ware.vo;
 
 import lombok.Data;
 
