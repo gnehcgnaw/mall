@@ -27,8 +27,11 @@ import com.beatshadow.common.utils.R;
 @RestController
 @RequestMapping("coupon/seckillskurelation")
 public class SeckillSkuRelationController {
-    @Autowired
-    private SeckillSkuRelationService seckillSkuRelationService;
+    private final SeckillSkuRelationService seckillSkuRelationService;
+
+    public SeckillSkuRelationController(SeckillSkuRelationService seckillSkuRelationService) {
+        this.seckillSkuRelationService = seckillSkuRelationService;
+    }
 
     /**
      * 列表

@@ -13,14 +13,22 @@ import com.beatshadow.mall.coupon.entity.SeckillSkuRelationEntity;
 import com.beatshadow.mall.coupon.service.SeckillSkuRelationService;
 
 
+/**
+ * @author gnehcgnaw
+ */
 @Service("seckillSkuRelationService")
 public class SeckillSkuRelationServiceImpl extends ServiceImpl<SeckillSkuRelationDao, SeckillSkuRelationEntity> implements SeckillSkuRelationService {
 
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
+        String promotionSessionId = (String) params.get("promotionSessionId");
+        QueryWrapper<SeckillSkuRelationEntity> seckillSkuRelationEntityQueryWrapper = new QueryWrapper<>();
+        if (promotionSessionId!=null){
+            seckillSkuRelationEntityQueryWrapper.eq("promotion_session_id",promotionSessionId);
+        }
         IPage<SeckillSkuRelationEntity> page = this.page(
                 new Query<SeckillSkuRelationEntity>().getPage(params),
-                new QueryWrapper<SeckillSkuRelationEntity>()
+                seckillSkuRelationEntityQueryWrapper
         );
 
         return new PageUtils(page);
