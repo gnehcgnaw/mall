@@ -6,6 +6,7 @@ import com.beatshadow.common.to.MemberRespondVo;
 import com.beatshadow.common.utils.R;
 import com.beatshadow.mall.order.constant.OrderConstant;
 import com.beatshadow.mall.order.entity.OrderItemEntity;
+import com.beatshadow.mall.order.entity.PaymentInfoEntity;
 import com.beatshadow.mall.order.enume.OrderStatusEnum;
 import com.beatshadow.mall.order.feign.CartFeignService;
 import com.beatshadow.mall.order.feign.MemberFeignService;
@@ -13,6 +14,7 @@ import com.beatshadow.mall.order.feign.ProductFeignService;
 import com.beatshadow.mall.order.feign.WareFeignService;
 import com.beatshadow.mall.order.interceptor.LoginUserInterceptor;
 import com.beatshadow.mall.order.service.OrderItemService;
+import com.beatshadow.mall.order.service.PaymentInfoService;
 import com.beatshadow.mall.order.to.OrderCreateTo;
 import com.beatshadow.mall.order.vo.*;
 import lombok.extern.slf4j.Slf4j;
@@ -65,15 +67,17 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
 
     private OrderItemService orderItemService ;
 
-    public OrderServiceImpl(MemberFeignService memberFeignService, ThreadPoolExecutor threadPoolExecutor, CartFeignService cartFeignService, WareFeignService wareFeignService, StringRedisTemplate stringRedisTemplate, ProductFeignService productFeignService, OrderItemService orderItemService) {
+    private PaymentInfoService paymentInfoService ;
+
+    public OrderServiceImpl(MemberFeignService memberFeignService, ThreadPoolExecutor threadPoolExecutor, CartFeignService cartFeignService, WareFeignService wareFeignService, StringRedisTemplate stringRedisTemplate, ProductFeignService productFeignService, OrderItemService orderItemService, PaymentInfoService paymentInfoService) {
         this.memberFeignService = memberFeignService;
         this.threadPoolExecutor = threadPoolExecutor;
         this.cartFeignService = cartFeignService;
         this.wareFeignService = wareFeignService;
         this.stringRedisTemplate = stringRedisTemplate;
         this.productFeignService = productFeignService;
-
         this.orderItemService = orderItemService;
+        this.paymentInfoService = paymentInfoService;
     }
 
 
@@ -305,7 +309,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
                     /**
                      * 有可能还有远程扣减积分的服务，使用 int i = 10/0 ; 进行模拟，不易入分布式事务的时候，订单回滚，库存不回滚
                      */
-                    int i = 10/0 ;
+                    //int i = 10/0 ;
                 }else{
                     //锁定失败
                     submitOrderResponseVo.setCode(3);
@@ -316,6 +320,58 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
             }
         }
         return submitOrderResponseVo ;
+    }
+
+    @Override
+    public PayVo getOrderPay(String orderSn) {
+        PayVo payVo = new PayVo();
+        OrderEntity orderEntity = this.getOne(new QueryWrapper<OrderEntity>().eq("order_sn", orderSn));
+        payVo.setTotal_amount(orderEntity.getTotalAmount().setScale(2, BigDecimal.ROUND_UP).toString());
+        payVo.setOut_trade_no(orderEntity.getOrderSn());
+        payVo.setSubject("mall");
+        payVo.setBody("mall");
+        return payVo;
+    }
+
+    @Override
+    public PageUtils queryPageWithItem(Map<String, Object> params) {
+        MemberRespondVo memberRespondVo = LoginUserInterceptor.userInfoToThreadLocal.get();
+        IPage<OrderEntity> page = this.page(
+                new Query<OrderEntity>().getPage(params),
+                new QueryWrapper<OrderEntity>().eq("member_id",memberRespondVo.getId())
+                .orderByDesc("id")
+        );
+        List<OrderEntity> orderEntities = page.getRecords().stream().map((orderEntity -> {
+            List<OrderItemEntity> orderItemEntities = orderItemService.list(new QueryWrapper<OrderItemEntity>().eq("order_sn", orderEntity.getOrderSn()));
+            orderEntity.setItemEntities(orderItemEntities);
+            return orderEntity;
+        })).collect(Collectors.toList());
+        page.setRecords(orderEntities);
+        return new PageUtils(page);
+    }
+
+    @Override
+    public String handlePayResult(PayAsyncVo payAsyncVo) {
+        //oms-payment-info 【交易流水】
+        PaymentInfoEntity paymentInfoEntity = new PaymentInfoEntity();
+        paymentInfoEntity.setAlipayTradeNo(payAsyncVo.getTrade_no());
+        paymentInfoEntity.setOrderSn(payAsyncVo.getOut_trade_no());
+        paymentInfoEntity.setPaymentStatus(payAsyncVo.getTrade_status());
+        paymentInfoEntity.setCallbackTime(payAsyncVo.getNotify_time());
+        //交易号，订单号，异步号都唯一
+        paymentInfoService.save(paymentInfoEntity);
+        //修改订单状态
+        //TRADE_SUCCESS ,可以退款
+        //TRADE_FINISHED，不可以退款的
+        if (payAsyncVo.getTrade_status().equals("TRADE_SUCCESS")||payAsyncVo.getTrade_status().equals("TRADE_FINISHED")) {
+            String out_trade_no = payAsyncVo.getOut_trade_no();
+            this.updateOrderStatus(out_trade_no,OrderStatusEnum.PAYED.getCode());
+        }
+        return "success";
+    }
+
+    private void updateOrderStatus(String out_trade_no, Integer code) {
+        this.baseMapper.updateOrderStatus(out_trade_no,code);
     }
 
     /**

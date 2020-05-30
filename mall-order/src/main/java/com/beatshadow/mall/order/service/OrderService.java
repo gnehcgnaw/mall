@@ -3,9 +3,7 @@ package com.beatshadow.mall.order.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.beatshadow.common.utils.PageUtils;
 import com.beatshadow.mall.order.entity.OrderEntity;
-import com.beatshadow.mall.order.vo.OrderConfirmVo;
-import com.beatshadow.mall.order.vo.OrderSubmitVo;
-import com.beatshadow.mall.order.vo.SubmitOrderResponseVo;
+import com.beatshadow.mall.order.vo.*;
 
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
@@ -24,5 +22,11 @@ public interface OrderService extends IService<OrderEntity> {
     OrderConfirmVo confirmOrder() throws ExecutionException, InterruptedException;
 
     SubmitOrderResponseVo submitOrder(OrderSubmitVo orderSubmitVo);
+
+    PayVo getOrderPay(String orderSn);
+
+    PageUtils queryPageWithItem(Map<String, Object> params);
+
+    String handlePayResult(PayAsyncVo payAsyncVo);
 }
 

@@ -3,12 +3,10 @@ package com.beatshadow.mall.order.controller;
 import java.util.Arrays;
 import java.util.Map;
 
+import com.alibaba.fastjson.JSON;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.beatshadow.mall.order.entity.OrderEntity;
 import com.beatshadow.mall.order.service.OrderService;
@@ -24,6 +22,7 @@ import com.beatshadow.common.utils.R;
  * @email gnehcgnaw@gmail.com
  * @date 2020-05-18 07:06:14
  */
+@Slf4j
 @RestController
 @RequestMapping("order/order")
 public class OrderController {
@@ -85,5 +84,18 @@ public class OrderController {
 
         return R.ok();
     }
+
+    /**
+     * 查询到当前用户的订单数据
+     * @param params
+     * @return
+     */
+    @PostMapping("/listWithItem")
+    public R listWithItem(@RequestBody Map<String,Object> params){
+        PageUtils page = orderService.queryPageWithItem(params);
+        log.debug("page : {}", JSON.toJSONString(page));
+        return R.ok().put("page",page);
+    }
+
 
 }

@@ -185,3 +185,36 @@ https://github.com/seata/seata
 * 后台管理spuinfo的时候，使用seata的At模式 ，
 
 * 下订单使用失败发消息给库存服务，也可以让库存本身使用自动解锁
+
+<img src="http://gnehcgnaw.oss-cn-hongkong.aliyuncs.com/blog/2020/05/2020-05-30-tmf5f6.png!github_blog" alt="image-20200530005854167" style="zoom:67%;" />
+
+<img src="http://gnehcgnaw.oss-cn-hongkong.aliyuncs.com/blog/2020/05/2020-05-30-KRPVOd.png!github_blog" alt="image-20200530005922155" style="zoom:67%;" />
+
+![image-20200530010007923](http://gnehcgnaw.oss-cn-hongkong.aliyuncs.com/blog/2020/05/2020-05-30-W2XG2O.png!github_blog)
+
+![image-20200530010453590](http://gnehcgnaw.oss-cn-hongkong.aliyuncs.com/blog/2020/05/2020-05-30-mNRADL.png!github_blog)
+
+![image-20200530010637976](http://gnehcgnaw.oss-cn-hongkong.aliyuncs.com/blog/2020/05/2020-05-30-KFXAqE.png!github_blog)
+
+![image-20200530011633431](http://gnehcgnaw.oss-cn-hongkong.aliyuncs.com/blog/2020/05/2020-05-30-sK1cWz.png!github_blog)
+
+# 支付模块
+
+![image-20200530014057080](http://gnehcgnaw.oss-cn-hongkong.aliyuncs.com/blog/2020/05/2020-05-30-bjghVw.png!github_blog)
+
+## 公钥、私钥？
+
+![image-20200530014337739](http://gnehcgnaw.oss-cn-hongkong.aliyuncs.com/blog/2020/05/2020-05-30-CeKqAU.png!github_blog)
+
+![image-20200530014810215](http://gnehcgnaw.oss-cn-hongkong.aliyuncs.com/blog/2020/05/2020-05-30-iTprbZ.png!github_blog)
+
+## 使用沙箱环境
+
+异步通知，通过内网穿透软件测试的时候出现问题，
+
+<img src='http://gnehcgnaw.oss-cn-hongkong.aliyuncs.com/blog/2020/05/2020-05-30-qNfC0C.png!github_blog' alt='2020-05-30-qNfC0C'/>
+
+![image-20200530153052304](http://gnehcgnaw.oss-cn-hongkong.aliyuncs.com/blog/2020/05/2020-05-30-NT08y7.png!github_blog)
+
+![image-20200530161526945](http://gnehcgnaw.oss-cn-hongkong.aliyuncs.com/blog/2020/05/2020-05-30-AA0AWh.png!github_blog)
+

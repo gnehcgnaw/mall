@@ -1,6 +1,6 @@
-package com.beatshadow.mall.order.config;
+package com.beatshadow.mall.member.config;
 
-import com.beatshadow.mall.order.interceptor.LoginUserInterceptor;
+import com.beatshadow.mall.member.interceptor.LoginUserInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -13,6 +13,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class MallWebConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new LoginUserInterceptor()).addPathPatterns("/**").excludePathPatterns("/payed/notify");
+        //放行/member/**
+        registry.addInterceptor(new LoginUserInterceptor()).addPathPatterns("/**").excludePathPatterns("/member/member/login","/member/memberreceiveaddress/**");
     }
 }

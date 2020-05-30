@@ -33,6 +33,9 @@ public class WareInfoController {
 
     /**
      * 获取运费信息
+     *
+     * org.springframework.web.client.RestClientException: Could not extract response: no suitable HttpMessageConverter
+     * found for response type [class com.beatshadow.common.utils.R] and content type [text/html;charset=UTF-8]
      */
     @GetMapping("/fare")
     public R getFare(@RequestParam("addrId") Long addrId){
