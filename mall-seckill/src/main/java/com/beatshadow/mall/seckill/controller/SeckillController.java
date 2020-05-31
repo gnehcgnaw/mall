@@ -49,7 +49,6 @@ public class SeckillController {
     @GetMapping("/kill")
     public R seckill(@RequestParam("killId") String killId , @RequestParam("key") String key ,@RequestParam("num")  Long num){
         //判断是否登录
-
         return R.ok();
     }
 }
