@@ -5,10 +5,12 @@ import com.beatshadow.mall.coupon.service.SeckillSkuRelationService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -49,7 +51,8 @@ public class SeckillSessionServiceImpl extends ServiceImpl<SeckillSessionDao, Se
 
     @Override
     public List<SeckillSessionEntity> getLatest3DaySession() {
-        log.debug("最近三天的时间间隔是：{}——{}",startTime(),endTime());
+        log.debug("最近三天的时间间隔是：{}——{},当前时间为：{}",startTime(),endTime(),currentTime());
+        //操作数据库时间相差时区解决方案：https://www.cnblogs.com/bignode/p/9310893.html
         List<SeckillSessionEntity> seckillSessionEntities = this.baseMapper.selectList(new QueryWrapper<SeckillSessionEntity>().between("start_time", startTime(), endTime()));
         if (seckillSessionEntities!=null&& seckillSessionEntities.size()>0){
             List<SeckillSessionEntity> seckillSessionDetailEntities = seckillSessionEntities.stream().map(session -> {
@@ -68,6 +71,7 @@ public class SeckillSessionServiceImpl extends ServiceImpl<SeckillSessionDao, Se
         LocalDate now = LocalDate.now();
         LocalTime min = LocalTime.MIN;
         LocalDateTime startTime = LocalDateTime.of(now,min);
+
         return startTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) ;
     }
 
@@ -77,5 +81,10 @@ public class SeckillSessionServiceImpl extends ServiceImpl<SeckillSessionDao, Se
         return endTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) ;
     }
 
+
+    private String currentTime(){
+        LocalDateTime now = LocalDateTime.now();
+        return now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) ;
+    }
 
 }

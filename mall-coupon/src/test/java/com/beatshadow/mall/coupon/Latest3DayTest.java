@@ -3,10 +3,10 @@ package com.beatshadow.mall.coupon;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoField;
+import java.util.Date;
 
 /**
  * @author : <a href="mailto:gnehcgnaw@gmail.com">gnehcgnaw</a>
@@ -25,6 +25,10 @@ public class Latest3DayTest {
         LocalDate now = LocalDate.now();
         LocalTime min = LocalTime.MIN;
         LocalDateTime startTime = LocalDateTime.of(now,min);
+        ZoneId zoneId = ZoneOffset.systemDefault();
+        long time = Date.from(LocalDateTime.now().atZone(zoneId).toInstant()).getTime();
+        System.out.println(time);
+        System.out.println(System.currentTimeMillis());
         return startTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) ;
     }
 
@@ -32,6 +36,11 @@ public class Latest3DayTest {
         LocalDate localDate = LocalDate.now().plusDays(2);
         LocalDateTime endTime = LocalDateTime.of(localDate, LocalTime.MAX);
         return endTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) ;
+    }
+
+    @Test
+    public void  currentTime(){
+        log.debug("current time is {}",System.currentTimeMillis());
     }
 
 }

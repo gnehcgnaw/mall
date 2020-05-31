@@ -1,11 +1,14 @@
 package com.beatshadow.mall.product.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.beatshadow.common.to.SkuHasStockVo;
 import com.beatshadow.common.utils.R;
 import com.beatshadow.mall.product.entity.SkuImagesEntity;
 import com.beatshadow.mall.product.entity.SpuInfoDescEntity;
+import com.beatshadow.mall.product.feign.SeckillFeignService;
 import com.beatshadow.mall.product.feign.WareFeignService;
 import com.beatshadow.mall.product.service.*;
+import com.beatshadow.mall.product.vo.SeckillInfoVo;
 import com.beatshadow.mall.product.vo.SkuItemSaleAttrVo;
 import com.beatshadow.mall.product.vo.SkuItemVo;
 import com.beatshadow.mall.product.vo.SpuItemAttrGroupVo;
@@ -46,13 +49,16 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoDao, SkuInfoEntity> i
 
     private ThreadPoolExecutor threadPoolExecutor ;
 
-    public SkuInfoServiceImpl(SkuImagesService skuImagesService, SpuInfoDescService spuInfoDescService, AttrGroupService attrGroupService, SkuSaleAttrValueService skuSaleAttrValueService, WareFeignService wareFeignService, ThreadPoolExecutor threadPoolExecutor) {
+    private SeckillFeignService seckillFeignService ;
+
+    public SkuInfoServiceImpl(SkuImagesService skuImagesService, SpuInfoDescService spuInfoDescService, AttrGroupService attrGroupService, SkuSaleAttrValueService skuSaleAttrValueService, WareFeignService wareFeignService, ThreadPoolExecutor threadPoolExecutor, SeckillFeignService seckillFeignService) {
         this.skuImagesService = skuImagesService;
         this.spuInfoDescService = spuInfoDescService;
         this.attrGroupService = attrGroupService;
         this.skuSaleAttrValueService = skuSaleAttrValueService;
         this.wareFeignService = wareFeignService;
         this.threadPoolExecutor = threadPoolExecutor;
+        this.seckillFeignService = seckillFeignService;
     }
 
     @Override
@@ -179,12 +185,27 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoDao, SkuInfoEntity> i
             skuItemVo.setImages(skuImagesEntityList);
         }, threadPoolExecutor);
 
+
+        //当前SKu是否参与秒杀优惠
+        CompletableFuture<Void> seckillSkuRedisToCompletableFuture = CompletableFuture.runAsync(() -> {
+            R skuSeckillInfo = seckillFeignService.getSkuSeckillInfo(skuId);
+            if (skuSeckillInfo.getCode() == 0) {
+                LinkedHashMap<String, Object> seckillSkuRedisTo = (LinkedHashMap<String, Object>) skuSeckillInfo.get("seckillSkuRedisTo");
+                if (seckillSkuRedisTo != null && seckillSkuRedisTo.size() > 0) {
+                    String string = JSON.toJSONString(seckillSkuRedisTo);
+                    SeckillInfoVo seckillInfoVo = JSON.parseObject(string, SeckillInfoVo.class);
+                    skuItemVo.setSeckillInfo(seckillInfoVo);
+                }
+            }
+        }, threadPoolExecutor);
+
         CompletableFuture.allOf(
                 attrGroupCompletableFuture,
                 skuSaleAttrValueCompletableFuture,
                 spuInfoDescEntityCompletableFuture,
                 hasStockCompletableFuture,
-                getImagesCompletableFuture).get();
+                getImagesCompletableFuture,
+                seckillSkuRedisToCompletableFuture).get();
         return skuItemVo;
     }
 

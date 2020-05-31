@@ -42,5 +42,9 @@ public class SkuItemVo {
     private List<SkuItemSaleAttrVo> saleAttr ;
 
     private List<SpuItemAttrGroupVo> groupAttrs ;
+    /**
+     * 秒杀信息预告
+     */
+    private SeckillInfoVo seckillInfo;
 
 }

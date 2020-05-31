@@ -504,8 +504,8 @@
 									<span>￥</span>
 									<span th:text="${#numbers.formatDecimal(item.info.price,3,2)}">4499.00</span>
 								</li>
-								<li>
-									预约享资格
+								<li style="color: red" th:if="${item.seckillInfo!=null}" >
+									[[${#dates.format(new java.util.Date(item.seckillInfo.startTime),"yyyy-MM-dd HH:mm:ss")}]]
 								</li>
 								<li>
 									<a href="/static/item/">
@@ -630,6 +630,15 @@
 									加入购物车
 								</a>
 							</div>
+							<div class="box-btns-three">
+								&nbsp;&nbsp;&nbsp;
+							</div>
+							<div class="box-btns-two">
+								<a  class="addKillA" id="addKillA" th:attr="skuId=${item.info.skuId},sessionId=${item.seckillInfo.promotionSessionId},code=${item.seckillInfo.randomCode}">
+									立即抢购
+								</a>
+							</div>
+
 							<div class="box-btns-three">
 								<img src="/static/item/img/e4ed3606843f664591ff1f68f7fda12d.png" alt="" /> 分享
 							</div>
@@ -1494,6 +1503,19 @@
 				location.href = "http://cart.mall.com/addToCart?skuId="+skuId+"&num="+num ;
 				return false ;
  		})
+
+		$("#addKillA").click(function () {
+			var isLogin = [[${session.loginUser!=null}]];
+			if (isLogin){
+				var killId = $(this).attr("sessionId")+"_"+$(this).attr("skuId");
+				var key = $(this).attr("code");
+				var num = $("#numInput").val();
+				location.href = "http://seckill.mall.com/kill?killId="+killId+"&key="+key+"&num="+num ;
+			}else {
+				alert("请登录");
+			}
+			return false ;
+		})
 	</script>
 
 </html>

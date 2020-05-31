@@ -9,6 +9,7 @@ import com.beatshadow.mall.seckill.to.SeckillSkuRedisTo;
 import com.beatshadow.mall.seckill.vo.SeckillSessionsWithSkus;
 import com.beatshadow.mall.seckill.vo.SeckillSkuVo;
 import com.beatshadow.mall.seckill.vo.SkuInfoVo;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RSemaphore;
 import org.redisson.api.RedissonClient;
@@ -17,10 +18,8 @@ import org.springframework.data.redis.core.BoundHashOperations;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 /**
@@ -75,6 +74,64 @@ public class SeckillServiceImpl implements SeckillService {
         }
     }
 
+    @Override
+    public List<SeckillSkuRedisTo> getCurrentSeckillSkus() {
+        //1、确定秒杀场次
+        long currentTime = System.currentTimeMillis();
+        Set<String> keys = stringRedisTemplate.keys(SESSION_CACHE_PREFIX + "*");
+        for (String key : keys) {
+            String replace = key.replace(SESSION_CACHE_PREFIX, "");
+            String[] split = replace.split("_");
+            long startTime = Long.parseLong(split[0]);
+            long endTime = Long.parseLong(split[1]);
+            if (currentTime>=startTime&&currentTime<=endTime){
+                List<String> range = stringRedisTemplate.opsForList().range(key, -100, 100);
+                BoundHashOperations<String, String, Object> stringObjectObjectBoundHashOperations = stringRedisTemplate.boundHashOps(SKUKILL_CACHE_PREDIX);
+                List<Object> list = stringObjectObjectBoundHashOperations.multiGet(range);
+                if (list != null) {
+                    List<SeckillSkuRedisTo> collect = list.stream().map(item -> {
+                        SeckillSkuRedisTo seckillSkuRedisTo = JSON.parseObject(item.toString(), SeckillSkuRedisTo.class);
+                        //当前秒杀开始，
+                        //seckillSkuRedisTo.setRandomCode(null);
+                        return seckillSkuRedisTo;
+                    }).collect(Collectors.toList());
+                    return collect ;
+                }
+                break;
+            }
+
+        }
+        //2、获取这个秒杀场次需要的商品信息
+        return null;
+    }
+
+    @Override
+    public SeckillSkuRedisTo getSkuSeckillInfo(Long skuId) {
+        //1、找到所有需要参与秒杀的商品的key
+        BoundHashOperations<String, String, Object> stringObjectObjectBoundHashOperations = stringRedisTemplate.boundHashOps(SKUKILL_CACHE_PREDIX);
+        Set<String> keys = stringObjectObjectBoundHashOperations.keys();
+        if (keys != null&&keys.size()>0) {
+            String regx = "\\d_"+skuId;
+            for (String key : keys) {
+                if (Pattern.matches(regx,key)) {
+                    String json = (String) stringObjectObjectBoundHashOperations.get(key);
+                    SeckillSkuRedisTo seckillSkuRedisTo = JSON.parseObject(json, SeckillSkuRedisTo.class);
+                    //随机吗处理 ，判断
+                    Long startTime = seckillSkuRedisTo.getStartTime();
+                    Long endTime = seckillSkuRedisTo.getEndTime();
+                    long currentTime = System.currentTimeMillis();
+                    if (currentTime>=startTime&&currentTime<=endTime){
+
+                    }else {
+                        seckillSkuRedisTo.setRandomCode(null);
+                    }
+                    return seckillSkuRedisTo ;
+                }
+            }
+        }
+        return null;
+    }
+
     /**
      * 缓存活动信息
      * @param seckillSessionsWithSkusList
@@ -83,6 +140,7 @@ public class SeckillServiceImpl implements SeckillService {
         seckillSessionsWithSkusList.stream().forEach(session ->{
             Long startTime = session.getStartTime().getTime();
             Long endTime = session.getEndTime().getTime();
+            log.debug("saveSessionInfo,startTime={} ,currentTime= {} ,endTime={}",startTime,System.currentTimeMillis(),endTime);
             String key = SESSION_CACHE_PREFIX+startTime+"_"+endTime ;
             //幂等性
             if (!stringRedisTemplate.hasKey(key)){
