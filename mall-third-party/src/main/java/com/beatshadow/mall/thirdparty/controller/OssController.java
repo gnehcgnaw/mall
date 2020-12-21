@@ -25,7 +25,7 @@ import java.util.Map;
 @RestController
 public class OssController {
 
-    final OSS ossClient;
+    private final OSS ossClient;
 
     @Value("${spring.cloud.alicloud.oss.endpoint}")
     private String endpoint;
@@ -39,16 +39,17 @@ public class OssController {
         this.ossClient = ossClient;
     }
 
-
     @RequestMapping("/oss/policy")
     public R policy() {
-        String host = "https://" + bucket + "." + endpoint; // host的格式为 bucketname.endpoint
+        // host的格式为 bucketname.endpoint
+        String host = "https://" + bucket + "." + endpoint;
         // callbackUrl为 上传回调服务器的URL，请将下面的IP和Port配置为您自己的真实信息。
         //String callbackUrl = "http://88.88.88.88:8888";
         DateTimeFormatter  dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDateTime localDateTime = LocalDateTime.now();
 
-        String dir = dateTimeFormatter.format(localDateTime)+"/"; // 用户上传文件时指定的前缀。
+        // 用户上传文件时指定的前缀。
+        String dir = dateTimeFormatter.format(localDateTime)+"/";
         Map<String, String> respMap = null;
         try {
             long expireTime = 30;
@@ -70,9 +71,7 @@ public class OssController {
             respMap.put("dir", dir);
             respMap.put("host", host);
             respMap.put("expire", String.valueOf(expireEndTime / 1000));
-            // respMap.put("expire", formatISO8601Date(expiration));
         } catch (Exception e) {
-            // Assert.fail(e.getMessage());
             System.out.println(e.getMessage());
         }
 

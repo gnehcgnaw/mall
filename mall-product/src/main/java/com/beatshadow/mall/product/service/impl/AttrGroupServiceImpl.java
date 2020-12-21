@@ -1,10 +1,8 @@
 package com.beatshadow.mall.product.service.impl;
 
-import com.alibaba.fastjson.JSON;
 import com.beatshadow.mall.product.entity.AttrEntity;
 import com.beatshadow.mall.product.service.AttrService;
 import com.beatshadow.mall.product.vo.AttrGroupWithAttrsVo;
-import com.beatshadow.mall.product.vo.SkuItemVo;
 import com.beatshadow.mall.product.vo.SpuItemAttrGroupVo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
