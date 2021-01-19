@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.beatshadow.mall.mqtt.dao.MqttAclMapper">
+  <resultMap id="BaseResultMap" type="com.beatshadow.mall.mqtt.entity.MqttAcl">
+    <!--@mbg.generated-->
+    <!--@Table mqtt_acl-->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="allow" jdbcType="INTEGER" property="allow" />
+    <result column="ipaddr" jdbcType="VARCHAR" property="ipaddr" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="clientid" jdbcType="VARCHAR" property="clientid" />
+    <result column="access" jdbcType="INTEGER" property="access" />
+    <result column="topic" jdbcType="VARCHAR" property="topic" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, `allow`, ipaddr, username, clientid, `access`, topic
+  </sql>
+</mapper>
