@@ -1,6 +1,7 @@
 package com.beatshadow.mall.mqtt.exception;
 
 /**
+ * 异常处理
  * @author : <a href="mailto:gnehcgnaw@gmail.com">gnehcgnaw</a>
  * @since : 2021/1/19 16:48
  */

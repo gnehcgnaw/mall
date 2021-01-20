@@ -25,6 +25,7 @@ public class MqttUserController {
 
     /**
      * 用户注册
+     *      通过异常来处理结果
      * @param mqttUserRegisterVo
      * @return
      */
