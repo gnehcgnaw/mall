@@ -16,7 +16,7 @@ public class BCryptPasswordEncoderTest {
         System.out.println(encode);
 
 
-        boolean matches = new BCryptPasswordEncoder().matches("test", "$2a$10$4j3B6IbMD2AZdzaIKaFje.crPbFkxVODhf60O9Yh7Or9yrcyBBew.");
+        boolean matches = new BCryptPasswordEncoder().matches("sub1", "$2a$10$4j3B6IbMD2AZdzaIKaFje.crPbFkxVODhf60O9Yh7Or9yrcyBBew.");
         System.out.println(matches);
     }
 }

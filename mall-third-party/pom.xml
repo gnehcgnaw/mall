@@ -74,12 +74,7 @@
             </exclusions>
 
         </dependency>
-        <!--常见文档地址：https://docs.emqx.cn/cn/broker/latest/development/java.html#mqtt-java-%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%BA%93-->
-        <dependency>
-            <groupId>org.eclipse.paho</groupId>
-            <artifactId>org.eclipse.paho.client.mqttv3</artifactId>
-            <version>1.2.2</version>
-        </dependency>
+
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
@@ -89,6 +84,18 @@
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
             <version>4.5.13</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.aliyun</groupId>
+            <artifactId>aliyun-java-sdk-core</artifactId>
+            <version>4.5.1</version>
+        </dependency>
+        <!--视频点播https://help.aliyun.com/document_detail/101789.html?spm=a2c4g.11186623.6.1035.181a58a47ak9hm-->
+        <dependency>
+            <groupId>com.aliyun</groupId>
+            <artifactId>aliyun-java-sdk-vod</artifactId>
+            <version>2.15.11</version>
         </dependency>
 
     </dependencies>

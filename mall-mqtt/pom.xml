@@ -36,7 +36,14 @@
                 </exclusion>
             </exclusions>
         </dependency>
-
+        <!--常见文档地址：https://docs.emqx.cn/cn/broker/latest/development/java.html#mqtt-java-%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%BA%93 -->
+        <!--github地址：https://github.com/eclipse/paho.mqtt.java -->
+        <!--api文档地址：https://www.eclipse.org/paho/files/javadoc/index.html -->
+        <dependency>
+            <groupId>org.eclipse.paho</groupId>
+            <artifactId>org.eclipse.paho.client.mqttv3</artifactId>
+            <version>1.2.2</version>
+        </dependency>
         <dependency>
             <groupId>com.beatshadow.mall</groupId>
             <artifactId>mall-common</artifactId>

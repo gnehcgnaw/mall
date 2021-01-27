@@ -17,11 +17,20 @@ public class MqttUserServiceTest {
 
     @Test
     void register() {
-        MqttUserRegisterVo mqttUserRegisterVo = new MqttUserRegisterVo();
-        mqttUserRegisterVo.setUserName("test");
-        mqttUserRegisterVo.setPassword("test");
-        mqttUserService.register(mqttUserRegisterVo);
-
+        //注册两个订阅者
+        for (int i = 0; i < 2; i++) {
+            MqttUserRegisterVo mqttUserRegisterVo = new MqttUserRegisterVo();
+            mqttUserRegisterVo.setUserName("sub_"+i);
+            mqttUserRegisterVo.setPassword("sub_"+i);
+            mqttUserService.register(mqttUserRegisterVo);
+        }
+        //注册两个发布者
+        for (int j = 0; j < 2; j++) {
+            MqttUserRegisterVo mqttUserRegisterVo = new MqttUserRegisterVo();
+            mqttUserRegisterVo.setUserName("pub_"+j);
+            mqttUserRegisterVo.setPassword("pub_"+j);
+            mqttUserService.register(mqttUserRegisterVo);
+        }
     }
 
     @Test
