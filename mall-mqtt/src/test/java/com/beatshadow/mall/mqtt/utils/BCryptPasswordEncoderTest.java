@@ -13,6 +13,7 @@ public class BCryptPasswordEncoderTest {
     public void crateBCryptPasswordEncoder(){
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         String encode = bCryptPasswordEncoder.encode("public");
+
         System.out.println(encode);
 
 

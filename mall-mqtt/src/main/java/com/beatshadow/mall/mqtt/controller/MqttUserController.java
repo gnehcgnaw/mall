@@ -9,13 +9,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author : <a href="mailto:gnehcgnaw@gmail.com">gnehcgnaw</a>
  * @since : 2021/1/19 16:18
  */
 @RequestMapping("/mqtt")
-@Controller
+@RestController
 public class MqttUserController {
     private final MqttUserService mqttUserService ;
 
@@ -32,10 +33,10 @@ public class MqttUserController {
     @PostMapping("/register")
     public R register(@RequestBody MqttUserRegisterVo mqttUserRegisterVo) {
         try{
+            System.out.printf("开始用户注册");
             mqttUserService.register(mqttUserRegisterVo);
         }catch (UsernameExistException usernameExistException){
             return R.error(BizCodeEnume.USER_EXIST_EXCEPTION.getCode(),BizCodeEnume.USER_EXIST_EXCEPTION.getMsg());
-
         }
         return R.ok() ;
     }
