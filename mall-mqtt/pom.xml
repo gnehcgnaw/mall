@@ -45,6 +45,11 @@
             <version>1.2.2</version>
         </dependency>
         <dependency>
+            <groupId>org.apache.iotdb</groupId>
+            <artifactId>iotdb-session</artifactId>
+            <version>0.12.1</version>
+        </dependency>
+        <dependency>
             <groupId>com.beatshadow.mall</groupId>
             <artifactId>mall-common</artifactId>
             <version>0.0.1-SNAPSHOT</version>

@@ -20,7 +20,7 @@ import java.util.UUID;
  */
 public class CartInterceptor  implements HandlerInterceptor {
 
-    public static ThreadLocal<UserInfoTo> userInfoToThreadLocal = new ThreadLocal<>();
+    public static didian<UserInfoTo> userInfoToThreadLocal = new ThreadLocal<>();
     /**
      * 目标方法执行之前
      * @param request

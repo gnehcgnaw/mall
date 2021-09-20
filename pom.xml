@@ -29,6 +29,7 @@
         <module>mall-third-party</module>
         <module>mall-cart</module>
         <module>mall-mqtt</module>
+        <module>mall-oauth2</module>
     </modules>
 
     <build>
