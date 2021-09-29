@@ -1,0 +1,3706 @@
+{
+  "basicFieldsTemplate": {
+    "middle": {
+      "controls": []
+    },
+    "top": {
+      "controls": [
+        {
+          "renderSelect": {
+            "is": true,
+            "value": "文本输入框"
+          },
+          "builtin": {
+            "allowSwitchType": false,
+            "is": false
+          },
+          "type": "input",
+          "properties": {
+            "visible": true,
+            "attribute_id": null,
+            "name": "workOrderNo",
+            "length": "short",
+            "readOnly": {
+              "ruleKey": "引用规则",
+              "is": true,
+              "ruleValue": "编码规则"
+            },
+            "id": "workOrderNo",
+            "label": "工单编号",
+            "placeholder": "请输入工单编号",
+            "type": "input",
+            "value": null,
+            "required": true,
+            "visibleModifiable": false
+          }
+        },
+        {
+          "renderSelect": {
+            "is": true,
+            "value": "业务组件"
+          },
+          "builtin": {
+            "allowSwitchType": false,
+            "is": false
+          },
+          "type": "template",
+          "properties": {
+            "visible": true,
+            "length": "short",
+            "readOnly": {
+              "is": false
+            },
+            "label": "生产计划编号",
+            "type": "template",
+            "required": true,
+            "attribute_id": null,
+            "name": "manufacturePlanNo",
+            "quoteTemplate": "生产计划",
+            "id": "manufacturePlanNo",
+            "placeholder": "请选择生产计划编号",
+            "value": null,
+            "visibleModifiable": false,
+            "templateField": "生产计划编号"
+          }
+        },
+        {
+          "renderSelect": {
+            "is": true,
+            "value": "业务组件"
+          },
+          "builtin": {
+            "allowSwitchType": false,
+            "is": false
+          },
+          "type": "template",
+          "properties": {
+            "visible": true,
+            "length": "short",
+            "readOnly": {
+              "is": false
+            },
+            "label": "销售订单编号",
+            "type": "template",
+            "required": true,
+            "attribute_id": null,
+            "name": "saleOrderNo",
+            "quoteTemplate": "销售订单",
+            "id": "saleOrderNo",
+            "placeholder": "请选择销售订单编号",
+            "value": null,
+            "visibleModifiable": false,
+            "templateField": "销售订单编号"
+          }
+        },
+        {
+          "renderSelect": {
+            "is": true,
+            "value": "业务组件"
+          },
+          "builtin": {
+            "allowSwitchType": false,
+            "is": false
+          },
+          "type": "template",
+          "properties": {
+            "visible": true,
+            "length": "short",
+            "readOnly": {
+              "is": false
+            },
+            "label": "产品",
+            "type": "template",
+            "required": true,
+            "attribute_id": null,
+            "name": "productId",
+            "quoteTemplate": "产品",
+            "id": "productId",
+            "placeholder": "请选择产品",
+            "value": null,
+            "visibleModifiable": false,
+            "templateField": "产品"
+          }
+        },
+        {
+          "renderSelect": {
+            "is": true,
+            "value": "文本输入框"
+          },
+          "builtin": {
+            "allowSwitchType": false,
+            "is": false
+          },
+          "type": "input",
+          "properties": {
+            "visible": true,
+            "attribute_id": null,
+            "name": "custProductNo",
+            "length": "short",
+            "readOnly": {
+              "is": false
+            },
+            "id": "custProductNo",
+            "label": "客户产品编号",
+            "placeholder": "请输入客户产品编号",
+            "type": "input",
+            "value": null,
+            "required": false,
+            "visibleModifiable": true
+          }
+        },
+        {
+          "renderSelect": {
+            "is": true,
+            "value": "文本输入框"
+          },
+          "builtin": {
+            "allowSwitchType": false,
+            "is": false
+          },
+          "type": "input",
+          "properties": {
+            "visible": true,
+            "attribute_id": null,
+            "name": "custProductName",
+            "length": "short",
+            "readOnly": {
+              "is": false
+            },
+            "id": "custProductName",
+            "label": "客户产品名称",
+            "placeholder": "请输入客户产品名称",
+            "type": "input",
+            "value": null,
+            "required": false,
+            "visibleModifiable": true
+          }
+        },
+        {
+          "renderSelect": {
+            "is": true,
+            "value": "文本输入框"
+          },
+          "builtin": {
+            "allowSwitchType": false,
+            "is": false
+          },
+          "type": "input",
+          "properties": {
+            "visible": true,
+            "attribute_id": null,
+            "name": "spec",
+            "length": "short",
+            "readOnly": {
+              "is": false
+            },
+            "id": "spec",
+            "label": "产品规格",
+            "placeholder": "请输入产品规格",
+            "type": "input",
+            "value": null,
+            "required": false,
+            "visibleModifiable": true
+          }
+        },
+        {
+          "renderSelect": {
+            "is": true,
+            "value": "文本输入框"
+          },
+          "builtin": {
+            "allowSwitchType": false,
+            "is": false
+          },
+          "type": "input",
+          "properties": {
+            "visible": true,
+            "attribute_id": null,
+            "name": "model",
+            "length": "short",
+            "readOnly": {
+              "is": false
+            },
+            "id": "model",
+            "label": "产品型号",
+            "placeholder": "请输入产品型号",
+            "type": "input",
+            "value": null,
+            "required": false,
+            "visibleModifiable": true
+          }
+        },
+        {
+          "renderSelect": {
+            "is": true,
+            "value": "数字输入框"
+          },
+          "builtin": {
+            "allowSwitchType": false,
+            "is": false
+          },
+          "type": "inputNumber",
+          "properties": {
+            "visible": true,
+            "length": "short",
+            "readOnly": {
+              "is": false
+            },
+            "label": "工单数量",
+            "type": "inputNumber",
+            "required": true,
+            "unit": "",
+            "attribute_id": null,
+            "name": "quantity",
+            "unitModifiable": true,
+            "id": "quantity",
+            "placeholder": "请输入工单数量",
+            "value": null,
+            "visibleModifiable": false
+          }
+        },
+        {
+          "renderSelect": {
+            "is": true,
+            "value": "数字输入框"
+          },
+          "builtin": {
+            "allowSwitchType": false,
+            "is": false
+          },
+          "type": "inputNumber",
+          "properties": {
+            "visible": true,
+            "length": "short",
+            "readOnly": {
+              "ruleKey": "引用规则",
+              "is": true,
+              "ruleValue": "编码规则"
+            },
+            "label": "工单副数量",
+            "type": "inputNumber",
+            "required": false,
+            "unit": "",
+            "attribute_id": null,
+            "name": "viceQuantity",
+            "unitModifiable": true,
+            "id": "viceQuantity",
+            "placeholder": "请输入工单副数量",
+            "value": null,
+            "visibleModifiable": false
+          }
+        },
+        {
+          "renderSelect": {
+            "is": true,
+            "value": "文本输入框"
+          },
+          "builtin": {
+            "allowSwitchType": false,
+            "is": false
+          },
+          "type": "input",
+          "properties": {
+            "visible": true,
+            "attribute_id": null,
+            "name": "productionLotNumber",
+            "length": "short",
+            "readOnly": {
+              "is": false
+            },
+            "id": "productionLotNumber",
+            "label": "生产批次号",
+            "placeholder": "请输入生产批次号",
+            "type": "input",
+            "value": null,
+            "required": false,
+            "visibleModifiable": true
+          }
+        },
+        {
+          "renderSelect": {
+            "is": true,
+            "value": "日期选择器"
+          },
+          "builtin": {
+            "allowSwitchType": false,
+            "is": false
+          },
+          "type": "datepicker",
+          "properties": {
+            "visible": true,
+            "length": "short",
+            "format": "yyyy-MM-DD HH:mm",
+            "readOnly": {
+              "is": false
+            },
+            "label": "计划开工时间",
+            "type": "datepicker",
+            "required": true,
+            "mode": "日期",
+            "allowPast": true,
+            "attribute_id": null,
+            "name": "plannedStartTime",
+            "id": "plannedStartTime",
+            "placeholder": "请选择计划开工时间",
+            "value": "无",
+            "visibleModifiable": false
+          }
+        },
+        {
+          "renderSelect": {
+            "is": true,
+            "value": "日期选择器"
+          },
+          "builtin": {
+            "allowSwitchType": false,
+            "is": false
+          },
+          "type": "datepicker",
+          "properties": {
+            "visible": true,
+            "length": "short",
+            "format": "yyyy-MM-DD HH:mm",
+            "readOnly": {
+              "is": false
+            },
+            "label": "计划完工时间",
+            "type": "datepicker",
+            "required": true,
+            "mode": "日期",
+            "allowPast": true,
+            "attribute_id": null,
+            "name": "plannedFinishTime",
+            "id": "plannedFinishTime",
+            "placeholder": "请选择计划完工时间",
+            "value": "无",
+            "visibleModifiable": false
+          }
+        },
+        {
+          "renderSelect": {
+            "is": true,
+            "value": "日期选择器"
+          },
+          "builtin": {
+            "allowSwitchType": false,
+            "is": false
+          },
+          "type": "datepicker",
+          "properties": {
+            "visible": true,
+            "length": "short",
+            "format": "yyyy-MM-DD HH:mm",
+            "readOnly": {
+              "is": false
+            },
+            "label": "计划入库时间",
+            "type": "datepicker",
+            "required": false,
+            "mode": "日期",
+            "allowPast": true,
+            "attribute_id": null,
+            "name": "plannedStorageTime",
+            "id": "plannedStorageTime",
+            "placeholder": "请选择计划入库时间",
+            "value": "无",
+            "visibleModifiable": true
+          }
+        },
+        {
+          "renderSelect": {
+            "is": true,
+            "value": "日期选择器"
+          },
+          "builtin": {
+            "allowSwitchType": false,
+            "is": false
+          },
+          "type": "datepicker",
+          "properties": {
+            "visible": true,
+            "length": "short",
+            "format": "yyyy-MM-DD HH:mm",
+            "readOnly": {
+              "is": false
+            },
+            "label": "实际开工时间",
+            "type": "datepicker",
+            "required": false,
+            "mode": "日期",
+            "allowPast": true,
+            "attribute_id": null,
+            "name": "actualStartTime",
+            "id": "actualStartTime",
+            "placeholder": "请选择实际开工时间",
+            "value": "无",
+            "visibleModifiable": false
+          }
+        },
+        {
+          "renderSelect": {
+            "is": true,
+            "value": "日期选择器"
+          },
+          "builtin": {
+            "allowSwitchType": false,
+            "is": false
+          },
+          "type": "datepicker",
+          "properties": {
+            "visible": true,
+            "length": "short",
+            "format": "yyyy-MM-DD HH:mm",
+            "readOnly": {
+              "is": false
+            },
+            "label": "实际完工时间",
+            "type": "datepicker",
+            "required": false,
+            "mode": "日期",
+            "allowPast": true,
+            "attribute_id": null,
+            "name": "actualFinishTime",
+            "id": "actualFinishTime",
+            "placeholder": "请选择实际完工时间",
+            "value": "无",
+            "visibleModifiable": false
+          }
+        },
+        {
+          "renderSelect": {
+            "is": true,
+            "value": "日期选择器"
+          },
+          "builtin": {
+            "allowSwitchType": false,
+            "is": false
+          },
+          "type": "datepicker",
+          "properties": {
+            "visible": true,
+            "length": "short",
+            "format": "yyyy-MM-DD HH:mm",
+            "readOnly": {
+              "is": false
+            },
+            "label": "实际入库时间",
+            "type": "datepicker",
+            "required": false,
+            "mode": "日期",
+            "allowPast": true,
+            "attribute_id": null,
+            "name": "actualStorageTime",
+            "id": "actualStorageTime",
+            "placeholder": "请选择实际入库时间",
+            "value": "无",
+            "visibleModifiable": false
+          }
+        },
+        {
+          "renderSelect": {
+            "is": true,
+            "value": "业务组件"
+          },
+          "builtin": {
+            "allowSwitchType": false,
+            "is": false
+          },
+          "type": "template",
+          "properties": {
+            "visible": true,
+            "length": "short",
+            "readOnly": {
+              "is": false
+            },
+            "label": "工艺路线",
+            "type": "template",
+            "required": true,
+            "attribute_id": null,
+            "name": "workRouteId",
+            "quoteTemplate": "工艺路线",
+            "id": "workRouteId",
+            "placeholder": "请选择工艺路线",
+            "value": null,
+            "visibleModifiable": false,
+            "templateField": "工艺路线"
+          }
+        },
+        {
+          "renderSelect": {
+            "is": true,
+            "value": "选择框"
+          },
+          "builtin": {
+            "allowSwitchType": false,
+            "is": false
+          },
+          "type": "select",
+          "properties": {
+            "visible": true,
+            "length": "short",
+            "readOnly": {
+              "is": false
+            },
+            "label": "产成品是否入库",
+            "type": "字符串型",
+            "required": true,
+            "mode": "single",
+            "attribute_id": null,
+            "name": "isStock",
+            "options": [
+              {
+                "default": false,
+                "enable": true,
+                "value": "true",
+                "key": "是"
+              },
+              {
+                "default": false,
+                "enable": true,
+                "value": "false",
+                "key": "否"
+              }
+            ],
+            "id": "isStock",
+            "placeholder": "请选择产成品是否入库",
+            "value": null,
+            "visibleModifiable": false
+          }
+        },
+        {
+          "renderSelect": {
+            "is": true,
+            "value": "业务组件"
+          },
+          "builtin": {
+            "allowSwitchType": false,
+            "is": false
+          },
+          "type": "template",
+          "properties": {
+            "visible": true,
+            "length": "short",
+            "readOnly": {
+              "is": false
+            },
+            "label": "仓库属性",
+            "type": "template",
+            "required": true,
+            "attribute_id": null,
+            "name": "warehouseType",
+            "quoteTemplate": "仓库属性",
+            "id": "warehouseType",
+            "placeholder": "请选择仓库属性",
+            "value": null,
+            "visibleModifiable": false,
+            "templateField": "仓库属性"
+          }
+        },
+        {
+          "renderSelect": {
+            "is": true,
+            "value": "业务组件"
+          },
+          "builtin": {
+            "allowSwitchType": false,
+            "is": false
+          },
+          "type": "template",
+          "properties": {
+            "visible": true,
+            "length": "short",
+            "readOnly": {
+              "is": false
+            },
+            "label": "仓库名称",
+            "type": "template",
+            "required": true,
+            "attribute_id": null,
+            "name": "warehouseId",
+            "quoteTemplate": "仓库名称",
+            "id": "warehouseId",
+            "placeholder": "请选择仓库名称",
+            "value": null,
+            "visibleModifiable": false,
+            "templateField": "仓库名称"
+          }
+        },
+        {
+          "renderSelect": {
+            "is": true,
+            "value": "工序组件"
+          },
+          "builtin": {
+            "allowSwitchType": false,
+            "is": false
+          },
+          "type": "template",
+          "properties": {
+            "visible": true,
+            "length": "middle",
+            "readOnly": {
+              "is": false
+            },
+            "label": "工序",
+            "type": "template",
+            "required": false,
+            "attribute_id": null,
+            "name": "processList",
+            "quoteTemplate": "工序",
+            "id": "processList",
+            "placeholder": "请选择工序",
+            "value": null,
+            "visibleModifiable": false,
+            "templateField": "工序编辑"
+          }
+        },
+        {
+          "renderSelect": {
+            "is": true,
+            "value": "业务组件"
+          },
+          "builtin": {
+            "allowSwitchType": false,
+            "is": false
+          },
+          "type": "template",
+          "properties": {
+            "visible": true,
+            "length": "short",
+            "readOnly": {
+              "is": false
+            },
+            "label": "投产车间",
+            "type": "template",
+            "required": false,
+            "attribute_id": null,
+            "name": "plant",
+            "quoteTemplate": "设备",
+            "id": "plant",
+            "placeholder": "请选择投产车间",
+            "value": null,
+            "visibleModifiable": true,
+            "templateField": "车间"
+          }
+        },
+        {
+          "renderSelect": {
+            "is": true,
+            "value": "业务组件"
+          },
+          "builtin": {
+            "allowSwitchType": false,
+            "is": false
+          },
+          "type": "template",
+          "properties": {
+            "visible": true,
+            "length": "short",
+            "readOnly": {
+              "is": false
+            },
+            "label": "投产生产线",
+            "type": "template",
+            "required": false,
+            "attribute_id": null,
+            "name": "productionLine",
+            "quoteTemplate": "设备",
+            "id": "productionLine",
+            "placeholder": "请选择投产生产线",
+            "value": null,
+            "visibleModifiable": true,
+            "templateField": "生产线"
+          }
+        }
+      ]
+    },
+    "bottom": {
+      "controls": []
+    }
+  },
+  "allFieldsTemplate": {
+    "templateInfo": {
+      "detailPageName": "生产工单详情",
+      "includeFooter": true,
+      "name": "生产工单",
+      "listPageName": "生产工单台账"
+    },
+    "extendedControls": {
+      "controls": [
+        {
+          "renderSelect": {
+            "is": true,
+            "value": "文本输入框"
+          },
+          "builtin": {
+            "allowSwitchType": false,
+            "is": false
+          },
+          "type": "input",
+          "properties": {
+            "visible": true,
+            "length": "middle",
+            "readOnly": {
+              "is": false
+            },
+            "label": "特殊要求1",
+            "type": "input",
+            "required": false,
+            "attribute_id": 197,
+            "name": "special1",
+            "id": "special1",
+            "placeholder": "请输入特殊要求1",
+            "value": null,
+            "visibleModifiable": true
+          }
+        },
+        {
+          "renderSelect": {
+            "is": true,
+            "value": "文本输入框"
+          },
+          "builtin": {
+            "allowSwitchType": false,
+            "is": false
+          },
+          "type": "input",
+          "properties": {
+            "visible": true,
+            "length": "middle",
+            "readOnly": {
+              "is": false
+            },
+            "label": "特殊要求2",
+            "type": "input",
+            "required": false,
+            "attribute_id": 198,
+            "name": "special2",
+            "id": "special2",
+            "placeholder": "请输入特殊要求2",
+            "value": null,
+            "visibleModifiable": true
+          }
+        },
+        {
+          "renderSelect": {
+            "is": true,
+            "value": "文本输入框"
+          },
+          "builtin": {
+            "allowSwitchType": false,
+            "is": false
+          },
+          "type": "input",
+          "properties": {
+            "visible": true,
+            "length": "middle",
+            "readOnly": {
+              "is": false
+            },
+            "label": "特殊要求3",
+            "type": "input",
+            "required": false,
+            "attribute_id": 199,
+            "name": "special3",
+            "id": "special3",
+            "placeholder": "请输入特殊要求3",
+            "value": null,
+            "visibleModifiable": true
+          }
+        },
+        {
+          "renderSelect": {
+            "is": true,
+            "value": "文本输入框"
+          },
+          "builtin": {
+            "allowSwitchType": false,
+            "is": false
+          },
+          "type": "input",
+          "properties": {
+            "visible": true,
+            "length": "long",
+            "readOnly": {
+              "is": false
+            },
+            "label": "备注1",
+            "type": "input",
+            "required": false,
+            "attribute_id": 75,
+            "name": "ext1",
+            "id": "c36f568b-63e4-4b01-96ee-6d63edb51665",
+            "placeholder": "请输入",
+            "value": null,
+            "visibleModifiable": true
+          }
+        },
+        {
+          "renderSelect": {
+            "is": true,
+            "value": "文本输入框"
+          },
+          "builtin": {
+            "allowSwitchType": false,
+            "is": false
+          },
+          "type": "input",
+          "properties": {
+            "visible": true,
+            "length": "long",
+            "readOnly": {
+              "is": false
+            },
+            "label": "备注2",
+            "type": "input",
+            "required": false,
+            "attribute_id": 76,
+            "name": "ext2",
+            "id": "c2f874bd-ad07-4823-ae96-6c2f18c18a98",
+            "placeholder": "请输入",
+            "value": null,
+            "visibleModifiable": true
+          }
+        },
+        {
+          "renderSelect": {
+            "is": true,
+            "value": "请选择"
+          },
+          "builtin": {
+            "allowSwitchType": true,
+            "is": false
+          },
+          "type": "",
+          "selected": false,
+          "properties": {
+            "visible": true,
+            "name": "ext6",
+            "length": "short",
+            "id": "fb224456-a862-4a82-a231-f56322b587bd",
+            "label": "扩展字段6",
+            "placeholder": "请输入",
+            "value": "",
+            "required": false
+          }
+        },
+        {
+          "renderSelect": {
+            "is": true,
+            "value": "请选择"
+          },
+          "builtin": {
+            "allowSwitchType": true,
+            "is": false
+          },
+          "type": "",
+          "selected": false,
+          "properties": {
+            "visible": true,
+            "name": "ext7",
+            "length": "short",
+            "id": "07def838-bef2-455c-a15f-8d2466c4294e",
+            "label": "扩展字段7",
+            "placeholder": "请输入",
+            "value": "",
+            "required": false
+          }
+        },
+        {
+          "renderSelect": {
+            "is": true,
+            "value": "请选择"
+          },
+          "builtin": {
+            "allowSwitchType": true,
+            "is": false
+          },
+          "type": "",
+          "selected": false,
+          "properties": {
+            "visible": true,
+            "name": "ext8",
+            "length": "short",
+            "id": "9a09576b-68b1-483d-8f89-ee4ac9ccb546",
+            "label": "扩展字段8",
+            "placeholder": "请输入",
+            "value": "",
+            "required": false
+          }
+        },
+        {
+          "renderSelect": {
+            "is": true,
+            "value": "请选择"
+          },
+          "builtin": {
+            "allowSwitchType": true,
+            "is": false
+          },
+          "type": "",
+          "selected": false,
+          "properties": {
+            "visible": true,
+            "name": "ext9",
+            "length": "short",
+            "id": "50e44209-35f2-426b-86a3-7344ab1e0c47",
+            "label": "扩展字段9",
+            "placeholder": "请输入",
+            "value": "",
+            "required": false
+          }
+        },
+        {
+          "renderSelect": {
+            "is": true,
+            "value": "请选择"
+          },
+          "builtin": {
+            "allowSwitchType": true,
+            "is": false
+          },
+          "type": "",
+          "selected": false,
+          "properties": {
+            "visible": true,
+            "name": "ext10",
+            "length": "short",
+            "id": "d9da02ef-46e8-4fec-9229-b0682c08f3af",
+            "label": "扩展字段10",
+            "placeholder": "请输入",
+            "value": "",
+            "required": false
+          }
+        },
+        {
+          "renderSelect": {
+            "is": true,
+            "value": "请选择"
+          },
+          "builtin": {
+            "allowSwitchType": true,
+            "is": false
+          },
+          "type": "",
+          "selected": false,
+          "properties": {
+            "visible": true,
+            "name": "ext11",
+            "length": "short",
+            "id": "7b678671-a0bc-4749-9ebd-75675df175cf",
+            "label": "扩展字段11",
+            "placeholder": "请输入",
+            "value": "",
+            "required": false
+          }
+        },
+        {
+          "renderSelect": {
+            "is": true,
+            "value": "请选择"
+          },
+          "builtin": {
+            "allowSwitchType": true,
+            "is": false
+          },
+          "type": "",
+          "selected": false,
+          "properties": {
+            "visible": true,
+            "name": "ext12",
+            "length": "short",
+            "id": "159ffb22-b3c3-43a5-9ebb-25d83eb0c7f5",
+            "label": "扩展字段12",
+            "placeholder": "请输入",
+            "value": "",
+            "required": false
+          }
+        },
+        {
+          "renderSelect": {
+            "is": true,
+            "value": "请选择"
+          },
+          "builtin": {
+            "allowSwitchType": true,
+            "is": false
+          },
+          "type": "",
+          "selected": false,
+          "properties": {
+            "visible": true,
+            "name": "ext13",
+            "length": "short",
+            "id": "cfe67389-1bf9-41c1-aade-be96d0fdb669",
+            "label": "扩展字段13",
+            "placeholder": "请输入",
+            "value": "",
+            "required": false
+          }
+        },
+        {
+          "renderSelect": {
+            "is": true,
+            "value": "请选择"
+          },
+          "builtin": {
+            "allowSwitchType": true,
+            "is": false
+          },
+          "type": "",
+          "selected": false,
+          "properties": {
+            "visible": true,
+            "name": "ext14",
+            "length": "short",
+            "id": "3a6140e7-10a0-479f-91fc-6aa45b6aa6e8",
+            "label": "扩展字段14",
+            "placeholder": "请输入",
+            "value": "",
+            "required": false
+          }
+        },
+        {
+          "renderSelect": {
+            "is": true,
+            "value": "请选择"
+          },
+          "builtin": {
+            "allowSwitchType": true,
+            "is": false
+          },
+          "type": "",
+          "selected": false,
+          "properties": {
+            "visible": true,
+            "name": "ext15",
+            "length": "short",
+            "id": "e5306603-4a18-4377-8ece-b91cebe01ce4",
+            "label": "扩展字段15",
+            "placeholder": "请输入",
+            "value": "",
+            "required": false
+          }
+        },
+        {
+          "renderSelect": {
+            "is": true,
+            "value": "请选择"
+          },
+          "builtin": {
+            "allowSwitchType": true,
+            "is": false
+          },
+          "type": "",
+          "selected": false,
+          "properties": {
+            "visible": true,
+            "name": "ext16",
+            "length": "short",
+            "id": "2a8fae87-1a45-46b2-9707-5e4cf5bd8598",
+            "label": "扩展字段16",
+            "placeholder": "请输入",
+            "value": "",
+            "required": false
+          }
+        },
+        {
+          "renderSelect": {
+            "is": true,
+            "value": "请选择"
+          },
+          "builtin": {
+            "allowSwitchType": true,
+            "is": false
+          },
+          "type": "",
+          "selected": false,
+          "properties": {
+            "visible": true,
+            "name": "ext17",
+            "length": "short",
+            "id": "c273abca-fde2-48a2-9719-dff34b07e795",
+            "label": "扩展字段17",
+            "placeholder": "请输入",
+            "value": "",
+            "required": false
+          }
+        },
+        {
+          "renderSelect": {
+            "is": true,
+            "value": "请选择"
+          },
+          "builtin": {
+            "allowSwitchType": true,
+            "is": false
+          },
+          "type": "",
+          "selected": false,
+          "properties": {
+            "visible": true,
+            "name": "ext18",
+            "length": "short",
+            "id": "ffde5c88-1e84-4866-b4e5-d943be303d48",
+            "label": "扩展字段18",
+            "placeholder": "请输入",
+            "value": "",
+            "required": false
+          }
+        },
+        {
+          "renderSelect": {
+            "is": true,
+            "value": "请选择"
+          },
+          "builtin": {
+            "allowSwitchType": true,
+            "is": false
+          },
+          "type": "",
+          "selected": false,
+          "properties": {
+            "visible": true,
+            "name": "ext19",
+            "length": "short",
+            "id": "faf100d3-b853-488f-a207-157f8b225c80",
+            "label": "扩展字段19",
+            "placeholder": "请输入",
+            "value": "",
+            "required": false
+          }
+        },
+        {
+          "renderSelect": {
+            "is": true,
+            "value": "请选择"
+          },
+          "builtin": {
+            "allowSwitchType": true,
+            "is": false
+          },
+          "type": "",
+          "selected": false,
+          "properties": {
+            "visible": true,
+            "name": "ext20",
+            "length": "short",
+            "id": "e6b8f542-695a-457a-9e59-735212e80932",
+            "label": "扩展字段20",
+            "placeholder": "请输入",
+            "value": "",
+            "required": false
+          }
+        },
+        {
+          "renderSelect": {
+            "is": true,
+            "value": "请选择"
+          },
+          "builtin": {
+            "allowSwitchType": true,
+            "is": false
+          },
+          "type": "",
+          "selected": false,
+          "properties": {
+            "visible": true,
+            "name": "ext21",
+            "length": "short",
+            "id": "46d0b568-dbd3-44d7-a641-e655ffcbb67f",
+            "label": "扩展字段21",
+            "placeholder": "请输入",
+            "value": "",
+            "required": false
+          }
+        },
+        {
+          "renderSelect": {
+            "is": true,
+            "value": "请选择"
+          },
+          "builtin": {
+            "allowSwitchType": true,
+            "is": false
+          },
+          "type": "",
+          "selected": false,
+          "properties": {
+            "visible": true,
+            "name": "ext22",
+            "length": "short",
+            "id": "5cbd9eef-8ae2-4b04-834d-c9cca77c2d55",
+            "label": "扩展字段22",
+            "placeholder": "请输入",
+            "value": "",
+            "required": false
+          }
+        },
+        {
+          "renderSelect": {
+            "is": true,
+            "value": "请选择"
+          },
+          "builtin": {
+            "allowSwitchType": true,
+            "is": false
+          },
+          "type": "",
+          "selected": false,
+          "properties": {
+            "visible": true,
+            "name": "ext23",
+            "length": "short",
+            "id": "73a65c70-3be7-42f9-b71a-e2ad66a782cb",
+            "label": "扩展字段23",
+            "placeholder": "请输入",
+            "value": "",
+            "required": false
+          }
+        },
+        {
+          "renderSelect": {
+            "is": true,
+            "value": "请选择"
+          },
+          "builtin": {
+            "allowSwitchType": true,
+            "is": false
+          },
+          "type": "",
+          "selected": false,
+          "properties": {
+            "visible": true,
+            "name": "ext24",
+            "length": "short",
+            "id": "f987c17b-2360-41b8-bfe8-63bbc119ec7c",
+            "label": "扩展字段24",
+            "placeholder": "请输入",
+            "value": "",
+            "required": false
+          }
+        },
+        {
+          "renderSelect": {
+            "is": true,
+            "value": "请选择"
+          },
+          "builtin": {
+            "allowSwitchType": true,
+            "is": false
+          },
+          "type": "",
+          "selected": false,
+          "properties": {
+            "visible": true,
+            "name": "ext25",
+            "length": "short",
+            "id": "c086b3db-5688-46c7-ad2f-478c979a6929",
+            "label": "扩展字段25",
+            "placeholder": "请输入",
+            "value": "",
+            "required": false
+          }
+        },
+        {
+          "renderSelect": {
+            "is": true,
+            "value": "请选择"
+          },
+          "builtin": {
+            "allowSwitchType": true,
+            "is": false
+          },
+          "type": "",
+          "selected": false,
+          "properties": {
+            "visible": true,
+            "name": "ext26",
+            "length": "short",
+            "id": "697fdb81-7e75-482f-92f5-ad70117881ef",
+            "label": "扩展字段26",
+            "placeholder": "请输入",
+            "value": "",
+            "required": false
+          }
+        },
+        {
+          "renderSelect": {
+            "is": true,
+            "value": "请选择"
+          },
+          "builtin": {
+            "allowSwitchType": true,
+            "is": false
+          },
+          "type": "",
+          "selected": false,
+          "properties": {
+            "visible": true,
+            "name": "ext27",
+            "length": "short",
+            "id": "0e8441f1-fb3b-4816-8496-e3910ced2cf1",
+            "label": "扩展字段27",
+            "placeholder": "请输入",
+            "value": "",
+            "required": false
+          }
+        },
+        {
+          "renderSelect": {
+            "is": true,
+            "value": "请选择"
+          },
+          "builtin": {
+            "allowSwitchType": true,
+            "is": false
+          },
+          "type": "",
+          "selected": false,
+          "properties": {
+            "visible": true,
+            "name": "ext28",
+            "length": "short",
+            "id": "55767fa4-d38b-429d-97c5-0638ac229d6a",
+            "label": "扩展字段28",
+            "placeholder": "请输入",
+            "value": "",
+            "required": false
+          }
+        },
+        {
+          "renderSelect": {
+            "is": true,
+            "value": "请选择"
+          },
+          "builtin": {
+            "allowSwitchType": true,
+            "is": false
+          },
+          "type": "",
+          "selected": false,
+          "properties": {
+            "visible": true,
+            "name": "ext29",
+            "length": "short",
+            "id": "50f7ccba-e04a-436c-8efb-a905224539cd",
+            "label": "扩展字段29",
+            "placeholder": "请输入",
+            "value": "",
+            "required": false
+          }
+        },
+        {
+          "renderSelect": {
+            "is": true,
+            "value": "请选择"
+          },
+          "builtin": {
+            "allowSwitchType": true,
+            "is": false
+          },
+          "type": "",
+          "selected": false,
+          "properties": {
+            "visible": true,
+            "name": "ext30",
+            "length": "short",
+            "id": "5bc41db9-a7c7-4ccf-867e-069ecdfe67b3",
+            "label": "扩展字段30",
+            "placeholder": "请输入",
+            "value": "",
+            "required": false
+          }
+        },
+        {
+          "renderSelect": {
+            "is": true,
+            "value": "请选择"
+          },
+          "builtin": {
+            "allowSwitchType": true,
+            "is": false
+          },
+          "type": "",
+          "selected": false,
+          "properties": {
+            "visible": true,
+            "name": "ext31",
+            "length": "short",
+            "id": "f236005c-11b5-4418-ba26-fa79240efc54",
+            "label": "扩展字段31",
+            "placeholder": "请输入",
+            "value": "",
+            "required": false
+          }
+        },
+        {
+          "renderSelect": {
+            "is": true,
+            "value": "请选择"
+          },
+          "builtin": {
+            "allowSwitchType": true,
+            "is": false
+          },
+          "type": "",
+          "selected": false,
+          "properties": {
+            "visible": true,
+            "name": "ext32",
+            "length": "short",
+            "id": "3802ff3c-b178-459d-b7ba-4c847c820557",
+            "label": "扩展字段32",
+            "placeholder": "请输入",
+            "value": "",
+            "required": false
+          }
+        },
+        {
+          "renderSelect": {
+            "is": true,
+            "value": "请选择"
+          },
+          "builtin": {
+            "allowSwitchType": true,
+            "is": false
+          },
+          "type": "",
+          "selected": false,
+          "properties": {
+            "visible": true,
+            "name": "ext33",
+            "length": "short",
+            "id": "fcd4f9df-245a-4061-a549-e88233306d9c",
+            "label": "扩展字段33",
+            "placeholder": "请输入",
+            "value": "",
+            "required": false
+          }
+        },
+        {
+          "renderSelect": {
+            "is": true,
+            "value": "请选择"
+          },
+          "builtin": {
+            "allowSwitchType": true,
+            "is": false
+          },
+          "type": "",
+          "selected": false,
+          "properties": {
+            "visible": true,
+            "name": "ext34",
+            "length": "short",
+            "id": "845b0bf8-11ac-4f0b-bcc4-5ca80bb5c830",
+            "label": "扩展字段34",
+            "placeholder": "请输入",
+            "value": "",
+            "required": false
+          }
+        },
+        {
+          "renderSelect": {
+            "is": true,
+            "value": "请选择"
+          },
+          "builtin": {
+            "allowSwitchType": true,
+            "is": false
+          },
+          "type": "",
+          "selected": false,
+          "properties": {
+            "visible": true,
+            "name": "ext35",
+            "length": "short",
+            "id": "763a922b-8c27-4e4d-97c1-8b0a54dfed20",
+            "label": "扩展字段35",
+            "placeholder": "请输入",
+            "value": "",
+            "required": false
+          }
+        },
+        {
+          "renderSelect": {
+            "is": true,
+            "value": "请选择"
+          },
+          "builtin": {
+            "allowSwitchType": true,
+            "is": false
+          },
+          "type": "",
+          "selected": false,
+          "properties": {
+            "visible": true,
+            "name": "ext36",
+            "length": "short",
+            "id": "b9ab23ae-4f36-45a6-a4cf-607c3b68ed72",
+            "label": "扩展字段36",
+            "placeholder": "请输入",
+            "value": "",
+            "required": false
+          }
+        },
+        {
+          "renderSelect": {
+            "is": true,
+            "value": "请选择"
+          },
+          "builtin": {
+            "allowSwitchType": true,
+            "is": false
+          },
+          "type": "",
+          "selected": false,
+          "properties": {
+            "visible": true,
+            "name": "ext37",
+            "length": "short",
+            "id": "fc8853e0-dbc7-4f71-8421-1a554d404072",
+            "label": "扩展字段37",
+            "placeholder": "请输入",
+            "value": "",
+            "required": false
+          }
+        },
+        {
+          "renderSelect": {
+            "is": true,
+            "value": "请选择"
+          },
+          "builtin": {
+            "allowSwitchType": true,
+            "is": false
+          },
+          "type": "",
+          "selected": false,
+          "properties": {
+            "visible": true,
+            "name": "ext38",
+            "length": "short",
+            "id": "84321380-8cc9-4f1b-9f95-7248185fe1e5",
+            "label": "扩展字段38",
+            "placeholder": "请输入",
+            "value": "",
+            "required": false
+          }
+        },
+        {
+          "renderSelect": {
+            "is": true,
+            "value": "请选择"
+          },
+          "builtin": {
+            "allowSwitchType": true,
+            "is": false
+          },
+          "type": "",
+          "selected": false,
+          "properties": {
+            "visible": true,
+            "name": "ext39",
+            "length": "short",
+            "id": "2fcfceab-8da4-4fdc-b5f6-eafa97ae820a",
+            "label": "扩展字段39",
+            "placeholder": "请输入",
+            "value": "",
+            "required": false
+          }
+        },
+        {
+          "renderSelect": {
+            "is": true,
+            "value": "请选择"
+          },
+          "builtin": {
+            "allowSwitchType": true,
+            "is": false
+          },
+          "type": "",
+          "selected": false,
+          "properties": {
+            "visible": true,
+            "name": "ext40",
+            "length": "short",
+            "id": "581c0fca-2d89-42c2-b981-e4a27f1ad2cb",
+            "label": "扩展字段40",
+            "placeholder": "请输入",
+            "value": "",
+            "required": false
+          }
+        },
+        {
+          "renderSelect": {
+            "is": true,
+            "value": "请选择"
+          },
+          "builtin": {
+            "allowSwitchType": true,
+            "is": false
+          },
+          "type": "",
+          "selected": false,
+          "properties": {
+            "visible": true,
+            "name": "ext41",
+            "length": "short",
+            "id": "d93ad876-7a0d-48a6-82cf-41b696b8f6c1",
+            "label": "扩展字段41",
+            "placeholder": "请输入",
+            "value": "",
+            "required": false
+          }
+        },
+        {
+          "renderSelect": {
+            "is": true,
+            "value": "请选择"
+          },
+          "builtin": {
+            "allowSwitchType": true,
+            "is": false
+          },
+          "type": "",
+          "selected": false,
+          "properties": {
+            "visible": true,
+            "name": "ext42",
+            "length": "short",
+            "id": "a2906a79-772c-4bda-851d-81e0edcc3b64",
+            "label": "扩展字段42",
+            "placeholder": "请输入",
+            "value": "",
+            "required": false
+          }
+        },
+        {
+          "renderSelect": {
+            "is": true,
+            "value": "请选择"
+          },
+          "builtin": {
+            "allowSwitchType": true,
+            "is": false
+          },
+          "type": "",
+          "selected": false,
+          "properties": {
+            "visible": true,
+            "name": "ext43",
+            "length": "short",
+            "id": "6ac0209a-8fbd-4863-bd35-f04d62742683",
+            "label": "扩展字段43",
+            "placeholder": "请输入",
+            "value": "",
+            "required": false
+          }
+        },
+        {
+          "renderSelect": {
+            "is": true,
+            "value": "请选择"
+          },
+          "builtin": {
+            "allowSwitchType": true,
+            "is": false
+          },
+          "type": "",
+          "selected": false,
+          "properties": {
+            "visible": true,
+            "name": "ext44",
+            "length": "short",
+            "id": "842030ae-5cf5-49f6-bd44-7a860140d662",
+            "label": "扩展字段44",
+            "placeholder": "请输入",
+            "value": "",
+            "required": false
+          }
+        },
+        {
+          "renderSelect": {
+            "is": true,
+            "value": "请选择"
+          },
+          "builtin": {
+            "allowSwitchType": true,
+            "is": false
+          },
+          "type": "",
+          "selected": false,
+          "properties": {
+            "visible": true,
+            "name": "ext45",
+            "length": "short",
+            "id": "9e447a35-82b1-4739-bb18-14ab50b4e658",
+            "label": "扩展字段45",
+            "placeholder": "请输入",
+            "value": "",
+            "required": false
+          }
+        },
+        {
+          "renderSelect": {
+            "is": true,
+            "value": "请选择"
+          },
+          "builtin": {
+            "allowSwitchType": true,
+            "is": false
+          },
+          "type": "",
+          "selected": false,
+          "properties": {
+            "visible": true,
+            "name": "ext46",
+            "length": "short",
+            "id": "432cf23b-59cc-42b0-b402-6473071340f8",
+            "label": "扩展字段46",
+            "placeholder": "请输入",
+            "value": "",
+            "required": false
+          }
+        },
+        {
+          "renderSelect": {
+            "is": true,
+            "value": "请选择"
+          },
+          "builtin": {
+            "allowSwitchType": true,
+            "is": false
+          },
+          "type": "",
+          "selected": false,
+          "properties": {
+            "visible": true,
+            "name": "ext47",
+            "length": "short",
+            "id": "6e01e1c5-c495-42b9-87cf-c9c649d7c749",
+            "label": "扩展字段47",
+            "placeholder": "请输入",
+            "value": "",
+            "required": false
+          }
+        },
+        {
+          "renderSelect": {
+            "is": true,
+            "value": "请选择"
+          },
+          "builtin": {
+            "allowSwitchType": true,
+            "is": false
+          },
+          "type": "",
+          "selected": false,
+          "properties": {
+            "visible": true,
+            "name": "ext48",
+            "length": "short",
+            "id": "62ea7479-c147-4aa7-803b-4d00b5723132",
+            "label": "扩展字段48",
+            "placeholder": "请输入",
+            "value": "",
+            "required": false
+          }
+        },
+        {
+          "renderSelect": {
+            "is": true,
+            "value": "请选择"
+          },
+          "builtin": {
+            "allowSwitchType": true,
+            "is": false
+          },
+          "type": "",
+          "selected": false,
+          "properties": {
+            "visible": true,
+            "name": "ext49",
+            "length": "short",
+            "id": "7f14b61d-5cfc-4612-b4e2-20938bcd3c2e",
+            "label": "扩展字段49",
+            "placeholder": "请输入",
+            "value": "",
+            "required": false
+          }
+        },
+        {
+          "renderSelect": {
+            "is": true,
+            "value": "请选择"
+          },
+          "builtin": {
+            "allowSwitchType": true,
+            "is": false
+          },
+          "type": "",
+          "selected": false,
+          "properties": {
+            "visible": true,
+            "name": "ext50",
+            "length": "short",
+            "id": "c5c23643-beae-4588-87bc-b2144d937864",
+            "label": "扩展字段50",
+            "placeholder": "请输入",
+            "value": "",
+            "required": false
+          }
+        }
+      ]
+    },
+    "basicControls": {
+      "middle": {
+        "controls": []
+      },
+      "top": {
+        "controls": [
+          {
+            "renderSelect": {
+              "is": true,
+              "value": "文本输入框"
+            },
+            "builtin": {
+              "allowSwitchType": false,
+              "is": false
+            },
+            "type": "input",
+            "properties": {
+              "visible": true,
+              "attribute_id": null,
+              "name": "workOrderNo",
+              "length": "short",
+              "readOnly": {
+                "ruleKey": "引用规则",
+                "is": true,
+                "ruleValue": "编码规则"
+              },
+              "id": "workOrderNo",
+              "label": "工单编号",
+              "placeholder": "请输入工单编号",
+              "type": "input",
+              "value": null,
+              "required": true,
+              "visibleModifiable": false
+            }
+          },
+          {
+            "renderSelect": {
+              "is": true,
+              "value": "业务组件"
+            },
+            "builtin": {
+              "allowSwitchType": false,
+              "is": false
+            },
+            "type": "template",
+            "properties": {
+              "visible": true,
+              "length": "short",
+              "readOnly": {
+                "is": false
+              },
+              "label": "生产计划编号",
+              "type": "template",
+              "required": true,
+              "attribute_id": null,
+              "name": "manufacturePlanNo",
+              "quoteTemplate": "生产计划",
+              "id": "manufacturePlanNo",
+              "placeholder": "请选择生产计划编号",
+              "value": null,
+              "visibleModifiable": false,
+              "templateField": "生产计划编号"
+            }
+          },
+          {
+            "renderSelect": {
+              "is": true,
+              "value": "业务组件"
+            },
+            "builtin": {
+              "allowSwitchType": false,
+              "is": false
+            },
+            "type": "template",
+            "properties": {
+              "visible": true,
+              "length": "short",
+              "readOnly": {
+                "is": false
+              },
+              "label": "销售订单编号",
+              "type": "template",
+              "required": true,
+              "attribute_id": null,
+              "name": "saleOrderNo",
+              "quoteTemplate": "销售订单",
+              "id": "saleOrderNo",
+              "placeholder": "请选择销售订单编号",
+              "value": null,
+              "visibleModifiable": false,
+              "templateField": "销售订单编号"
+            }
+          },
+          {
+            "renderSelect": {
+              "is": true,
+              "value": "业务组件"
+            },
+            "builtin": {
+              "allowSwitchType": false,
+              "is": false
+            },
+            "type": "template",
+            "properties": {
+              "visible": true,
+              "length": "short",
+              "readOnly": {
+                "is": false
+              },
+              "label": "产品",
+              "type": "template",
+              "required": true,
+              "attribute_id": null,
+              "name": "productId",
+              "quoteTemplate": "产品",
+              "id": "productId",
+              "placeholder": "请选择产品",
+              "value": null,
+              "visibleModifiable": false,
+              "templateField": "产品"
+            }
+          },
+          {
+            "renderSelect": {
+              "is": true,
+              "value": "文本输入框"
+            },
+            "builtin": {
+              "allowSwitchType": false,
+              "is": false
+            },
+            "type": "input",
+            "properties": {
+              "visible": true,
+              "attribute_id": null,
+              "name": "custProductNo",
+              "length": "short",
+              "readOnly": {
+                "is": false
+              },
+              "id": "custProductNo",
+              "label": "客户产品编号",
+              "placeholder": "请输入客户产品编号",
+              "type": "input",
+              "value": null,
+              "required": false,
+              "visibleModifiable": true
+            }
+          },
+          {
+            "renderSelect": {
+              "is": true,
+              "value": "文本输入框"
+            },
+            "builtin": {
+              "allowSwitchType": false,
+              "is": false
+            },
+            "type": "input",
+            "properties": {
+              "visible": true,
+              "attribute_id": null,
+              "name": "custProductName",
+              "length": "short",
+              "readOnly": {
+                "is": false
+              },
+              "id": "custProductName",
+              "label": "客户产品名称",
+              "placeholder": "请输入客户产品名称",
+              "type": "input",
+              "value": null,
+              "required": false,
+              "visibleModifiable": true
+            }
+          },
+          {
+            "renderSelect": {
+              "is": true,
+              "value": "文本输入框"
+            },
+            "builtin": {
+              "allowSwitchType": false,
+              "is": false
+            },
+            "type": "input",
+            "properties": {
+              "visible": true,
+              "attribute_id": null,
+              "name": "spec",
+              "length": "short",
+              "readOnly": {
+                "is": false
+              },
+              "id": "spec",
+              "label": "产品规格",
+              "placeholder": "请输入产品规格",
+              "type": "input",
+              "value": null,
+              "required": false,
+              "visibleModifiable": true
+            }
+          },
+          {
+            "renderSelect": {
+              "is": true,
+              "value": "文本输入框"
+            },
+            "builtin": {
+              "allowSwitchType": false,
+              "is": false
+            },
+            "type": "input",
+            "properties": {
+              "visible": true,
+              "attribute_id": null,
+              "name": "model",
+              "length": "short",
+              "readOnly": {
+                "is": false
+              },
+              "id": "model",
+              "label": "产品型号",
+              "placeholder": "请输入产品型号",
+              "type": "input",
+              "value": null,
+              "required": false,
+              "visibleModifiable": true
+            }
+          },
+          {
+            "renderSelect": {
+              "is": true,
+              "value": "数字输入框"
+            },
+            "builtin": {
+              "allowSwitchType": false,
+              "is": false
+            },
+            "type": "inputNumber",
+            "properties": {
+              "visible": true,
+              "length": "short",
+              "readOnly": {
+                "is": false
+              },
+              "label": "工单数量",
+              "type": "inputNumber",
+              "required": true,
+              "unit": "",
+              "attribute_id": null,
+              "name": "quantity",
+              "unitModifiable": true,
+              "id": "quantity",
+              "placeholder": "请输入工单数量",
+              "value": null,
+              "visibleModifiable": false
+            }
+          },
+          {
+            "renderSelect": {
+              "is": true,
+              "value": "数字输入框"
+            },
+            "builtin": {
+              "allowSwitchType": false,
+              "is": false
+            },
+            "type": "inputNumber",
+            "properties": {
+              "visible": true,
+              "length": "short",
+              "readOnly": {
+                "ruleKey": "引用规则",
+                "is": true,
+                "ruleValue": "编码规则"
+              },
+              "label": "工单副数量",
+              "type": "inputNumber",
+              "required": false,
+              "unit": "",
+              "attribute_id": null,
+              "name": "viceQuantity",
+              "unitModifiable": true,
+              "id": "viceQuantity",
+              "placeholder": "请输入工单副数量",
+              "value": null,
+              "visibleModifiable": false
+            }
+          },
+          {
+            "renderSelect": {
+              "is": true,
+              "value": "文本输入框"
+            },
+            "builtin": {
+              "allowSwitchType": false,
+              "is": false
+            },
+            "type": "input",
+            "properties": {
+              "visible": true,
+              "attribute_id": null,
+              "name": "productionLotNumber",
+              "length": "short",
+              "readOnly": {
+                "is": false
+              },
+              "id": "productionLotNumber",
+              "label": "生产批次号",
+              "placeholder": "请输入生产批次号",
+              "type": "input",
+              "value": null,
+              "required": false,
+              "visibleModifiable": true
+            }
+          },
+          {
+            "renderSelect": {
+              "is": true,
+              "value": "日期选择器"
+            },
+            "builtin": {
+              "allowSwitchType": false,
+              "is": false
+            },
+            "type": "datepicker",
+            "properties": {
+              "visible": true,
+              "length": "short",
+              "format": "yyyy-MM-DD HH:mm",
+              "readOnly": {
+                "is": false
+              },
+              "label": "计划开工时间",
+              "type": "datepicker",
+              "required": true,
+              "mode": "日期",
+              "allowPast": true,
+              "attribute_id": null,
+              "name": "plannedStartTime",
+              "id": "plannedStartTime",
+              "placeholder": "请选择计划开工时间",
+              "value": "无",
+              "visibleModifiable": false
+            }
+          },
+          {
+            "renderSelect": {
+              "is": true,
+              "value": "日期选择器"
+            },
+            "builtin": {
+              "allowSwitchType": false,
+              "is": false
+            },
+            "type": "datepicker",
+            "properties": {
+              "visible": true,
+              "length": "short",
+              "format": "yyyy-MM-DD HH:mm",
+              "readOnly": {
+                "is": false
+              },
+              "label": "计划完工时间",
+              "type": "datepicker",
+              "required": true,
+              "mode": "日期",
+              "allowPast": true,
+              "attribute_id": null,
+              "name": "plannedFinishTime",
+              "id": "plannedFinishTime",
+              "placeholder": "请选择计划完工时间",
+              "value": "无",
+              "visibleModifiable": false
+            }
+          },
+          {
+            "renderSelect": {
+              "is": true,
+              "value": "日期选择器"
+            },
+            "builtin": {
+              "allowSwitchType": false,
+              "is": false
+            },
+            "type": "datepicker",
+            "properties": {
+              "visible": true,
+              "length": "short",
+              "format": "yyyy-MM-DD HH:mm",
+              "readOnly": {
+                "is": false
+              },
+              "label": "计划入库时间",
+              "type": "datepicker",
+              "required": false,
+              "mode": "日期",
+              "allowPast": true,
+              "attribute_id": null,
+              "name": "plannedStorageTime",
+              "id": "plannedStorageTime",
+              "placeholder": "请选择计划入库时间",
+              "value": "无",
+              "visibleModifiable": true
+            }
+          },
+          {
+            "renderSelect": {
+              "is": true,
+              "value": "日期选择器"
+            },
+            "builtin": {
+              "allowSwitchType": false,
+              "is": false
+            },
+            "type": "datepicker",
+            "properties": {
+              "visible": true,
+              "length": "short",
+              "format": "yyyy-MM-DD HH:mm",
+              "readOnly": {
+                "is": false
+              },
+              "label": "实际开工时间",
+              "type": "datepicker",
+              "required": false,
+              "mode": "日期",
+              "allowPast": true,
+              "attribute_id": null,
+              "name": "actualStartTime",
+              "id": "actualStartTime",
+              "placeholder": "请选择实际开工时间",
+              "value": "无",
+              "visibleModifiable": false
+            }
+          },
+          {
+            "renderSelect": {
+              "is": true,
+              "value": "日期选择器"
+            },
+            "builtin": {
+              "allowSwitchType": false,
+              "is": false
+            },
+            "type": "datepicker",
+            "properties": {
+              "visible": true,
+              "length": "short",
+              "format": "yyyy-MM-DD HH:mm",
+              "readOnly": {
+                "is": false
+              },
+              "label": "实际完工时间",
+              "type": "datepicker",
+              "required": false,
+              "mode": "日期",
+              "allowPast": true,
+              "attribute_id": null,
+              "name": "actualFinishTime",
+              "id": "actualFinishTime",
+              "placeholder": "请选择实际完工时间",
+              "value": "无",
+              "visibleModifiable": false
+            }
+          },
+          {
+            "renderSelect": {
+              "is": true,
+              "value": "日期选择器"
+            },
+            "builtin": {
+              "allowSwitchType": false,
+              "is": false
+            },
+            "type": "datepicker",
+            "properties": {
+              "visible": true,
+              "length": "short",
+              "format": "yyyy-MM-DD HH:mm",
+              "readOnly": {
+                "is": false
+              },
+              "label": "实际入库时间",
+              "type": "datepicker",
+              "required": false,
+              "mode": "日期",
+              "allowPast": true,
+              "attribute_id": null,
+              "name": "actualStorageTime",
+              "id": "actualStorageTime",
+              "placeholder": "请选择实际入库时间",
+              "value": "无",
+              "visibleModifiable": false
+            }
+          },
+          {
+            "renderSelect": {
+              "is": true,
+              "value": "业务组件"
+            },
+            "builtin": {
+              "allowSwitchType": false,
+              "is": false
+            },
+            "type": "template",
+            "properties": {
+              "visible": true,
+              "length": "short",
+              "readOnly": {
+                "is": false
+              },
+              "label": "工艺路线",
+              "type": "template",
+              "required": true,
+              "attribute_id": null,
+              "name": "workRouteId",
+              "quoteTemplate": "工艺路线",
+              "id": "workRouteId",
+              "placeholder": "请选择工艺路线",
+              "value": null,
+              "visibleModifiable": false,
+              "templateField": "工艺路线"
+            }
+          },
+          {
+            "renderSelect": {
+              "is": true,
+              "value": "选择框"
+            },
+            "builtin": {
+              "allowSwitchType": false,
+              "is": false
+            },
+            "type": "select",
+            "properties": {
+              "visible": true,
+              "length": "short",
+              "readOnly": {
+                "is": false
+              },
+              "label": "产成品是否入库",
+              "type": "字符串型",
+              "required": true,
+              "mode": "single",
+              "attribute_id": null,
+              "name": "isStock",
+              "options": [
+                {
+                  "default": false,
+                  "enable": true,
+                  "value": "true",
+                  "key": "是"
+                },
+                {
+                  "default": false,
+                  "enable": true,
+                  "value": "false",
+                  "key": "否"
+                }
+              ],
+              "id": "isStock",
+              "placeholder": "请选择产成品是否入库",
+              "value": null,
+              "visibleModifiable": false
+            }
+          },
+          {
+            "renderSelect": {
+              "is": true,
+              "value": "业务组件"
+            },
+            "builtin": {
+              "allowSwitchType": false,
+              "is": false
+            },
+            "type": "template",
+            "properties": {
+              "visible": true,
+              "length": "short",
+              "readOnly": {
+                "is": false
+              },
+              "label": "仓库属性",
+              "type": "template",
+              "required": true,
+              "attribute_id": null,
+              "name": "warehouseType",
+              "quoteTemplate": "仓库属性",
+              "id": "warehouseType",
+              "placeholder": "请选择仓库属性",
+              "value": null,
+              "visibleModifiable": false,
+              "templateField": "仓库属性"
+            }
+          },
+          {
+            "renderSelect": {
+              "is": true,
+              "value": "业务组件"
+            },
+            "builtin": {
+              "allowSwitchType": false,
+              "is": false
+            },
+            "type": "template",
+            "properties": {
+              "visible": true,
+              "length": "short",
+              "readOnly": {
+                "is": false
+              },
+              "label": "仓库名称",
+              "type": "template",
+              "required": true,
+              "attribute_id": null,
+              "name": "warehouseId",
+              "quoteTemplate": "仓库名称",
+              "id": "warehouseId",
+              "placeholder": "请选择仓库名称",
+              "value": null,
+              "visibleModifiable": false,
+              "templateField": "仓库名称"
+            }
+          },
+          {
+            "renderSelect": {
+              "is": true,
+              "value": "工序组件"
+            },
+            "builtin": {
+              "allowSwitchType": false,
+              "is": false
+            },
+            "type": "template",
+            "properties": {
+              "visible": true,
+              "length": "middle",
+              "readOnly": {
+                "is": false
+              },
+              "label": "工序",
+              "type": "template",
+              "required": false,
+              "attribute_id": null,
+              "name": "processList",
+              "quoteTemplate": "工序",
+              "id": "processList",
+              "placeholder": "请选择工序",
+              "value": null,
+              "visibleModifiable": false,
+              "templateField": "工序编辑"
+            }
+          },
+          {
+            "renderSelect": {
+              "is": true,
+              "value": "业务组件"
+            },
+            "builtin": {
+              "allowSwitchType": false,
+              "is": false
+            },
+            "type": "template",
+            "properties": {
+              "visible": true,
+              "length": "short",
+              "readOnly": {
+                "is": false
+              },
+              "label": "投产车间",
+              "type": "template",
+              "required": false,
+              "attribute_id": null,
+              "name": "plant",
+              "quoteTemplate": "设备",
+              "id": "plant",
+              "placeholder": "请选择投产车间",
+              "value": null,
+              "visibleModifiable": true,
+              "templateField": "车间"
+            }
+          },
+          {
+            "renderSelect": {
+              "is": true,
+              "value": "业务组件"
+            },
+            "builtin": {
+              "allowSwitchType": false,
+              "is": false
+            },
+            "type": "template",
+            "properties": {
+              "visible": true,
+              "length": "short",
+              "readOnly": {
+                "is": false
+              },
+              "label": "投产生产线",
+              "type": "template",
+              "required": false,
+              "attribute_id": null,
+              "name": "productionLine",
+              "quoteTemplate": "设备",
+              "id": "productionLine",
+              "placeholder": "请选择投产生产线",
+              "value": null,
+              "visibleModifiable": true,
+              "templateField": "生产线"
+            }
+          }
+        ]
+      },
+      "bottom": {
+        "controls": []
+      }
+    }
+  },
+  "extendedControls": {
+    "controls": [
+      {
+        "renderSelect": {
+          "is": true,
+          "value": "文本输入框"
+        },
+        "builtin": {
+          "allowSwitchType": false,
+          "is": false
+        },
+        "type": "input",
+        "properties": {
+          "visible": true,
+          "length": "middle",
+          "readOnly": {
+            "is": false
+          },
+          "label": "特殊要求1",
+          "type": "input",
+          "required": false,
+          "attribute_id": 197,
+          "name": "special1",
+          "id": "special1",
+          "placeholder": "请输入特殊要求1",
+          "value": null,
+          "visibleModifiable": true
+        }
+      },
+      {
+        "renderSelect": {
+          "is": true,
+          "value": "文本输入框"
+        },
+        "builtin": {
+          "allowSwitchType": false,
+          "is": false
+        },
+        "type": "input",
+        "properties": {
+          "visible": true,
+          "length": "middle",
+          "readOnly": {
+            "is": false
+          },
+          "label": "特殊要求2",
+          "type": "input",
+          "required": false,
+          "attribute_id": 198,
+          "name": "special2",
+          "id": "special2",
+          "placeholder": "请输入特殊要求2",
+          "value": null,
+          "visibleModifiable": true
+        }
+      },
+      {
+        "renderSelect": {
+          "is": true,
+          "value": "文本输入框"
+        },
+        "builtin": {
+          "allowSwitchType": false,
+          "is": false
+        },
+        "type": "input",
+        "properties": {
+          "visible": true,
+          "length": "middle",
+          "readOnly": {
+            "is": false
+          },
+          "label": "特殊要求3",
+          "type": "input",
+          "required": false,
+          "attribute_id": 199,
+          "name": "special3",
+          "id": "special3",
+          "placeholder": "请输入特殊要求3",
+          "value": null,
+          "visibleModifiable": true
+        }
+      },
+      {
+        "renderSelect": {
+          "is": true,
+          "value": "文本输入框"
+        },
+        "builtin": {
+          "allowSwitchType": false,
+          "is": false
+        },
+        "type": "input",
+        "properties": {
+          "visible": true,
+          "length": "long",
+          "readOnly": {
+            "is": false
+          },
+          "label": "备注1",
+          "type": "input",
+          "required": false,
+          "attribute_id": 75,
+          "name": "ext1",
+          "id": "c36f568b-63e4-4b01-96ee-6d63edb51665",
+          "placeholder": "请输入",
+          "value": null,
+          "visibleModifiable": true
+        }
+      },
+      {
+        "renderSelect": {
+          "is": true,
+          "value": "文本输入框"
+        },
+        "builtin": {
+          "allowSwitchType": false,
+          "is": false
+        },
+        "type": "input",
+        "properties": {
+          "visible": true,
+          "length": "long",
+          "readOnly": {
+            "is": false
+          },
+          "label": "备注2",
+          "type": "input",
+          "required": false,
+          "attribute_id": 76,
+          "name": "ext2",
+          "id": "c2f874bd-ad07-4823-ae96-6c2f18c18a98",
+          "placeholder": "请输入",
+          "value": null,
+          "visibleModifiable": true
+        }
+      },
+      {
+        "renderSelect": {
+          "is": true,
+          "value": "请选择"
+        },
+        "builtin": {
+          "allowSwitchType": true,
+          "is": false
+        },
+        "type": "",
+        "selected": false,
+        "properties": {
+          "visible": true,
+          "name": "ext6",
+          "length": "short",
+          "id": "fb224456-a862-4a82-a231-f56322b587bd",
+          "label": "扩展字段6",
+          "placeholder": "请输入",
+          "value": "",
+          "required": false
+        }
+      },
+      {
+        "renderSelect": {
+          "is": true,
+          "value": "请选择"
+        },
+        "builtin": {
+          "allowSwitchType": true,
+          "is": false
+        },
+        "type": "",
+        "selected": false,
+        "properties": {
+          "visible": true,
+          "name": "ext7",
+          "length": "short",
+          "id": "07def838-bef2-455c-a15f-8d2466c4294e",
+          "label": "扩展字段7",
+          "placeholder": "请输入",
+          "value": "",
+          "required": false
+        }
+      },
+      {
+        "renderSelect": {
+          "is": true,
+          "value": "请选择"
+        },
+        "builtin": {
+          "allowSwitchType": true,
+          "is": false
+        },
+        "type": "",
+        "selected": false,
+        "properties": {
+          "visible": true,
+          "name": "ext8",
+          "length": "short",
+          "id": "9a09576b-68b1-483d-8f89-ee4ac9ccb546",
+          "label": "扩展字段8",
+          "placeholder": "请输入",
+          "value": "",
+          "required": false
+        }
+      },
+      {
+        "renderSelect": {
+          "is": true,
+          "value": "请选择"
+        },
+        "builtin": {
+          "allowSwitchType": true,
+          "is": false
+        },
+        "type": "",
+        "selected": false,
+        "properties": {
+          "visible": true,
+          "name": "ext9",
+          "length": "short",
+          "id": "50e44209-35f2-426b-86a3-7344ab1e0c47",
+          "label": "扩展字段9",
+          "placeholder": "请输入",
+          "value": "",
+          "required": false
+        }
+      },
+      {
+        "renderSelect": {
+          "is": true,
+          "value": "请选择"
+        },
+        "builtin": {
+          "allowSwitchType": true,
+          "is": false
+        },
+        "type": "",
+        "selected": false,
+        "properties": {
+          "visible": true,
+          "name": "ext10",
+          "length": "short",
+          "id": "d9da02ef-46e8-4fec-9229-b0682c08f3af",
+          "label": "扩展字段10",
+          "placeholder": "请输入",
+          "value": "",
+          "required": false
+        }
+      },
+      {
+        "renderSelect": {
+          "is": true,
+          "value": "请选择"
+        },
+        "builtin": {
+          "allowSwitchType": true,
+          "is": false
+        },
+        "type": "",
+        "selected": false,
+        "properties": {
+          "visible": true,
+          "name": "ext11",
+          "length": "short",
+          "id": "7b678671-a0bc-4749-9ebd-75675df175cf",
+          "label": "扩展字段11",
+          "placeholder": "请输入",
+          "value": "",
+          "required": false
+        }
+      },
+      {
+        "renderSelect": {
+          "is": true,
+          "value": "请选择"
+        },
+        "builtin": {
+          "allowSwitchType": true,
+          "is": false
+        },
+        "type": "",
+        "selected": false,
+        "properties": {
+          "visible": true,
+          "name": "ext12",
+          "length": "short",
+          "id": "159ffb22-b3c3-43a5-9ebb-25d83eb0c7f5",
+          "label": "扩展字段12",
+          "placeholder": "请输入",
+          "value": "",
+          "required": false
+        }
+      },
+      {
+        "renderSelect": {
+          "is": true,
+          "value": "请选择"
+        },
+        "builtin": {
+          "allowSwitchType": true,
+          "is": false
+        },
+        "type": "",
+        "selected": false,
+        "properties": {
+          "visible": true,
+          "name": "ext13",
+          "length": "short",
+          "id": "cfe67389-1bf9-41c1-aade-be96d0fdb669",
+          "label": "扩展字段13",
+          "placeholder": "请输入",
+          "value": "",
+          "required": false
+        }
+      },
+      {
+        "renderSelect": {
+          "is": true,
+          "value": "请选择"
+        },
+        "builtin": {
+          "allowSwitchType": true,
+          "is": false
+        },
+        "type": "",
+        "selected": false,
+        "properties": {
+          "visible": true,
+          "name": "ext14",
+          "length": "short",
+          "id": "3a6140e7-10a0-479f-91fc-6aa45b6aa6e8",
+          "label": "扩展字段14",
+          "placeholder": "请输入",
+          "value": "",
+          "required": false
+        }
+      },
+      {
+        "renderSelect": {
+          "is": true,
+          "value": "请选择"
+        },
+        "builtin": {
+          "allowSwitchType": true,
+          "is": false
+        },
+        "type": "",
+        "selected": false,
+        "properties": {
+          "visible": true,
+          "name": "ext15",
+          "length": "short",
+          "id": "e5306603-4a18-4377-8ece-b91cebe01ce4",
+          "label": "扩展字段15",
+          "placeholder": "请输入",
+          "value": "",
+          "required": false
+        }
+      },
+      {
+        "renderSelect": {
+          "is": true,
+          "value": "请选择"
+        },
+        "builtin": {
+          "allowSwitchType": true,
+          "is": false
+        },
+        "type": "",
+        "selected": false,
+        "properties": {
+          "visible": true,
+          "name": "ext16",
+          "length": "short",
+          "id": "2a8fae87-1a45-46b2-9707-5e4cf5bd8598",
+          "label": "扩展字段16",
+          "placeholder": "请输入",
+          "value": "",
+          "required": false
+        }
+      },
+      {
+        "renderSelect": {
+          "is": true,
+          "value": "请选择"
+        },
+        "builtin": {
+          "allowSwitchType": true,
+          "is": false
+        },
+        "type": "",
+        "selected": false,
+        "properties": {
+          "visible": true,
+          "name": "ext17",
+          "length": "short",
+          "id": "c273abca-fde2-48a2-9719-dff34b07e795",
+          "label": "扩展字段17",
+          "placeholder": "请输入",
+          "value": "",
+          "required": false
+        }
+      },
+      {
+        "renderSelect": {
+          "is": true,
+          "value": "请选择"
+        },
+        "builtin": {
+          "allowSwitchType": true,
+          "is": false
+        },
+        "type": "",
+        "selected": false,
+        "properties": {
+          "visible": true,
+          "name": "ext18",
+          "length": "short",
+          "id": "ffde5c88-1e84-4866-b4e5-d943be303d48",
+          "label": "扩展字段18",
+          "placeholder": "请输入",
+          "value": "",
+          "required": false
+        }
+      },
+      {
+        "renderSelect": {
+          "is": true,
+          "value": "请选择"
+        },
+        "builtin": {
+          "allowSwitchType": true,
+          "is": false
+        },
+        "type": "",
+        "selected": false,
+        "properties": {
+          "visible": true,
+          "name": "ext19",
+          "length": "short",
+          "id": "faf100d3-b853-488f-a207-157f8b225c80",
+          "label": "扩展字段19",
+          "placeholder": "请输入",
+          "value": "",
+          "required": false
+        }
+      },
+      {
+        "renderSelect": {
+          "is": true,
+          "value": "请选择"
+        },
+        "builtin": {
+          "allowSwitchType": true,
+          "is": false
+        },
+        "type": "",
+        "selected": false,
+        "properties": {
+          "visible": true,
+          "name": "ext20",
+          "length": "short",
+          "id": "e6b8f542-695a-457a-9e59-735212e80932",
+          "label": "扩展字段20",
+          "placeholder": "请输入",
+          "value": "",
+          "required": false
+        }
+      },
+      {
+        "renderSelect": {
+          "is": true,
+          "value": "请选择"
+        },
+        "builtin": {
+          "allowSwitchType": true,
+          "is": false
+        },
+        "type": "",
+        "selected": false,
+        "properties": {
+          "visible": true,
+          "name": "ext21",
+          "length": "short",
+          "id": "46d0b568-dbd3-44d7-a641-e655ffcbb67f",
+          "label": "扩展字段21",
+          "placeholder": "请输入",
+          "value": "",
+          "required": false
+        }
+      },
+      {
+        "renderSelect": {
+          "is": true,
+          "value": "请选择"
+        },
+        "builtin": {
+          "allowSwitchType": true,
+          "is": false
+        },
+        "type": "",
+        "selected": false,
+        "properties": {
+          "visible": true,
+          "name": "ext22",
+          "length": "short",
+          "id": "5cbd9eef-8ae2-4b04-834d-c9cca77c2d55",
+          "label": "扩展字段22",
+          "placeholder": "请输入",
+          "value": "",
+          "required": false
+        }
+      },
+      {
+        "renderSelect": {
+          "is": true,
+          "value": "请选择"
+        },
+        "builtin": {
+          "allowSwitchType": true,
+          "is": false
+        },
+        "type": "",
+        "selected": false,
+        "properties": {
+          "visible": true,
+          "name": "ext23",
+          "length": "short",
+          "id": "73a65c70-3be7-42f9-b71a-e2ad66a782cb",
+          "label": "扩展字段23",
+          "placeholder": "请输入",
+          "value": "",
+          "required": false
+        }
+      },
+      {
+        "renderSelect": {
+          "is": true,
+          "value": "请选择"
+        },
+        "builtin": {
+          "allowSwitchType": true,
+          "is": false
+        },
+        "type": "",
+        "selected": false,
+        "properties": {
+          "visible": true,
+          "name": "ext24",
+          "length": "short",
+          "id": "f987c17b-2360-41b8-bfe8-63bbc119ec7c",
+          "label": "扩展字段24",
+          "placeholder": "请输入",
+          "value": "",
+          "required": false
+        }
+      },
+      {
+        "renderSelect": {
+          "is": true,
+          "value": "请选择"
+        },
+        "builtin": {
+          "allowSwitchType": true,
+          "is": false
+        },
+        "type": "",
+        "selected": false,
+        "properties": {
+          "visible": true,
+          "name": "ext25",
+          "length": "short",
+          "id": "c086b3db-5688-46c7-ad2f-478c979a6929",
+          "label": "扩展字段25",
+          "placeholder": "请输入",
+          "value": "",
+          "required": false
+        }
+      },
+      {
+        "renderSelect": {
+          "is": true,
+          "value": "请选择"
+        },
+        "builtin": {
+          "allowSwitchType": true,
+          "is": false
+        },
+        "type": "",
+        "selected": false,
+        "properties": {
+          "visible": true,
+          "name": "ext26",
+          "length": "short",
+          "id": "697fdb81-7e75-482f-92f5-ad70117881ef",
+          "label": "扩展字段26",
+          "placeholder": "请输入",
+          "value": "",
+          "required": false
+        }
+      },
+      {
+        "renderSelect": {
+          "is": true,
+          "value": "请选择"
+        },
+        "builtin": {
+          "allowSwitchType": true,
+          "is": false
+        },
+        "type": "",
+        "selected": false,
+        "properties": {
+          "visible": true,
+          "name": "ext27",
+          "length": "short",
+          "id": "0e8441f1-fb3b-4816-8496-e3910ced2cf1",
+          "label": "扩展字段27",
+          "placeholder": "请输入",
+          "value": "",
+          "required": false
+        }
+      },
+      {
+        "renderSelect": {
+          "is": true,
+          "value": "请选择"
+        },
+        "builtin": {
+          "allowSwitchType": true,
+          "is": false
+        },
+        "type": "",
+        "selected": false,
+        "properties": {
+          "visible": true,
+          "name": "ext28",
+          "length": "short",
+          "id": "55767fa4-d38b-429d-97c5-0638ac229d6a",
+          "label": "扩展字段28",
+          "placeholder": "请输入",
+          "value": "",
+          "required": false
+        }
+      },
+      {
+        "renderSelect": {
+          "is": true,
+          "value": "请选择"
+        },
+        "builtin": {
+          "allowSwitchType": true,
+          "is": false
+        },
+        "type": "",
+        "selected": false,
+        "properties": {
+          "visible": true,
+          "name": "ext29",
+          "length": "short",
+          "id": "50f7ccba-e04a-436c-8efb-a905224539cd",
+          "label": "扩展字段29",
+          "placeholder": "请输入",
+          "value": "",
+          "required": false
+        }
+      },
+      {
+        "renderSelect": {
+          "is": true,
+          "value": "请选择"
+        },
+        "builtin": {
+          "allowSwitchType": true,
+          "is": false
+        },
+        "type": "",
+        "selected": false,
+        "properties": {
+          "visible": true,
+          "name": "ext30",
+          "length": "short",
+          "id": "5bc41db9-a7c7-4ccf-867e-069ecdfe67b3",
+          "label": "扩展字段30",
+          "placeholder": "请输入",
+          "value": "",
+          "required": false
+        }
+      },
+      {
+        "renderSelect": {
+          "is": true,
+          "value": "请选择"
+        },
+        "builtin": {
+          "allowSwitchType": true,
+          "is": false
+        },
+        "type": "",
+        "selected": false,
+        "properties": {
+          "visible": true,
+          "name": "ext31",
+          "length": "short",
+          "id": "f236005c-11b5-4418-ba26-fa79240efc54",
+          "label": "扩展字段31",
+          "placeholder": "请输入",
+          "value": "",
+          "required": false
+        }
+      },
+      {
+        "renderSelect": {
+          "is": true,
+          "value": "请选择"
+        },
+        "builtin": {
+          "allowSwitchType": true,
+          "is": false
+        },
+        "type": "",
+        "selected": false,
+        "properties": {
+          "visible": true,
+          "name": "ext32",
+          "length": "short",
+          "id": "3802ff3c-b178-459d-b7ba-4c847c820557",
+          "label": "扩展字段32",
+          "placeholder": "请输入",
+          "value": "",
+          "required": false
+        }
+      },
+      {
+        "renderSelect": {
+          "is": true,
+          "value": "请选择"
+        },
+        "builtin": {
+          "allowSwitchType": true,
+          "is": false
+        },
+        "type": "",
+        "selected": false,
+        "properties": {
+          "visible": true,
+          "name": "ext33",
+          "length": "short",
+          "id": "fcd4f9df-245a-4061-a549-e88233306d9c",
+          "label": "扩展字段33",
+          "placeholder": "请输入",
+          "value": "",
+          "required": false
+        }
+      },
+      {
+        "renderSelect": {
+          "is": true,
+          "value": "请选择"
+        },
+        "builtin": {
+          "allowSwitchType": true,
+          "is": false
+        },
+        "type": "",
+        "selected": false,
+        "properties": {
+          "visible": true,
+          "name": "ext34",
+          "length": "short",
+          "id": "845b0bf8-11ac-4f0b-bcc4-5ca80bb5c830",
+          "label": "扩展字段34",
+          "placeholder": "请输入",
+          "value": "",
+          "required": false
+        }
+      },
+      {
+        "renderSelect": {
+          "is": true,
+          "value": "请选择"
+        },
+        "builtin": {
+          "allowSwitchType": true,
+          "is": false
+        },
+        "type": "",
+        "selected": false,
+        "properties": {
+          "visible": true,
+          "name": "ext35",
+          "length": "short",
+          "id": "763a922b-8c27-4e4d-97c1-8b0a54dfed20",
+          "label": "扩展字段35",
+          "placeholder": "请输入",
+          "value": "",
+          "required": false
+        }
+      },
+      {
+        "renderSelect": {
+          "is": true,
+          "value": "请选择"
+        },
+        "builtin": {
+          "allowSwitchType": true,
+          "is": false
+        },
+        "type": "",
+        "selected": false,
+        "properties": {
+          "visible": true,
+          "name": "ext36",
+          "length": "short",
+          "id": "b9ab23ae-4f36-45a6-a4cf-607c3b68ed72",
+          "label": "扩展字段36",
+          "placeholder": "请输入",
+          "value": "",
+          "required": false
+        }
+      },
+      {
+        "renderSelect": {
+          "is": true,
+          "value": "请选择"
+        },
+        "builtin": {
+          "allowSwitchType": true,
+          "is": false
+        },
+        "type": "",
+        "selected": false,
+        "properties": {
+          "visible": true,
+          "name": "ext37",
+          "length": "short",
+          "id": "fc8853e0-dbc7-4f71-8421-1a554d404072",
+          "label": "扩展字段37",
+          "placeholder": "请输入",
+          "value": "",
+          "required": false
+        }
+      },
+      {
+        "renderSelect": {
+          "is": true,
+          "value": "请选择"
+        },
+        "builtin": {
+          "allowSwitchType": true,
+          "is": false
+        },
+        "type": "",
+        "selected": false,
+        "properties": {
+          "visible": true,
+          "name": "ext38",
+          "length": "short",
+          "id": "84321380-8cc9-4f1b-9f95-7248185fe1e5",
+          "label": "扩展字段38",
+          "placeholder": "请输入",
+          "value": "",
+          "required": false
+        }
+      },
+      {
+        "renderSelect": {
+          "is": true,
+          "value": "请选择"
+        },
+        "builtin": {
+          "allowSwitchType": true,
+          "is": false
+        },
+        "type": "",
+        "selected": false,
+        "properties": {
+          "visible": true,
+          "name": "ext39",
+          "length": "short",
+          "id": "2fcfceab-8da4-4fdc-b5f6-eafa97ae820a",
+          "label": "扩展字段39",
+          "placeholder": "请输入",
+          "value": "",
+          "required": false
+        }
+      },
+      {
+        "renderSelect": {
+          "is": true,
+          "value": "请选择"
+        },
+        "builtin": {
+          "allowSwitchType": true,
+          "is": false
+        },
+        "type": "",
+        "selected": false,
+        "properties": {
+          "visible": true,
+          "name": "ext40",
+          "length": "short",
+          "id": "581c0fca-2d89-42c2-b981-e4a27f1ad2cb",
+          "label": "扩展字段40",
+          "placeholder": "请输入",
+          "value": "",
+          "required": false
+        }
+      },
+      {
+        "renderSelect": {
+          "is": true,
+          "value": "请选择"
+        },
+        "builtin": {
+          "allowSwitchType": true,
+          "is": false
+        },
+        "type": "",
+        "selected": false,
+        "properties": {
+          "visible": true,
+          "name": "ext41",
+          "length": "short",
+          "id": "d93ad876-7a0d-48a6-82cf-41b696b8f6c1",
+          "label": "扩展字段41",
+          "placeholder": "请输入",
+          "value": "",
+          "required": false
+        }
+      },
+      {
+        "renderSelect": {
+          "is": true,
+          "value": "请选择"
+        },
+        "builtin": {
+          "allowSwitchType": true,
+          "is": false
+        },
+        "type": "",
+        "selected": false,
+        "properties": {
+          "visible": true,
+          "name": "ext42",
+          "length": "short",
+          "id": "a2906a79-772c-4bda-851d-81e0edcc3b64",
+          "label": "扩展字段42",
+          "placeholder": "请输入",
+          "value": "",
+          "required": false
+        }
+      },
+      {
+        "renderSelect": {
+          "is": true,
+          "value": "请选择"
+        },
+        "builtin": {
+          "allowSwitchType": true,
+          "is": false
+        },
+        "type": "",
+        "selected": false,
+        "properties": {
+          "visible": true,
+          "name": "ext43",
+          "length": "short",
+          "id": "6ac0209a-8fbd-4863-bd35-f04d62742683",
+          "label": "扩展字段43",
+          "placeholder": "请输入",
+          "value": "",
+          "required": false
+        }
+      },
+      {
+        "renderSelect": {
+          "is": true,
+          "value": "请选择"
+        },
+        "builtin": {
+          "allowSwitchType": true,
+          "is": false
+        },
+        "type": "",
+        "selected": false,
+        "properties": {
+          "visible": true,
+          "name": "ext44",
+          "length": "short",
+          "id": "842030ae-5cf5-49f6-bd44-7a860140d662",
+          "label": "扩展字段44",
+          "placeholder": "请输入",
+          "value": "",
+          "required": false
+        }
+      },
+      {
+        "renderSelect": {
+          "is": true,
+          "value": "请选择"
+        },
+        "builtin": {
+          "allowSwitchType": true,
+          "is": false
+        },
+        "type": "",
+        "selected": false,
+        "properties": {
+          "visible": true,
+          "name": "ext45",
+          "length": "short",
+          "id": "9e447a35-82b1-4739-bb18-14ab50b4e658",
+          "label": "扩展字段45",
+          "placeholder": "请输入",
+          "value": "",
+          "required": false
+        }
+      },
+      {
+        "renderSelect": {
+          "is": true,
+          "value": "请选择"
+        },
+        "builtin": {
+          "allowSwitchType": true,
+          "is": false
+        },
+        "type": "",
+        "selected": false,
+        "properties": {
+          "visible": true,
+          "name": "ext46",
+          "length": "short",
+          "id": "432cf23b-59cc-42b0-b402-6473071340f8",
+          "label": "扩展字段46",
+          "placeholder": "请输入",
+          "value": "",
+          "required": false
+        }
+      },
+      {
+        "renderSelect": {
+          "is": true,
+          "value": "请选择"
+        },
+        "builtin": {
+          "allowSwitchType": true,
+          "is": false
+        },
+        "type": "",
+        "selected": false,
+        "properties": {
+          "visible": true,
+          "name": "ext47",
+          "length": "short",
+          "id": "6e01e1c5-c495-42b9-87cf-c9c649d7c749",
+          "label": "扩展字段47",
+          "placeholder": "请输入",
+          "value": "",
+          "required": false
+        }
+      },
+      {
+        "renderSelect": {
+          "is": true,
+          "value": "请选择"
+        },
+        "builtin": {
+          "allowSwitchType": true,
+          "is": false
+        },
+        "type": "",
+        "selected": false,
+        "properties": {
+          "visible": true,
+          "name": "ext48",
+          "length": "short",
+          "id": "62ea7479-c147-4aa7-803b-4d00b5723132",
+          "label": "扩展字段48",
+          "placeholder": "请输入",
+          "value": "",
+          "required": false
+        }
+      },
+      {
+        "renderSelect": {
+          "is": true,
+          "value": "请选择"
+        },
+        "builtin": {
+          "allowSwitchType": true,
+          "is": false
+        },
+        "type": "",
+        "selected": false,
+        "properties": {
+          "visible": true,
+          "name": "ext49",
+          "length": "short",
+          "id": "7f14b61d-5cfc-4612-b4e2-20938bcd3c2e",
+          "label": "扩展字段49",
+          "placeholder": "请输入",
+          "value": "",
+          "required": false
+        }
+      },
+      {
+        "renderSelect": {
+          "is": true,
+          "value": "请选择"
+        },
+        "builtin": {
+          "allowSwitchType": true,
+          "is": false
+        },
+        "type": "",
+        "selected": false,
+        "properties": {
+          "visible": true,
+          "name": "ext50",
+          "length": "short",
+          "id": "c5c23643-beae-4588-87bc-b2144d937864",
+          "label": "扩展字段50",
+          "placeholder": "请输入",
+          "value": "",
+          "required": false
+        }
+      }
+    ]
+  }
+}
