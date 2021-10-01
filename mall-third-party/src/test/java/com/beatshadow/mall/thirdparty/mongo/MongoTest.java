@@ -1,8 +1,6 @@
 package com.beatshadow.mall.thirdparty.mongo;
 
-import com.alibaba.fastjson.JSON;
 import com.beatshadow.mall.thirdparty.entity.mongo.Person;
-import com.mongodb.BasicDBObject;
 import org.bson.Document;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
