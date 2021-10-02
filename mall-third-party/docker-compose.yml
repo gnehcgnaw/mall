@@ -1,0 +1,37 @@
+# 项目的版本
+version: 3.0 # 最高4.0
+# 服务集合
+services:
+  # mysql服务
+  mysql: # 服务名称，唯一的
+    container_name: mysql
+    image: mysql:latest
+    ports:
+      - "3306:3306" # 设置端口,推荐使用字符串模式，因为yml解析原因
+    volumes:
+      - /Users/gnehcgnaw/WorkSpaces/DockerProjects/mysql:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+    networks:
+      - beatshadow
+  redis:
+    container_name: redis
+    image: redis:latest
+    ports:
+      - "6379:6379"
+    volumes:
+      - /Users/gnehcgnaw/WorkSpaces/DockerProjects/redis/conf:usr/local/etc/redis
+      - /Users/gnehcgnaw/WorkSpaces/DockerProjects/redis/data:/data
+    command:
+      - redis redis-server /usr/local/etc/redis/redis.conf --appendonly yes
+    networks:
+      - beatshadow
+
+volumes:  #什么上面服务使用的自动创建的卷名
+  example:  # 什么指令的卷迷名
+    external: false #使用自定义的卷名，但是需要提前创建 docker volume create example
+
+networks: # 定义服务使用的网桥
+  beatshadow: # 默认创建的就是bridge
+    external: false  # 使用外部网桥，但是需要提前创建 docker network create -d bridge beatshadow
+
