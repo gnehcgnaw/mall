@@ -1,9 +1,10 @@
 # 项目的版本
-version: "3.0" # 最高4.0
+version: "3.0"
 # 服务集合
 services:
   portainer:
     image: portainer/portainer
+    container_name: portainer
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - portainer_data:/data
@@ -42,8 +43,8 @@ services:
     build:
       context: ./dockerfile   #dockerfile所在目录
       dockerfile: Dockerfile.dockerfile
-    image: tomcat:8.5
-    container_name: tomcat_8.5
+    image: tomcat:7
+    container_name: tomcat_7
     ports:
       - "8080:8080"
     networks:
@@ -59,8 +60,6 @@ services:
 #    sysctls: # 修改核心数 ，ES安装需要
 #    ulimits: # 修改进程数
 #
-
-
 
 volumes:  #什么上面服务使用的自动创建的卷名
   portainer_data:

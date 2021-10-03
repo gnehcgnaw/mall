@@ -1,4 +1,4 @@
-FROM tomcat:8.5
+FROM tomcat:7
 ENV mypath /tmp
 WORKDIR  $mypath
 EXPOSE 8080
