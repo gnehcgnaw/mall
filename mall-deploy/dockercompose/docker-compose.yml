@@ -2,6 +2,45 @@
 version: "3.0"
 # 服务集合
 services:
+  elasticsearch:
+    container_name: elasticsearch
+    image: elasticsearch:${ELASTICSEARCH_VERSION}
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    volumes:
+      - elasticsearch_data:/usr/share/elasticsearch/data
+    env_file:
+      - ./env/elasticsearch.env
+    networks:
+      - beatshadow
+    restart: always
+  skywalking-ui:
+    container_name: skywalking-ui
+    image: apache/skywalking-ui:${SKYWALKING_UI_VERSION}
+    ports:
+      - "8080:8080"
+    restart: always
+    depends_on:
+      - skywalking-oap-server
+    env_file:
+      - ./env/skywalking/skywalking-ui.env
+    networks:
+      - beatshadow
+  skywalking-oap-server:
+    container_name: skywalking-oap-server
+    image: apache/skywalking-oap-server:${SKYWALKING_OAP_SERVER_VERSION}
+    restart: always
+    ports:
+      - "12800:12800"
+      - "11800:11800"
+      - "1234:1234"
+    env_file:
+      - ./env/skywalking/skywalking-ops-server.env
+    networks:
+      - beatshadow
+    depends_on:
+      - elasticsearch
   portainer:
     image: portainer/portainer
     container_name: portainer
@@ -13,6 +52,7 @@ services:
       - "9000:9000"
     networks:
       - beatshadow
+    restart: always
   nacos:
     image: nacos/nacos-server:${NACOS_VERSION}
     container_name: nacos
@@ -81,6 +121,7 @@ services:
 #
 
 volumes:  #什么上面服务使用的自动创建的卷名
+  elasticsearch_data:
   portainer_data:
   redis_conf:
   redis_data:
