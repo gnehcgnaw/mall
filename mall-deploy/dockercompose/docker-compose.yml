@@ -2,6 +2,16 @@
 version: "3.0"
 # 服务集合
 services:
+  neo4j:
+    container_name: neo4j
+    image: neo4j:3.5.29-community
+    ports:
+      - "7473:7473"
+      - "7474:7474"
+      - "7687:7687"
+    volumes:
+      - neo4j:/data
+      - neo4j:/logs
   elasticsearch:
     container_name: elasticsearch
     image: elasticsearch:${ELASTICSEARCH_VERSION}
@@ -14,13 +24,11 @@ services:
       - ./env/elasticsearch.env
     networks:
       - beatshadow
-    restart: always
   skywalking-ui:
     container_name: skywalking-ui
     image: apache/skywalking-ui:${SKYWALKING_UI_VERSION}
     ports:
       - "8080:8080"
-    restart: always
     depends_on:
       - skywalking-oap-server
     env_file:
@@ -52,7 +60,6 @@ services:
       - "9000:9000"
     networks:
       - beatshadow
-    restart: always
   nacos:
     image: nacos/nacos-server:${NACOS_VERSION}
     container_name: nacos
@@ -121,6 +128,7 @@ services:
 #
 
 volumes:  #什么上面服务使用的自动创建的卷名
+  neo4j:
   elasticsearch_data:
   portainer_data:
   redis_conf:
