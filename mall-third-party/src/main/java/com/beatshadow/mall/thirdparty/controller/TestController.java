@@ -1,3 +1,4 @@
+/*
 package com.beatshadow.mall.thirdparty.controller;
 
 import cn.hutool.http.server.HttpServerResponse;
@@ -14,10 +15,12 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.HashMap;
 
+*/
 /**
  * @author : <a href="mailto:gnehcgnaw@gmail.com">gnehcgnaw</a>
  * @since : 2021/3/5 09:19
- */
+ *//*
+
 @RestController
 public class TestController {
     @GetMapping("/test")
@@ -40,3 +43,4 @@ public class TestController {
 
     }
 }
+*/

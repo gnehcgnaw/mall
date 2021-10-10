@@ -1,3 +1,4 @@
+/*
 package com.beatshadow.mall.thirdparty.mongo;
 
 import com.beatshadow.mall.thirdparty.entity.mongo.Person;
@@ -43,4 +44,4 @@ public class MongoTest {
         isr.close();
         fis.close();
     }
-}
+}*/

@@ -1,3 +1,4 @@
+/*
 package com.beatshadow.mall.thirdparty.pdf.dynamic;
 
 import ar.com.fdvs.dj.core.DJConstants;
@@ -17,10 +18,12 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.util.*;
 
+*/
 /**
  * @author lay
  * @date 2018/10/26 18:00
- */
+ *//*
+
 public class DynamicReportTest2 {
 
     private DynamicReport dynamicReport;
@@ -38,11 +41,13 @@ public class DynamicReportTest2 {
                 .export();
     }
 
-    /**
+    */
+/**
      * 构建DynamicJasper
      * @return
      * @throws ClassNotFoundException
-     */
+     *//*
+
     public DynamicReportTest2 buildDynamicReport() throws ClassNotFoundException {
         FastReportBuilder builder = new FastReportBuilder();
         Style style = new Style();
@@ -60,21 +65,25 @@ public class DynamicReportTest2 {
         return this;
     }
 
-    /**
+    */
+/**
      * 生成JasperReport
      * @return
      * @throws JRException
-     */
+     *//*
+
     public DynamicReportTest2 generateJasperReport() throws JRException {
         jasperReport = DynamicJasperHelper.generateJasperReport(dynamicReport, new ClassicLayoutManager(), null);
         return this;
     }
 
-    /**
+    */
+/**
      * 填充数据源
      * @return
      * @throws Exception
-     */
+     *//*
+
     public DynamicReportTest2 fillDataSource() throws Exception {
         // 模拟数据
         List<Map<String, Object>> persons = new ArrayList<>();
@@ -90,8 +99,10 @@ public class DynamicReportTest2 {
         for (int i = 0; i < 10; i++) {
             Map<String, Object> person = new HashMap<>();
             person.put("id", 1);
-          /*  person.put("name", "张三1");
-            //  person.put("name", "张三2");*/
+          */
+/*  person.put("name", "张三1");
+            //  person.put("name", "张三2");*//*
+
             person.put("age", Arrays.asList(1,2,4));
             persons.add(person);
         }
@@ -104,10 +115,12 @@ public class DynamicReportTest2 {
         return this;
     }
 
-    /**
+    */
+/**
      * 导出为Html文件
      * @throws Exception
-     */
+     *//*
+
     public void export() throws Exception {
         // html
         HtmlExporter htmlExporter = new HtmlExporter();
@@ -115,4 +128,4 @@ public class DynamicReportTest2 {
         htmlExporter.setExporterOutput(new SimpleHtmlExporterOutput(new FileOutputStream(new File("/Users/gnehcgnaw/Desktop/testHtml.html"))));
         htmlExporter.exportReport();
     }
-}
+}*/

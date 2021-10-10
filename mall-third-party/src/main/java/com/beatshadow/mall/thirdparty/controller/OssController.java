@@ -1,3 +1,4 @@
+/*
 package com.beatshadow.mall.thirdparty.controller;
 
 import com.aliyun.oss.OSS;
@@ -16,11 +17,13 @@ import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+*/
 /**
  * 参见：https://help.aliyun.com/document_detail/91868.html?spm=a2c4g.11186623.2.15.39bf6e28w0OUBE#concept-ahk-rfz-2fb【最佳实践】
  * @author : <a href="mailto:gnehcgnaw@gmail.com">gnehcgnaw</a>
  * @since : 2020/5/19 02:39
- */
+ *//*
+
 @RefreshScope
 @RestController
 public class OssController {
@@ -78,3 +81,4 @@ public class OssController {
         return R.ok().put("data",respMap);
     }
 }
+*/

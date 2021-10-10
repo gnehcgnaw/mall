@@ -1,3 +1,4 @@
+/*
 package com.beatshadow.mall.thirdparty.pdf;
 
 import net.sf.jasperreports.engine.*;
@@ -14,10 +15,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+*/
 /**
  * @author : <a href="mailto:gnehcgnaw@gmail.com">gnehcgnaw</a>
  * @since : 2021/4/30 00:49
- */
+ *//*
+
 public class PdfDemo {
     public static void main(String[] args) throws FileNotFoundException, JRException {
         //模版文件
@@ -31,14 +34,16 @@ public class PdfDemo {
         paramters.put("batchNumber","批次号188888——1");
         paramters.put("shiftNameAndTime","张三");
         paramters.put("formNumber","15104455502");
-        /**
+        */
+/**
          * <parameter name="deviceNameAndCode" class="java.lang.String"/>
          * 	<parameter name="productNameAndCode" class="java.lang.String"/>
          * 	<parameter name="processName" class="java.lang.String"/>
          * 	<parameter name="batchNumber" class="java.lang.String"/>
          * 	<parameter name="shiftNameAndTime" class="java.lang.String"/>
          * 	<parameter name="formNumber" class="java.lang.String"/>
-         */
+         *//*
+
         List<Fields> list = new ArrayList<Fields>();
         for(int i = 1 ; i <= 20; i++) {
             Fields fields = new Fields("field"+i,"field"+(i+1),"field"+(i+2),"field"+(i+3),"field"+(i+4));
@@ -52,3 +57,4 @@ public class PdfDemo {
         JasperExportManager.exportReportToPdfStream(jasperPrint,new FileOutputStream("/Users/gnehcgnaw/Desktop/first_inspection_items_table.pdf"));
     }
 }
+*/

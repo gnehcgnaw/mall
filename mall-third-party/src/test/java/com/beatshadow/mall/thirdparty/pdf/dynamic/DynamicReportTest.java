@@ -1,3 +1,4 @@
+/*
 package com.beatshadow.mall.thirdparty.pdf.dynamic;
 
 import ar.com.fdvs.dj.core.DynamicJasperHelper;
@@ -22,10 +23,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+*/
 /**
  * @author lay
  * @date 2018/10/26 18:00
- */
+ *//*
+
 public class DynamicReportTest {
 
     private DynamicReport dynamicReport;
@@ -43,11 +46,13 @@ public class DynamicReportTest {
                 .export();
     }
 
-    /**
+    */
+/**
      * 构建DynamicJasper
      * @return
      * @throws ClassNotFoundException
-     */
+     *//*
+
     public DynamicReportTest buildDynamicReport() throws ClassNotFoundException {
         FastReportBuilder builder = new FastReportBuilder();
         Style style = new Style();
@@ -63,21 +68,25 @@ public class DynamicReportTest {
         return this;
     }
 
-    /**
+    */
+/**
      * 生成JasperReport
      * @return
      * @throws JRException
-     */
+     *//*
+
     public DynamicReportTest generateJasperReport() throws JRException {
         jasperReport = DynamicJasperHelper.generateJasperReport(dynamicReport, new ClassicLayoutManager(), null);
         return this;
     }
 
-    /**
+    */
+/**
      * 填充数据源
      * @return
      * @throws Exception
-     */
+     *//*
+
     public DynamicReportTest fillDataSource() throws Exception {
         // 模拟数据
         List<Map<String, Object>> persons = new ArrayList<>();
@@ -97,10 +106,12 @@ public class DynamicReportTest {
         return this;
     }
 
-    /**
+    */
+/**
      * 导出为Html文件
      * @throws Exception
-     */
+     *//*
+
     public void export() throws Exception {
         // html
         HtmlExporter htmlExporter = new HtmlExporter();
@@ -108,4 +119,4 @@ public class DynamicReportTest {
         htmlExporter.setExporterOutput(new SimpleHtmlExporterOutput(new FileOutputStream(new File("/Users/gnehcgnaw/Desktop/testHtml.html"))));
         htmlExporter.exportReport();
     }
-}
+}*/
