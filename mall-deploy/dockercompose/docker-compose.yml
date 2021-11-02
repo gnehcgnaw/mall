@@ -14,6 +14,7 @@ services:
     volumes:
       - neo4j:/data
       - neo4j:/logs
+      - ./conf/neo4j.conf:/conf/neo4j.conf
     networks:
       - beatshadow
   elasticsearch:
